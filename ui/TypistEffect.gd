@@ -10,9 +10,9 @@ func _process_custom_fx(char_fx):
     char_fx.color = Color.white
     return true
   var index = char_fx.absolute_index
-  if index < cursor:
+  if index <= cursor:
     char_fx.color = Color.gray
-  elif index > cursor:
+  elif index > cursor + 1:
     char_fx.color = Color.yellow
   else:
     char_fx.color = Color.orange
