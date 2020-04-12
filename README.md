@@ -1,2 +1,2 @@
-# hyperkey
+# Hyperkey
 Typing game
