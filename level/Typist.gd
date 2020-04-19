@@ -5,7 +5,6 @@ export(NodePath) var projectile_manager_path
 export(NodePath) var player_path
 
 const ENEMEY_RESOURCE = preload("res://actor/enemy/Enemy.tscn")
-const BULLET_RESOURCE = preload("res://actor/projectile/Bullet.tscn")
 
 onready var projectile_manager = get_tree().get_root().find_node("ProjectileManager", true, false)
 onready var spawn_timer = $SpawnTimer as Timer
@@ -74,18 +73,18 @@ func process_engage_event(event):
       if _current_target == null:
         var word = active_words.get(event_letter)
         if word != null:
-          handle_acquire_target(word)
+          acquire_target(word)
       else:
-        handle_continue_hit_target(event_letter)
+        continue_hit_target(event_letter)
 
-func handle_acquire_target(word:String):
+func acquire_target(word:String):
   assert(_current_target == null)
   _current_target = text_targets[word]
   _player.aimed_target = _current_target
   if _current_target.hit(word[0]) == Enemy.HIT:
     spawn_bullet(_current_target)
 
-func handle_continue_hit_target(letter:String):
+func continue_hit_target(letter:String):
   assert(_current_target != null)
   var hit_result = _current_target.hit(letter)
   if hit_result == Enemy.HIT or hit_result == Enemy.COMPLETED:
@@ -97,7 +96,7 @@ func handle_continue_hit_target(letter:String):
 
 func spawn_bullet(target):
   var to_target = _player.get_angle_to(target.position)
-  projectile_manager.spawn_projectile(BULLET_RESOURCE, _player.position, to_target)
+  projectile_manager.spawn_projectile(_player.position, to_target)
 
 func random_point_in_view():
   var view_rect = get_viewport().get_visible_rect()

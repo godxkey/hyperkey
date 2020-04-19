@@ -8,11 +8,10 @@ onready var timer := $Timer as Timer
 var _velocity := Vector2()
 
 func _ready():
-  connect("body_entered", self, "on_hit")
   _velocity = Vector2.RIGHT * speed
+  connect("body_entered", self, "on_hit")
   timer.connect("timeout", self, "queue_free")
   timer.one_shot = true
-  timer.wait_time = 1.0
   timer.start()
 
 func on_hit(body):
@@ -21,8 +20,7 @@ func on_hit(body):
 
 func set_projectile_direction(bullet_angle:float):
   _velocity = Vector2.RIGHT.rotated(bullet_angle) * speed
-  if sprite:
-    sprite.set_rotation(bullet_angle)
+  sprite.set_rotation(bullet_angle)
 
 func _physics_process(delta):
   translate(_velocity * delta)
