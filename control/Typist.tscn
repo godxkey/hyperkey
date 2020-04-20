@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://control/Typist.gd" type="Script" id=1]
+[ext_resource path="res://control/Spawner.tscn" type="PackedScene" id=2]
+[ext_resource path="res://actor/environment/Asteroid.tscn" type="PackedScene" id=3]
+
+[node name="Typist" type="Node2D"]
+script = ExtResource( 1 )
+words_file = "res://level/words.txt"
+
+[node name="Spawner" parent="." instance=ExtResource( 2 )]
+spawn_type = ExtResource( 3 )
+spawn_area = Rect2( -300, -100, 600, 200 )

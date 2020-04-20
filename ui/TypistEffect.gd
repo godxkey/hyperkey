@@ -1,5 +1,4 @@
 extends RichTextEffect
-class_name TypistEffect
 
 var bbcode = "typist"
 
@@ -17,6 +16,3 @@ func _process_custom_fx(char_fx):
   else:
     char_fx.color = Color.orange
   return true
-
-
-

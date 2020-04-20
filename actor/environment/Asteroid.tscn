@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://control/Health.gd" type="Script" id=1]
+[ext_resource path="res://actor/environment/Asteroid.png" type="Texture" id=2]
+[ext_resource path="res://actor/environment/Asteroid.gd" type="Script" id=3]
+[ext_resource path="res://control/LinearMotion.gd" type="Script" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 56.0
+
+[node name="Asteroid" type="Area2D" groups=[
+"asteroid",
+]]
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="LinearMotion" type="Node" parent="."]
+script = ExtResource( 4 )
+acceleration = 50.0
+damping = 0.0
+max_speed = 1000.0
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource( 1 )

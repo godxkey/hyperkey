@@ -1,24 +1,39 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://actor/player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://actor/environment/Dirt.tscn" type="PackedScene" id=2]
+[ext_resource path="res://actor/environment/Planet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://level/ProjectileManager.gd" type="Script" id=3]
 [ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=4]
-[ext_resource path="res://level/Typist.gd" type="Script" id=5]
+[ext_resource path="res://control/Typist.tscn" type="PackedScene" id=5]
+
+[sub_resource type="Environment" id=1]
+background_mode = 4
+background_color = Color( 0.160784, 0.133333, 0.266667, 1 )
+glow_enabled = true
+glow_blend_mode = 0
+adjustment_enabled = true
 
 [node name="Sandbox" type="Node2D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
 
-[node name="Typist" type="Node2D" parent="."]
-script = ExtResource( 5 )
-words_file = "res://level/words.txt"
+[node name="Planet" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, 1024 )
+scale = Vector2( 2, 2 )
+
+[node name="Typist" parent="." instance=ExtResource( 5 )]
 projectile_manager_path = NodePath("../ProjectileManager")
 player_path = NodePath("../Player")
 
-[node name="SpawnTimer" type="Timer" parent="Typist"]
+[node name="Spawner" parent="Typist" index="0"]
+position = Vector2( 0, -416 )
+
+[node name="Timer" parent="Typist/Spawner" index="0"]
 wait_time = 2.0
 
 [node name="ProjectileManager" type="Node2D" parent="."]
@@ -28,48 +43,17 @@ __meta__ = {
 }
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 169.626, 434.595 )
-acceleration_strength = 4000.0
-max_speed = 600.0
+position = Vector2( 0, -64 )
+rotation = -1.5708
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+offset = Vector2( 0, -150 )
 current = true
 smoothing_enabled = true
-
-[node name="Env" type="Node2D" parent="."]
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Dirt" parent="Env" instance=ExtResource( 2 )]
-position = Vector2( -115.337, 560.609 )
+[editable path="Typist"]
 
-[node name="Dirt2" parent="Env" instance=ExtResource( 2 )]
-position = Vector2( 496.116, 597.84 )
-
-[node name="Dirt3" parent="Env" instance=ExtResource( 2 )]
-position = Vector2( 871.292, 351.541 )
-
-[node name="Dirt4" parent="Env" instance=ExtResource( 2 )]
-position = Vector2( 905.66, 453.211 )
-
-[node name="Dirt5" parent="Env" instance=ExtResource( 2 )]
-position = Vector2( 879.884, 533.401 )
-
-[node name="Dirt6" parent="Env" instance=ExtResource( 2 )]
-position = Vector2( 755.303, 613.592 )
-
-[node name="Dirt7" parent="Env" instance=ExtResource( 2 )]
-position = Vector2( -706.715, 563.326 )
-
-[node name="Dirt8" parent="Env" instance=ExtResource( 2 )]
-position = Vector2( -536.127, 563.898 )
-
-[node name="Dirt9" parent="Env" instance=ExtResource( 2 )]
-position = Vector2( -920.046, 557.391 )
-
-[node name="Dirt10" parent="Env" instance=ExtResource( 2 )]
-position = Vector2( -1131.53, 586.672 )
-
-[node name="Dirt11" parent="Env" instance=ExtResource( 2 )]
-position = Vector2( -1385.3, 632.222 )
+[editable path="Typist/Spawner"]

@@ -9,25 +9,61 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "KinematicBody2D",
-"class": "Enemy",
+"base": "Area2D",
+"class": "Bullet",
 "language": "GDScript",
-"path": "res://actor/enemy/Enemy.gd"
+"path": "res://actor/projectile/Bullet.gd"
 }, {
-"base": "KinematicBody2D",
+"base": "LinearMotion",
+"class": "FollowTarget",
+"language": "GDScript",
+"path": "res://control/FollowTarget.gd"
+}, {
+"base": "Node",
+"class": "Health",
+"language": "GDScript",
+"path": "res://control/Health.gd"
+}, {
+"base": "Node",
+"class": "LinearMotion",
+"language": "GDScript",
+"path": "res://control/LinearMotion.gd"
+}, {
+"base": "Node2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://actor/player/Player.gd"
+}, {
+"base": "Node",
+"class": "RadialMotion",
+"language": "GDScript",
+"path": "res://control/RadialMotion.gd"
+}, {
+"base": "Node2D",
+"class": "Spawner",
+"language": "GDScript",
+"path": "res://control/Spawner.gd"
 }, {
 "base": "RichTextEffect",
 "class": "TypistEffect",
 "language": "GDScript",
 "path": "res://ui/TypistEffect.gd"
+}, {
+"base": "RichTextLabel",
+"class": "TypistLabel",
+"language": "GDScript",
+"path": "res://ui/TypistLabel.gd"
 } ]
 _global_script_class_icons={
-"Enemy": "",
+"Bullet": "",
+"FollowTarget": "",
+"Health": "",
+"LinearMotion": "",
 "Player": "",
-"TypistEffect": ""
+"RadialMotion": "",
+"Spawner": "",
+"TypistEffect": "",
+"TypistLabel": ""
 }
 
 [application]
