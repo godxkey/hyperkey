@@ -8,12 +8,12 @@ onready var sprite = $Sprite as Sprite
 
 func _ready():
   health.connect("no_health", self, "queue_free")
-  connect("body_entered", self, "on_hit")
+  connect("body_entered", self, "on_hit_body")
 
 func _process(delta):
   sprite.rotate(rotation_speed * delta)
 
-func on_hit(body):
+func on_hit_body(body):
   if body.is_in_group("planet"):
     body.health.apply_damage(damage)
     queue_free()

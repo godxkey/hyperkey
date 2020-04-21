@@ -22,7 +22,15 @@ func on_hit(body):
     var knockback_force = to_body * knockback_speed
     var angle = deg2rad(_rng.randf_range(-10, 10))
     target.motion.set_velocity(knockback_force.rotated(angle))
+    change_rotation_speed(target)
     queue_free()
+
+func change_rotation_speed(target):
+    target.rotation_speed += sign(target.rotation_speed) * 2.0
+    if _rng.randf() < 0.1:
+      target.rotation_speed = 1.0
+    if _rng.randf() < 0.1:
+      target.rotation_speed *= -1.0
 
 func _process(_delta):
   sprite.set_rotation(motion.get_velocity().angle())
