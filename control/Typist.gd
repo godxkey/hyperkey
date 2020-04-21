@@ -143,7 +143,7 @@ func create_target(word:String) -> Node2D:
 
   zcontrol.name = "ZControl"
   zcontrol.z_index = 1000
-  zcontrol.position.y = 40.0
+  zcontrol.position.y = 30.0
   label.word_text = word
   target.health.hit_points = word.length()
   target.motion.start_moving_towards(_player.position)

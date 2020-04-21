@@ -24,6 +24,7 @@ func _set_word_text(value:String):
   push_align(ALIGN_CENTER)
   append_bbcode("[typist]")
   add_text(value)
+  fit_to_word()
 
 func get_cursor() -> int:
   return cursor
@@ -31,3 +32,10 @@ func get_cursor() -> int:
 func set_cursor(index:int):
   cursor = clamp(index, -1, word_text.length()) as int
   _typist_effect.cursor = cursor
+
+func fit_to_word():
+  var word_size = get("custom_fonts/normal_font").get_string_size(word_text)
+  word_size.x *= 1.4
+  set_size(word_size)
+  rect_position.x = -word_size.x / 2
+

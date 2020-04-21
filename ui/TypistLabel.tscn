@@ -7,13 +7,15 @@
 [ext_resource path="res://ui/TypistLabel.gd" type="Script" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.164706, 0.164706, 0.231373, 0.356863 )
+bg_color = Color( 0.176471, 0.176471, 0.286275, 0.356863 )
 
 [node name="TypistLabel" type="RichTextLabel"]
-margin_left = -104.0
-margin_top = -16.0
-margin_right = 104.0
-margin_bottom = 16.0
+margin_left = -16.0
+margin_top = -8.0
+margin_right = 16.0
+margin_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
 custom_styles/normal = SubResource( 1 )
 custom_fonts/mono_font = ExtResource( 4 )
 custom_fonts/bold_italics_font = ExtResource( 1 )
@@ -21,6 +23,7 @@ custom_fonts/italics_font = ExtResource( 3 )
 custom_fonts/bold_font = ExtResource( 2 )
 custom_fonts/normal_font = ExtResource( 4 )
 bbcode_enabled = true
+scroll_active = false
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
