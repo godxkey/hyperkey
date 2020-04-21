@@ -147,6 +147,11 @@ func create_target(word:String) -> Node2D:
   label.word_text = word
   target.health.hit_points = word.length()
   target.motion.start_moving_towards(_player.position)
+
+  var max_speed = target.motion.max_speed
+  var starting_speed = _rng.randf_range(0.2 * max_speed, 0.8 * max_speed)
+  target.motion.set_speed(starting_speed)
+
   target.motion.target = _player
   target.connect("tree_exiting", self, "remove_exited_target_word", [word], CONNECT_ONESHOT)
   return target

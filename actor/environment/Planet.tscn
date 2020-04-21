@@ -5,7 +5,7 @@
 [ext_resource path="res://control/Health.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 488.0
+radius = 504.063
 
 [node name="Planet" type="StaticBody2D" groups=[
 "planet",

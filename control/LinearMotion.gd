@@ -48,3 +48,10 @@ func get_velocity() -> Vector2:
 
 func set_velocity(value:Vector2):
   _velocity = value
+
+func set_speed(value:float):
+  if _velocity != Vector2.ZERO:
+    _velocity = _velocity.normalized() * value
+  else:
+    _velocity = Vector2.RIGHT * value
+  _velocity = _velocity.clamped(max_speed)
