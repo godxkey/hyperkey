@@ -3,7 +3,9 @@ extends Node
 export(String, FILE, "*.txt") var words_file
 export(NodePath) var projectile_manager_path
 export(NodePath) var player_path
+export(NodePath) var planet_path
 
+onready var _planet = get_node(planet_path)
 onready var _player = get_node(player_path)
 onready var _projectile_manager = get_node(projectile_manager_path)
 onready var _spawner = $Spawner as Spawner
@@ -26,7 +28,7 @@ var _current_tracker:HitTracker = null
 class HitTracker:
   var _target = null setget ,get_target
   var _label:TypistLabel = null
-  var _hit_cursor = 0
+  var _hit_cursor:int = 0
 
   func _init(target, label:TypistLabel):
     _target = target
@@ -43,6 +45,9 @@ class HitTracker:
 
   func remove_label():
     _label.queue_free()
+
+  func get_cursor() -> int:
+    return _hit_cursor
 
   func hit(letter:String) -> bool:
     if _hit_cursor < text().length() and letter == text()[_hit_cursor]:
@@ -121,13 +126,11 @@ func continue_hit_target(letter:String):
   if _current_tracker.hit(letter):
       spawn_bullet(_current_tracker.get_target())
       if _current_tracker.is_done():
-          remove_target_word(_current_tracker.text())
-          _current_tracker.remove_label()
-          _current_tracker = null
-          _player.aimed_target = null
+          clear_tracked()
 
 func spawn_bullet(target):
-  _projectile_manager.spawn_projectile(_player.position, target)
+  var bullet = _projectile_manager.spawn_projectile(_player.position, target)
+  target.connect("tree_exiting", bullet, "queue_free")
 
 func create_target(word:String) -> Node2D:
   var target = _spawner.spawn()
@@ -140,9 +143,12 @@ func create_target(word:String) -> Node2D:
 
   zcontrol.name = "ZControl"
   zcontrol.z_index = 1000
+  zcontrol.position.y = 40.0
   label.word_text = word
   target.health.hit_points = word.length()
-  target.linear_motion.start_moving_towards(_player.position)
+  target.motion.start_moving_towards(_player.position)
+  target.motion.target = _player
+  target.connect("tree_exiting", self, "remove_exited_target_word", [word], CONNECT_ONESHOT)
   return target
 
 func spawn_target():
@@ -155,3 +161,16 @@ func spawn_target():
 func remove_target_word(word:String):
   active_words.erase(word[0])
   text_targets.erase(word)
+
+func clear_tracked():
+  assert(_current_tracker != null)
+  remove_target_word(_current_tracker.text())
+  _current_tracker.remove_label()
+  _current_tracker = null
+  _player.aimed_target = null
+
+func remove_exited_target_word(word:String):
+  if _current_tracker and _current_tracker.text() == word:
+    clear_tracked()
+  else:
+    remove_target_word(word)

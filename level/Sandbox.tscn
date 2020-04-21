@@ -29,9 +29,11 @@ scale = Vector2( 2, 2 )
 [node name="Typist" parent="." instance=ExtResource( 5 )]
 projectile_manager_path = NodePath("../ProjectileManager")
 player_path = NodePath("../Player")
+planet_path = NodePath("../Planet")
 
 [node name="Spawner" parent="Typist" index="0"]
-position = Vector2( 0, -416 )
+position = Vector2( 0, -480 )
+spawn_area = Rect2( -300, -50, 600, 100 )
 
 [node name="Timer" parent="Typist/Spawner" index="0"]
 wait_time = 2.0
@@ -43,11 +45,11 @@ __meta__ = {
 }
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, -64 )
+position = Vector2( 0, -32 )
 rotation = -1.5708
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-offset = Vector2( 0, -150 )
+offset = Vector2( 0, -200 )
 current = true
 smoothing_enabled = true
 __meta__ = {

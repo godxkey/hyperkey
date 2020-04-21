@@ -5,7 +5,7 @@ extends Node2D
 export(float) var default_angle = 0 setget _set_default_angle
 export(float) var rotation_smoothing = 12.0
 
-var aimed_target:Node2D = null
+var aimed_target = weakref(null) setget _set_aimed_target, _get_aimed_target
 
 onready var sprite = $Sprite as Sprite
 
@@ -13,8 +13,9 @@ func _process(delta):
   rotate_sprite(delta)
 
 func aim_rotation_angle() -> float:
-  if aimed_target != null:
-    return get_angle_to(aimed_target.position)
+  var target = aimed_target.get_ref()
+  if target:
+    return get_angle_to(target.position)
   else:
     return default_angle
 
@@ -26,3 +27,9 @@ func rotate_sprite(delta:float):
 
 func _set_default_angle(value):
   default_angle = deg2rad(value)
+
+func _set_aimed_target(value):
+  aimed_target = weakref(value)
+
+func _get_aimed_target():
+  return aimed_target.get_ref()

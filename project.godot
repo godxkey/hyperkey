@@ -44,11 +44,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://control/Spawner.gd"
 }, {
-"base": "RichTextEffect",
-"class": "TypistEffect",
-"language": "GDScript",
-"path": "res://ui/TypistEffect.gd"
-}, {
 "base": "RichTextLabel",
 "class": "TypistLabel",
 "language": "GDScript",
@@ -62,7 +57,6 @@ _global_script_class_icons={
 "Player": "",
 "RadialMotion": "",
 "Spawner": "",
-"TypistEffect": "",
 "TypistLabel": ""
 }
 

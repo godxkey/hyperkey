@@ -9,11 +9,13 @@ onready var _parent = get_parent() as Node2D
 
 var _velocity = Vector2()
 var _acceleration = Vector2()
+var _accumulated_forces = Vector2()
 
 func _physics_process(delta):
   move(delta)
 
 func move(delta:float):
+  _velocity += delta * _accumulated_forces
   if is_accelerating():
     _velocity += delta * _acceleration
     _velocity = _velocity.clamped(max_speed)
@@ -21,12 +23,16 @@ func move(delta:float):
     if is_moving():
       _velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * damping)
   _parent.translate(_velocity * delta);
+  _accumulated_forces = Vector2.ZERO
 
 func is_moving() -> bool:
   return _velocity.length_squared() > 0.0
 
 func is_accelerating()-> bool:
   return _acceleration != Vector2.ZERO
+
+func apply_force(force:Vector2):
+  _accumulated_forces += force
 
 func start_moving_towards(target:Vector2):
   _acceleration = _parent.position.direction_to(target) * acceleration
@@ -39,3 +45,6 @@ func stop_moving():
 
 func get_velocity() -> Vector2:
   return _velocity
+
+func set_velocity(value:Vector2):
+  _velocity = value
