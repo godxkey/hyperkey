@@ -10,6 +10,7 @@ script = ExtResource( 2 )
 [node name="DefaultShotPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 1 )
 volume_db = -4.0
+pitch_scale = 0.8
 
 [node name="DefaultHitPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )

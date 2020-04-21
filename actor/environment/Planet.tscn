@@ -20,3 +20,4 @@ shape = SubResource( 1 )
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 3 )
+hit_points = 20

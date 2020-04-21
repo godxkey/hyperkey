@@ -100,7 +100,6 @@ func available_first_letter() -> String:
     var letter = char(_rng.randi_range(ord("a"), ord("z")))
     if not active_words.has(letter):
       return letter
-  print("Could not find available first letter")
   return ""
 
 func _input(event):
@@ -158,7 +157,7 @@ func create_target(word:String) -> Node2D:
   target.motion.set_speed(starting_speed)
 
   target.motion.target = _player
-  target.connect("tree_exiting", self, "remove_exited_target_word", [word], CONNECT_ONESHOT)
+  target.connect("tree_exiting", self, "remove_exited_target", [word, weakref(target)], CONNECT_ONESHOT)
   return target
 
 func spawn_target():
@@ -167,10 +166,13 @@ func spawn_target():
     var word = random_word(letter)
     active_words[letter] = word
     text_targets[word] = create_target(word)
+    assert(active_words.size() == text_targets.size())
 
 func remove_target_word(word:String):
-  active_words.erase(word[0])
-  text_targets.erase(word)
+  if text_targets.has(word):
+    active_words.erase(word[0])
+    text_targets.erase(word)
+    assert(active_words.size() == text_targets.size())
 
 func clear_tracked():
   assert(_current_tracker != null)
@@ -179,8 +181,9 @@ func clear_tracked():
   _current_tracker = null
   _player.aimed_target = null
 
-func remove_exited_target_word(word:String):
-  if _current_tracker and _current_tracker.text() == word:
-    clear_tracked()
-  else:
-    remove_target_word(word)
+func remove_exited_target(word:String, target_wref):
+  if text_targets.get(word) == target_wref.get_ref():
+    if _current_tracker and _current_tracker.text() == word:
+      clear_tracked()
+    else:
+      remove_target_word(word)
