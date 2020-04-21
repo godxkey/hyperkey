@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Mistype.wav-9c7050548235d6cd8b62b2cb41765849.sample"
+
+[deps]
+
+source_file="res://audio/sfx/Mistype.wav"
+dest_files=[ "res://.import/Mistype.wav-9c7050548235d6cd8b62b2cb41765849.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

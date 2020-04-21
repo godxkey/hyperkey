@@ -9,6 +9,7 @@ onready var _planet = get_node(planet_path)
 onready var _player = get_node(player_path)
 onready var _projectile_manager = get_node(projectile_manager_path)
 onready var _spawner = $Spawner as Spawner
+onready var _mistype_player = $MistypePlayer
 
 const LABEL_SCENE = preload("res://ui/TypistLabel.tscn")
 
@@ -27,10 +28,10 @@ var _current_tracker:HitTracker = null
 
 class HitTracker:
   var _target = null setget ,get_target
-  var _label:TypistLabel = null
+  var _label = null
   var _hit_cursor:int = 0
 
-  func _init(target, label:TypistLabel):
+  func _init(target, label):
     _target = target
     _label = label
 
@@ -110,6 +111,8 @@ func _input(event):
         var word = active_words.get(event_letter)
         if word != null:
           acquire_target(word)
+        else:
+          _mistype_player.play()
       else:
         continue_hit_target(event_letter)
 
@@ -127,6 +130,8 @@ func continue_hit_target(letter:String):
       spawn_bullet(_current_tracker.get_target())
       if _current_tracker.is_done():
           clear_tracked()
+  else:
+    _mistype_player.play()
 
 func spawn_bullet(target):
   var bullet = _projectile_manager.spawn_projectile(_player.position, target)
