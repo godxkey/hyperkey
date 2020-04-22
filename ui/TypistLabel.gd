@@ -32,6 +32,7 @@ func _set_display_text(value:TypistText):
       newline()
 
   fit_to_text()
+  _typist_effect.newline_indices = newline_indices(display_text.text_list)
 
 func get_cursor() -> int:
   return cursor
@@ -63,4 +64,14 @@ func word_sizes(words:Array) -> Array:
   for w in words:
     sizes.append(word_size(w))
   return sizes
+
+func newline_indices(words:Array) -> Array:
+  var indices = []
+  var sum = 0
+  for w in words:
+    var length = w.length()
+    indices.append(sum + length)
+    sum += length
+  return indices
+
 
