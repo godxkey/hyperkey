@@ -91,7 +91,7 @@ func _add_to_alpha_map(word:String):
     word_list.append(word)
 
 func random_text(first_letter) -> TypistText:
-  var chance:float = _rng.randf() < 0.5
+  var chance:float = _rng.randf() < 0.8
   var words:Array= [random_word(first_letter)] + ([] if chance else random_words())
   var t = TypistText.new()
   t.text_list = words
@@ -178,7 +178,7 @@ func create_target(text:TypistText) -> Node2D:
   var starting_speed = _rng.randf_range(0.2 * max_speed, 0.8 * max_speed)
   target.motion.set_velocity(starting_speed * target.position.direction_to(_player.position))
 
-  target.motion.target = _player
+  target.motion.target = _planet
   target.connect("tree_exiting", self, "remove_exited_target", [word, weakref(target)], CONNECT_ONESHOT)
   return target
 

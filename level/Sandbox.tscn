@@ -21,6 +21,7 @@ environment = SubResource( 1 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
+planet_path = NodePath("../../Planet")
 
 [node name="ProjectileManager" parent="." instance=ExtResource( 3 )]
 
@@ -38,7 +39,7 @@ position = Vector2( 0, -632 )
 spawn_area = Rect2( -500, -100, 1000, 200 )
 
 [node name="Timer" parent="Typist/Spawner" index="0"]
-wait_time = 3.0
+wait_time = 2.0
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, -32 )
