@@ -48,6 +48,11 @@ _global_script_classes=[ {
 "class": "TypistLabel",
 "language": "GDScript",
 "path": "res://ui/TypistLabel.gd"
+}, {
+"base": "Reference",
+"class": "TypistText",
+"language": "GDScript",
+"path": "res://control/TypistText.gd"
 } ]
 _global_script_class_icons={
 "Bullet": "",
@@ -57,7 +62,8 @@ _global_script_class_icons={
 "Player": "",
 "RadialMotion": "",
 "Spawner": "",
-"TypistLabel": ""
+"TypistLabel": "",
+"TypistText": ""
 }
 
 [application]

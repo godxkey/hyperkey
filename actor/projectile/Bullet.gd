@@ -6,10 +6,7 @@ export(float) var hit_power = 0.5
 onready var sprite := $Sprite as Sprite
 onready var motion := $FollowTarget as FollowTarget
 
-var _rng = RandomNumberGenerator.new()
-
 func _ready():
-  _rng.randomize()
   connect("area_entered", self, "on_hit")
 
 func on_hit(body):
@@ -20,16 +17,16 @@ func on_hit(body):
     var speed = body.motion.get_velocity().length()
     var knockback_speed = max(speed * hit_power, 50)
     var knockback_force = to_body * knockback_speed
-    var angle = deg2rad(_rng.randf_range(-10, 10))
+    var angle = deg2rad(rand_range(-10, 10))
     target.motion.set_velocity(knockback_force.rotated(angle))
     change_rotation_speed(target)
     queue_free()
 
 func change_rotation_speed(target):
     target.rotation_speed += sign(target.rotation_speed) * 2.0
-    if _rng.randf() < 0.1:
+    if randf() < 0.1:
       target.rotation_speed = 1.0
-    if _rng.randf() < 0.1:
+    if randf() < 0.1:
       target.rotation_speed *= -1.0
 
 func _process(_delta):

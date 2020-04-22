@@ -39,7 +39,7 @@ class HitTracker:
     return _target
 
   func text() -> String:
-    return _label.word_text
+    return _label.display_text.merged_text()
 
   func is_done() -> bool:
     return _hit_cursor == text().length()
@@ -64,6 +64,7 @@ func create_tracker(target) -> HitTracker:
 # Called when the node enters the scene tree for the first time.
 func _ready():
   read_dictionary()
+  randomize() # Randomize the default generator as well
   _rng.randomize()
   _spawner.timer.connect("timeout", self, "spawn_target")
   _spawner.timer.start()
@@ -89,18 +90,34 @@ func _add_to_alpha_map(word:String):
   else:
     word_list.append(word)
 
+func random_text(first_letter) -> TypistText:
+  var chance:float = _rng.randf() < 0.5
+  var words:Array= [random_word(first_letter)] + ([] if chance else random_words())
+  var t = TypistText.new()
+  t.text_list = words
+  return t
+
 func random_word(first_letter) -> String:
   var words = alpha_map[first_letter]
   var index = _rng.randi_range(0, words.size() - 1)
   return words[index]
 
+func random_words() -> Array:
+  var words = []
+  for _i in _rng.randi_range(1, 3):
+    words.append(random_word(random_letter()))
+  return words
+
 func available_first_letter() -> String:
   var max_tries = 100
-  for _try in range(max_tries):
-    var letter = char(_rng.randi_range(ord("a"), ord("z")))
+  for _try in max_tries:
+    var letter = random_letter()
     if not active_words.has(letter):
       return letter
   return ""
+
+func random_letter() -> String:
+  return char(_rng.randi_range(ord("a"), ord("z")))
 
 func _input(event):
   if event as InputEventKey and event.is_pressed() and not event.echo:
@@ -136,7 +153,7 @@ func spawn_bullet(target):
   var bullet = _projectile_manager.spawn_projectile(_player.position, target)
   target.connect("tree_exiting", bullet, "queue_free")
 
-func create_target(word:String) -> Node2D:
+func create_target(text:TypistText) -> Node2D:
   var target = _spawner.spawn()
   var label = LABEL_SCENE.instance()
   var zcontrol = Node2D.new()
@@ -148,13 +165,18 @@ func create_target(word:String) -> Node2D:
   zcontrol.name = "ZControl"
   zcontrol.z_index = 1000
   zcontrol.position.y = 30.0
-  label.word_text = word
+
+  label.display_text = text
+  var word:String = text.merged_text()
   target.health.hit_points = word.length()
-  target.motion.start_moving_towards(_player.position)
+
+  # Make longer text objects slower
+  target.motion.max_speed /= text.text_list.size()
+  target.motion.acceleration /= text.text_list.size()
 
   var max_speed = target.motion.max_speed
   var starting_speed = _rng.randf_range(0.2 * max_speed, 0.8 * max_speed)
-  target.motion.set_speed(starting_speed)
+  target.motion.set_velocity(starting_speed * target.position.direction_to(_player.position))
 
   target.motion.target = _player
   target.connect("tree_exiting", self, "remove_exited_target", [word, weakref(target)], CONNECT_ONESHOT)
@@ -163,9 +185,10 @@ func create_target(word:String) -> Node2D:
 func spawn_target():
   var letter = available_first_letter()
   if not letter.empty():
-    var word = random_word(letter)
+    var text:TypistText = random_text(letter)
+    var word = text.merged_text()
     active_words[letter] = word
-    text_targets[word] = create_target(word)
+    text_targets[word] = create_target(text)
     assert(active_words.size() == text_targets.size())
 
 func remove_target_word(word:String):
