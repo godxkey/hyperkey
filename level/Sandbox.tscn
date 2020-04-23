@@ -32,10 +32,10 @@ scale = Vector2( 2, 2 )
 [node name="Typist" parent="." instance=ExtResource( 5 )]
 projectile_manager_path = NodePath("../ProjectileManager")
 player_path = NodePath("../Player")
-planet_path = NodePath("../Planet")
 
 [node name="Spawner" parent="Typist" index="0"]
 position = Vector2( 0, -632 )
+planet_path = NodePath("../../Planet")
 spawn_area = Rect2( -500, -100, 1000, 200 )
 
 [node name="Timer" parent="Typist/Spawner" index="0"]

@@ -3,7 +3,6 @@ extends Area2D
 export(int) var damage = 1
 export(float) var rotation_speed = 1.0
 onready var health = $Health as Health
-onready var motion = $FollowTarget as FollowTarget
 onready var sprite = $Sprite as Sprite
 
 func _ready():

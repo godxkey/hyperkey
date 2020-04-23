@@ -3,59 +3,16 @@ extends Node
 export(String, FILE, "*.txt") var words_file
 export(NodePath) var projectile_manager_path
 export(NodePath) var player_path
-export(NodePath) var planet_path
 
-onready var _planet = get_node(planet_path)
 onready var _player = get_node(player_path)
 onready var _projectile_manager = get_node(projectile_manager_path)
 onready var _spawner = $Spawner as Spawner
 onready var _mistype_player = $MistypePlayer
 
-const LABEL_SCENE = preload("res://ui/TypistLabel.tscn")
-
 var _rng = RandomNumberGenerator.new()
-
-# Contains a mapping between a text and an enemy target.
-var text_targets = {}
-
-# Contains a mappings between first letter and active text for targets.
-var active_words = {}
-
-# Organizes words by letter.
-var alpha_map = {}
-
+var _text_targets := TextTargets.new()
+var _word_dictionary := WordDictionary.new()
 var _current_tracker:HitTracker = null
-
-class HitTracker:
-  var _target = null setget ,get_target
-  var _label = null
-  var _hit_cursor:int = 0
-
-  func _init(target, label):
-    _target = target
-    _label = label
-
-  func get_target():
-    return _target
-
-  func text() -> String:
-    return _label.display_text.merged_text()
-
-  func is_done() -> bool:
-    return _hit_cursor == text().length()
-
-  func remove_label():
-    _label.queue_free()
-
-  func get_cursor() -> int:
-    return _hit_cursor
-
-  func hit(letter:String) -> bool:
-    if _hit_cursor < text().length() and letter == text()[_hit_cursor]:
-      _label.increment_cursor()
-      _hit_cursor += 1
-      return true
-    return false
 
 func create_tracker(target) -> HitTracker:
   var label = target.find_node("TypistLabel", true, false)
@@ -63,42 +20,21 @@ func create_tracker(target) -> HitTracker:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  read_dictionary()
+  _word_dictionary.read_dictionary(words_file)
   randomize() # Randomize the default generator as well
   _rng.randomize()
   _spawner.timer.connect("timeout", self, "spawn_target")
   _spawner.timer.start()
 
-func read_dictionary():
-  var file = File.new()
-  file.open(words_file, File.READ)
-  assert(file.is_open())
-  alpha_map.clear()
-
-  var min_word_length = 4
-  while not file.eof_reached():
-    var line = file.get_line()
-    if line.length() >= min_word_length:
-      _add_to_alpha_map(line)
-  file.close()
-
-func _add_to_alpha_map(word:String):
-  var first_letter = word[0]
-  var word_list = alpha_map.get(first_letter)
-  if word_list == null:
-    alpha_map[first_letter] = [word]
-  else:
-    word_list.append(word)
-
-func random_text(first_letter) -> TypistText:
+func random_text(first_letter:String) -> TypistText:
   var chance:float = _rng.randf() < 0.8
   var words:Array= [random_word(first_letter)] + ([] if chance else random_words())
   var t = TypistText.new()
   t.text_list = words
   return t
 
-func random_word(first_letter) -> String:
-  var words = alpha_map[first_letter]
+func random_word(first_letter:String) -> String:
+  var words = _word_dictionary.words(first_letter)
   var index = _rng.randi_range(0, words.size() - 1)
   return words[index]
 
@@ -112,7 +48,7 @@ func available_first_letter() -> String:
   var max_tries = 100
   for _try in max_tries:
     var letter = random_letter()
-    if not active_words.has(letter):
+    if not _text_targets.has_letter(letter):
       return letter
   return ""
 
@@ -122,22 +58,22 @@ func random_letter() -> String:
 func _input(event):
   if event as InputEventKey and event.is_pressed() and not event.echo:
     if event.scancode >= KEY_A and event.scancode <= KEY_Z:
-      var event_letter = char(event.scancode).to_lower()
+      var input_letter = char(event.scancode).to_lower()
       if _current_tracker == null:
-        var word = active_words.get(event_letter)
-        if word != null:
-          acquire_target(word)
+        var text = _text_targets.text(input_letter)
+        if text != null:
+          acquire_target(text)
         else:
           _mistype_player.play()
       else:
-        continue_hit_target(event_letter)
+        continue_hit_target(input_letter)
 
-func acquire_target(word:String):
+func acquire_target(text:String):
   assert(_current_tracker == null)
-  var target = text_targets[word]
+  var target = _text_targets.target(text)
   _player.aimed_target = target
   _current_tracker = create_tracker(target)
-  if _current_tracker.hit(word[0]):
+  if _current_tracker.hit(text[0]):
     spawn_bullet(target)
 
 func continue_hit_target(letter:String):
@@ -154,48 +90,24 @@ func spawn_bullet(target):
   target.connect("tree_exiting", bullet, "queue_free")
 
 func create_target(text:TypistText) -> Node2D:
-  var target = _spawner.spawn()
-  var label = LABEL_SCENE.instance()
-  var zcontrol = Node2D.new()
-
-  zcontrol.add_child(label)
-  target.add_child(zcontrol)
+  var target = _spawner.spawn_text_target(text)
+  target.connect(
+    "tree_exiting",
+    self,
+    "remove_exited_target",
+    [text.merged_text(), weakref(target)],
+    CONNECT_ONESHOT)
   add_child(target)
-
-  zcontrol.name = "ZControl"
-  zcontrol.z_index = 1000
-  zcontrol.position.y = 30.0
-
-  label.display_text = text
-  var word:String = text.merged_text()
-  target.health.hit_points = word.length()
-
-  # Make longer text objects slower
-  target.motion.max_speed /= text.text_list.size()
-  target.motion.acceleration /= text.text_list.size()
-
-  var max_speed = target.motion.max_speed
-  var starting_speed = _rng.randf_range(0.2 * max_speed, 0.8 * max_speed)
-  target.motion.set_velocity(starting_speed * target.position.direction_to(_player.position))
-
-  target.motion.target = _planet
-  target.connect("tree_exiting", self, "remove_exited_target", [word, weakref(target)], CONNECT_ONESHOT)
   return target
 
 func spawn_target():
   var letter = available_first_letter()
   if not letter.empty():
     var text:TypistText = random_text(letter)
-    var word = text.merged_text()
-    active_words[letter] = word
-    text_targets[word] = create_target(text)
-    assert(active_words.size() == text_targets.size())
+    _text_targets.add_text_target(text.merged_text(), create_target(text))
 
-func remove_target_word(word:String):
-  if text_targets.has(word):
-    active_words.erase(word[0])
-    text_targets.erase(word)
-    assert(active_words.size() == text_targets.size())
+func remove_target_word(text:String):
+  _text_targets.remove_text_target(text)
 
 func clear_tracked():
   assert(_current_tracker != null)
@@ -204,9 +116,9 @@ func clear_tracked():
   _current_tracker = null
   _player.aimed_target = null
 
-func remove_exited_target(word:String, target_wref):
-  if text_targets.get(word) == target_wref.get_ref():
-    if _current_tracker and _current_tracker.text() == word:
+func remove_exited_target(text:String, target_wref):
+  if _text_targets.target(text) == target_wref.get_ref():
+    if _current_tracker and _current_tracker.text() == text:
       clear_tracked()
     else:
-      remove_target_word(word)
+      remove_target_word(text)

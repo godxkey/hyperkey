@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://control/Health.gd"
 }, {
+"base": "Reference",
+"class": "HitTracker",
+"language": "GDScript",
+"path": "res://control/HitTracker.gd"
+}, {
 "base": "Node",
 "class": "LinearMotion",
 "language": "GDScript",
@@ -44,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://control/Spawner.gd"
 }, {
+"base": "Reference",
+"class": "TextTargets",
+"language": "GDScript",
+"path": "res://library/TextTargets.gd"
+}, {
 "base": "RichTextLabel",
 "class": "TypistLabel",
 "language": "GDScript",
@@ -53,17 +63,25 @@ _global_script_classes=[ {
 "class": "TypistText",
 "language": "GDScript",
 "path": "res://control/TypistText.gd"
+}, {
+"base": "Reference",
+"class": "WordDictionary",
+"language": "GDScript",
+"path": "res://library/WordDictionary.gd"
 } ]
 _global_script_class_icons={
 "Bullet": "",
 "FollowTarget": "",
 "Health": "",
+"HitTracker": "",
 "LinearMotion": "",
 "Player": "",
 "RadialMotion": "",
 "Spawner": "",
+"TextTargets": "",
 "TypistLabel": "",
-"TypistText": ""
+"TypistText": "",
+"WordDictionary": ""
 }
 
 [application]

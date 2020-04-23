@@ -2,10 +2,11 @@ extends RichTextLabel
 class_name TypistLabel
 
 var display_text := TypistText.new() setget _set_display_text
-
 var cursor:int = -1 setget set_cursor, get_cursor
 
 var _typist_effect = preload("res://ui/TypistEffect.gd").new()
+var _default_font:Font = get("custom_fonts/normal_font")
+var _width_adjust:float = 1.4
 
 func _init():
   # This makes sure the effect is unique per label
@@ -42,27 +43,27 @@ func set_cursor(index:int):
   _typist_effect.cursor = cursor
 
 func fit_to_text():
-  var word_size:Vector2 = max_extents(display_text.text_list)
-  word_size.x *= 1.4
-  set_size(word_size)
-  rect_position.x = -word_size.x / 2
+  var line_size = max_extents(display_text.text_list)
+  line_size.x *= _width_adjust
+  set_size(line_size)
+  rect_position.x = -line_size.x / 2
 
-func max_extents(words:Array) -> Vector2:
-  var sizes = word_sizes(words)
-  var widths = Array()
+func max_extents(lines:Array) -> Vector2:
+  var sizes = line_sizes(lines)
+  var widths = []
   var sum_height = 0
   for s in sizes:
     widths.append(s.x)
     sum_height += s.y
   return Vector2(widths.max(), sum_height)
 
-func word_size(word:String) -> Vector2:
-  return get("custom_fonts/normal_font").get_string_size(word)
+func line_size(line:String) -> Vector2:
+  return _default_font.get_string_size(line)
 
-func word_sizes(words:Array) -> Array:
-  var sizes = Array()
-  for w in words:
-    sizes.append(word_size(w))
+func line_sizes(lines:Array) -> Array:
+  var sizes = []
+  for ln in lines:
+    sizes.append(line_size(ln))
   return sizes
 
 func newline_indices(words:Array) -> Array:
@@ -73,5 +74,3 @@ func newline_indices(words:Array) -> Array:
     indices.append(sum + length)
     sum += length
   return indices
-
-
