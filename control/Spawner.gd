@@ -13,6 +13,10 @@ onready var _planet = get_node(planet_path)
 
 var _debug_spawn_area_color = Color(0.8, 0.4, 0.0, 0.3)
 
+func _ready():
+  # Randomize the default generator as well
+  randomize()
+
 func spawn(packed_scene) -> Node2D:
   var x = rand_range(spawn_area.position.x, spawn_area.end.x)
   var y = rand_range(spawn_area.position.y, spawn_area.end.y)

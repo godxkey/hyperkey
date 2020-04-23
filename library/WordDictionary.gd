@@ -9,6 +9,10 @@ class_name WordDictionary
 # Organizes words by letter.
 var _alpha_map = {}
 
+func _init(words_file:String = ""):
+  if not words_file.empty():
+    read_dictionary(words_file)
+
 func read_dictionary(words_file:String):
   var file = File.new()
   file.open(words_file, File.READ)
@@ -33,3 +37,8 @@ func _add_to_alpha_map(word:String):
 func words(letter:String) -> Array:
   return _alpha_map[letter]
 
+func count_total_words():
+  var total = 0
+  for word_list in _alpha_map.values():
+    total += word_list.size()
+  return total

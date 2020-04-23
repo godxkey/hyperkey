@@ -50,6 +50,11 @@ _global_script_classes=[ {
 "path": "res://control/Spawner.gd"
 }, {
 "base": "Reference",
+"class": "TextGenerator",
+"language": "GDScript",
+"path": "res://library/TextGenerator.gd"
+}, {
+"base": "Reference",
 "class": "TextTargets",
 "language": "GDScript",
 "path": "res://library/TextTargets.gd"
@@ -78,6 +83,7 @@ _global_script_class_icons={
 "Player": "",
 "RadialMotion": "",
 "Spawner": "",
+"TextGenerator": "",
 "TextTargets": "",
 "TypistLabel": "",
 "TypistText": "",
