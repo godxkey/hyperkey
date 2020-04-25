@@ -126,4 +126,5 @@ game_switch_mode={
 
 [rendering]
 
+environment/default_clear_color=Color( 0.1388, 0.1296, 0.24, 1 )
 environment/default_environment="res://default_env.tres"

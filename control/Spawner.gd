@@ -9,7 +9,7 @@ export(Rect2) var spawn_area = Rect2(0, 0, 400, 200) setget _set_spawn_area
 const LABEL_SCENE = preload("res://ui/TypistLabel.tscn")
 
 onready var timer = $Timer as Timer
-onready var _planet = get_node(planet_path)
+onready var _planet_wref = weakref(get_node(planet_path))
 
 var _debug_spawn_area_color = Color(0.8, 0.4, 0.0, 0.3)
 
@@ -53,8 +53,11 @@ func _set_text_target_motion(text:TypistText, target):
 
   var max_speed = motion.max_speed
   var starting_speed = rand_range(0.2 * max_speed, 0.8 * max_speed)
-  motion.set_velocity(starting_speed * target.position.direction_to(_planet.position))
-  motion.target = _planet
+
+  var planet = _planet_wref.get_ref()
+  if planet:
+    motion.set_velocity(starting_speed * target.position.direction_to(planet.position))
+    motion.target = planet
 
 func _setup_label_for_target(text:TypistText, target):
   var label = LABEL_SCENE.instance()

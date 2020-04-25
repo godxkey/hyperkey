@@ -35,6 +35,7 @@ func random_words() -> Array:
   return words
 
 func random_letter() -> String:
+  # TODO: Implement
   if selection_mode == SelectionMode.QUANTITY_BIAS:
     return ""
 
