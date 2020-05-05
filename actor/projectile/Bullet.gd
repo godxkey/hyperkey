@@ -5,8 +5,9 @@ export(int) var damage = 1
 export(float) var hit_power = 0.5
 export(float) var max_knockback_speed = 50.0
 export(float) var knock_back_angle = 10.0
-onready var sprite := $Sprite as Sprite
 onready var motion := $FollowTarget as FollowTarget
+
+signal target_hit
 
 func _ready():
   connect("area_entered", self, "on_hit")
@@ -16,6 +17,7 @@ func on_hit(target):
     _apply_damage(target)
     _apply_knockback(target)
     _change_rotation_speed(target)
+    emit_signal("target_hit", global_position, motion.get_velocity().angle())
     queue_free()
 
 func _apply_damage(target):
@@ -39,4 +41,4 @@ func _change_rotation_speed(target):
     target.rotation_speed *= -1.0
 
 func _process(_delta):
-  sprite.set_rotation(motion.get_velocity().angle())
+  set_rotation(motion.get_velocity().angle())

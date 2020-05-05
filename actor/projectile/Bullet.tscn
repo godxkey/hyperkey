@@ -1,25 +1,29 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://actor/projectile/Bullet.png" type="Texture" id=1]
 [ext_resource path="res://actor/projectile/Bullet.gd" type="Script" id=2]
 [ext_resource path="res://control/FollowTarget.gd" type="Script" id=3]
+[ext_resource path="res://effect/BulletTrail.tscn" type="PackedScene" id=4]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 28, 12 )
 
-[sub_resource type="CanvasItemMaterial" id=3]
+[sub_resource type="CanvasItemMaterial" id=2]
 blend_mode = 1
 
 [node name="Bullet" type="Area2D" groups=[
 "projectile",
 ]]
+z_index = 10
 script = ExtResource( 2 )
 
+[node name="BulletTrail" parent="." instance=ExtResource( 4 )]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 3 )
+material = SubResource( 2 )
 position = Vector2( -1, 0 )
 scale = Vector2( 1.02941, 1 )
 texture = ExtResource( 1 )
@@ -28,4 +32,4 @@ texture = ExtResource( 1 )
 script = ExtResource( 3 )
 acceleration = 5000.0
 damping = 0.0
-max_speed = 600.0
+max_speed = 300.0

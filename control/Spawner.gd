@@ -17,6 +17,11 @@ func _ready():
   # Randomize the default generator as well
   randomize()
 
+func randomize_spawn_timer():
+  var chance = 0.15 if timer.wait_time > 2.0 else 0.5
+  if randf() < chance:
+    timer.wait_time = rand_range(1.0, 3.0)
+
 func spawn(packed_scene) -> Node2D:
   var x = rand_range(spawn_area.position.x, spawn_area.end.x)
   var y = rand_range(spawn_area.position.y, spawn_area.end.y)

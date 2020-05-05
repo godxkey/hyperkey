@@ -52,6 +52,10 @@ func acquire_target(text:String):
   var target = _text_targets.target(text)
   _player.aimed_target = target
   _current_tracker = create_tracker(target)
+
+  # draw over other targets in scene
+  target.z_index += 1
+
   if _current_tracker.hit(text[0]):
     spawn_bullet(target)
 
@@ -84,6 +88,7 @@ func spawn_target():
   if not letter.empty():
     var text:TypistText = _text_generator.random_text(letter)
     _text_targets.add_text_target(text.merged_text(), create_target(text))
+  _spawner.randomize_spawn_timer()
 
 func remove_target_word(text:String):
   _text_targets.remove_text_target(text)

@@ -7,6 +7,7 @@ var cursor:int = -1 setget set_cursor, get_cursor
 var _typist_effect = preload("res://ui/TypistEffect.gd").new()
 var _default_font:Font = get("custom_fonts/normal_font")
 var _width_adjust:float = 1.4
+var _height_adjust:float = 4.0
 
 func _init():
   # This makes sure the effect is unique per label
@@ -45,6 +46,7 @@ func set_cursor(index:int):
 func fit_to_text():
   var line_size = max_extents(display_text.text_list)
   line_size.x *= _width_adjust
+  line_size.y += _height_adjust
   set_size(line_size)
   rect_position.x = -line_size.x / 2
 

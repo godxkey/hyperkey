@@ -7,7 +7,7 @@
 [ext_resource path="res://ui/TypistLabel.gd" type="Script" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.176471, 0.176471, 0.286275, 0.356863 )
+bg_color = Color( 0.152941, 0.152941, 0.341176, 0.913725 )
 
 [node name="TypistLabel" type="RichTextLabel"]
 margin_left = -16.0
@@ -16,6 +16,7 @@ margin_right = 16.0
 margin_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
+rect_clip_content = false
 custom_styles/normal = SubResource( 1 )
 custom_fonts/mono_font = ExtResource( 4 )
 custom_fonts/bold_italics_font = ExtResource( 1 )

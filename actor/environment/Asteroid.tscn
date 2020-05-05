@@ -26,4 +26,4 @@ script = ExtResource( 1 )
 script = ExtResource( 4 )
 acceleration = 200.0
 damping = 0.0
-max_speed = 100.0
+max_speed = 35.0

@@ -16,7 +16,7 @@ func _init():
   _rng.randomize()
 
 func random_text(first_letter:String) -> TypistText:
-  var chance:float = _rng.randf() < 0.8
+  var chance:float = _rng.randf() < 0.9
   var words:Array= [random_word(first_letter)] + ([] if chance else random_words())
   var t = TypistText.new()
   t.text_list = words
