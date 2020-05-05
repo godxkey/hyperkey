@@ -3,6 +3,7 @@ extends Node2D
 class_name Spawner
 
 export(PackedScene) var spawn_type
+export(Array) var spawn_sprites
 export(NodePath) var planet_path
 export(Rect2) var spawn_area = Rect2(0, 0, 400, 200) setget _set_spawn_area
 
@@ -26,9 +27,12 @@ func spawn(packed_scene) -> Node2D:
   var x = rand_range(spawn_area.position.x, spawn_area.end.x)
   var y = rand_range(spawn_area.position.y, spawn_area.end.y)
   var spawn_object = packed_scene.instance()
-
   spawn_object.position = transform.xform(Vector2(x, y))
+  spawn_object.get_node("Sprite").texture = _random_spawn_texture()
   return spawn_object
+
+func _random_spawn_texture():
+  return spawn_sprites[randi() % spawn_sprites.size()]
 
 func _set_spawn_area(value):
   spawn_area = value

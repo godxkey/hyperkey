@@ -100,6 +100,7 @@ config/icon="res://icon.png"
 
 GameEvent="*res://control/GameEvent.gd"
 Sound="*res://audio/Sound.tscn"
+Effect="*res://effect/Effect.tscn"
 
 [display]
 

@@ -13,6 +13,7 @@ func _ready():
 func on_killed():
   GameEvent.play_impact_camera_effect()
   Sound.play_break()
+  Effect.play_explode_break(global_position)
   queue_free()
 
 func _process(delta):

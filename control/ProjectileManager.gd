@@ -1,7 +1,5 @@
 extends Node
 
-export(PackedScene) var hit_explosion
-
 const BULLET_RESOURCE = preload("res://actor/projectile/Bullet.tscn")
 onready var _default_shot_player = $DefaultShotPlayer
 onready var _default_hit_player = $DefaultHitPlayer
@@ -26,20 +24,10 @@ func spawn_projectile(location:Vector2, target:Node2D) -> Node2D:
 
 func prepare_bullet_trail_for_removal(projectile):
   var trail = projectile.get_node("BulletTrail")
-  projectile.remove_child(trail)
-  add_child(trail)
-  var timer = trail.get_node("Timer")
-  timer.wait_time = trail.lifetime
-  timer.connect("timeout", trail, "queue_free")
-  timer.start()
-  trail.emitting = false
+  Effect.kill_effect_after_done(trail)
 
-func play_explosion(position:Vector2, rotation:float):
+func play_explosion(position:Vector2, impact_rotation:float):
   _default_hit_player.play()
-  var explosion = hit_explosion.instance()
-  explosion.position = position
-  explosion.rotation = rotation + PI # Go against projectile direciton
-  add_child(explosion)
-  explosion.get_node("Timer").connect("timeout", explosion, "queue_free")
-  explosion.emitting = true
-  explosion.get_node("ExplosionSpark").emitting = true
+  Effect.play_explosion(position, impact_rotation)
+  Effect.play_hit_break(position, impact_rotation)
+
