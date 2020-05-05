@@ -96,6 +96,10 @@ config/name="Hyperkey"
 run/main_scene="res://level/Sandbox.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GameEvent="*res://control/GameEvent.gd"
+
 [display]
 
 window/size/height=800

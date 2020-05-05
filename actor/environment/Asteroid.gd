@@ -6,8 +6,13 @@ onready var health = $Health as Health
 onready var sprite = $Sprite as Sprite
 
 func _ready():
-  health.connect("no_health", self, "queue_free")
+  health.connect("no_health", self, "on_killed")
   connect("body_entered", self, "on_hit_body")
+
+# Killed means it was destroyed by bullets, not by crashing into the planet.
+func on_killed():
+  GameEvent.play_impact_camera_effect()
+  queue_free()
 
 func _process(delta):
   sprite.rotate(rotation_speed * delta)

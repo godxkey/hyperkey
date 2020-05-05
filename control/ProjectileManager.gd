@@ -12,16 +12,16 @@ func spawn_projectile(location:Vector2, target:Node2D) -> Node2D:
   projectile.position = location
   projectile.motion.start_moving_along(location.direction_to(target.position))
   projectile.motion.target = target
-  _default_shot_player.play()
   projectile.connect("target_hit", self, "play_explosion")
-  projectile.connect("tree_exiting", _default_hit_player, "play")
   projectile.connect(
     "tree_exiting",
     self,
     "prepare_bullet_trail_for_removal",
     [projectile],
     CONNECT_ONESHOT)
+  # Prevent repetitive trails by preprocessing the particles.
   projectile.get_node("BulletTrail").preprocess = rand_range(1, 10)
+  _default_shot_player.play()
   return projectile
 
 func prepare_bullet_trail_for_removal(projectile):
@@ -35,9 +35,11 @@ func prepare_bullet_trail_for_removal(projectile):
   trail.emitting = false
 
 func play_explosion(position:Vector2, rotation:float):
+  _default_hit_player.play()
   var explosion = hit_explosion.instance()
   explosion.position = position
   explosion.rotation = rotation + PI # Go against projectile direciton
   add_child(explosion)
   explosion.get_node("Timer").connect("timeout", explosion, "queue_free")
   explosion.emitting = true
+  explosion.get_node("ExplosionSpark").emitting = true

@@ -1,15 +1,13 @@
 [gd_scene load_steps=8 format=2]
 
-[sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0.272237, 1 )
-colors = PoolColorArray( 0.776471, 0.701961, 1, 1, 0.262745, 0, 0.733333, 1 )
+[sub_resource type="Gradient" id=9]
+colors = PoolColorArray( 1, 1, 1, 1, 0.4, 0, 1, 1 )
 
-[sub_resource type="GradientTexture" id=2]
-gradient = SubResource( 1 )
+[sub_resource type="GradientTexture" id=10]
+gradient = SubResource( 9 )
 
 [sub_resource type="Curve" id=7]
-max_value = 3.0
-_data = [ Vector2( 0, 3 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=8]
 curve = SubResource( 7 )
@@ -33,8 +31,9 @@ initial_velocity_random = 0.8
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 tangential_accel_curve = SubResource( 6 )
+scale = 3.0
 scale_curve = SubResource( 8 )
-color_ramp = SubResource( 2 )
+color_ramp = SubResource( 10 )
 
 [node name="BulletTrail" type="Particles2D"]
 z_index = 10

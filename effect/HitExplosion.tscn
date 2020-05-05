@@ -1,4 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://effect/Explosion.png" type="Texture" id=1]
 
 [sub_resource type="CanvasItemMaterial" id=6]
 blend_mode = 1
@@ -33,6 +35,30 @@ scale_random = 0.4
 scale_curve = SubResource( 4 )
 color_ramp = SubResource( 2 )
 
+[sub_resource type="CurveTexture" id=8]
+
+[sub_resource type="Curve" id=9]
+max_value = 2.0
+bake_resolution = 10
+_data = [ Vector2( 0, 1.04091 ), 0.0, -2.50727, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+curve = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+lifetime_randomness = 0.5
+emission_shape = 2
+emission_box_extents = Vector3( 5, 5, 1 )
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 360.0
+angle_random = 1.0
+angle_curve = SubResource( 8 )
+scale_curve = SubResource( 10 )
+
 [node name="HitExplosion" type="Particles2D"]
 material = SubResource( 6 )
 z_index = 10
@@ -47,3 +73,12 @@ process_material = SubResource( 5 )
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="ExplosionSpark" type="Particles2D" parent="."]
+emitting = false
+amount = 1
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 7 )
+texture = ExtResource( 1 )
