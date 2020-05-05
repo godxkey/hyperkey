@@ -99,6 +99,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GameEvent="*res://control/GameEvent.gd"
+Sound="*res://audio/Sound.tscn"
 
 [display]
 

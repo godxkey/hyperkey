@@ -12,6 +12,7 @@ func _ready():
 # Killed means it was destroyed by bullets, not by crashing into the planet.
 func on_killed():
   GameEvent.play_impact_camera_effect()
+  Sound.play_break()
   queue_free()
 
 func _process(delta):
