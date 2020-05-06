@@ -25,6 +25,7 @@ environment = SubResource( 1 )
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
 planet_path = NodePath("../../Planet")
 typist_path = NodePath("../../Typist")
+accuracy_penalty_color = Color( 1, 0.196078, 0.196078, 1 )
 
 [node name="BackgroundStars" parent="." instance=ExtResource( 6 )]
 

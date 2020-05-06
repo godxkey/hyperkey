@@ -3,7 +3,7 @@ extends Control
 export(NodePath) var planet_path
 export(NodePath) var typist_path
 
-export(Color) var accuracy_penality_color
+export(Color) var accuracy_penalty_color
 
 # UI components
 onready var _accuracy_stat = find_node("Accuracy")
@@ -37,7 +37,7 @@ func play_reduced_accuracy_effect():
   color_tween.interpolate_property(
     _accuracy_stat,
     "modulate",
-    accuracy_penality_color,
+    accuracy_penalty_color,
     Color.white,
     0.3,
     Tween.TRANS_QUAD,

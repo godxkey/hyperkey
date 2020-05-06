@@ -10,7 +10,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-accuracy_penality_color = Color( 1, 0.286275, 0.286275, 1 )
 
 [node name="StatsContainer" type="VBoxContainer" parent="."]
 margin_right = 40.0
