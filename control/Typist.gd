@@ -84,10 +84,13 @@ func continue_hit_target(letter:String):
   emit_signal("keyhits_stat_changed", _total_keyhits, _total_keypresses )
   shift_down_keyhit_stats()
 
+# Reduces key hit stats so players can regain higher accuracy.
+# If we keep absolute stats, then after many, many key presses,
+# it will would take an enternity to reach high accuracy again.
 func shift_down_keyhit_stats():
-  if _total_keyhits> _max_key_history:
-    _total_keyhits -= _max_key_history
-    _total_keypresses -= _max_key_history
+  if _total_keyhits >= _max_key_history:
+    _total_keyhits /= 2
+    _total_keypresses /= 2
 
 func spawn_bullet(target):
   var bullet = _projectile_manager.spawn_projectile(_player.position, target)
