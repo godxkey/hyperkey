@@ -2,8 +2,9 @@
 
 [ext_resource path="res://effect/Effect.gd" type="Script" id=1]
 [ext_resource path="res://effect/breaking/AsteroidHitBreak.tscn" type="PackedScene" id=2]
-[ext_resource path="res://effect/HitExplosion.tscn" type="PackedScene" id=3]
+[ext_resource path="res://effect/explosion/HitExplosion.tscn" type="PackedScene" id=3]
 [ext_resource path="res://effect/breaking/AsteroidExplodeBreak.tscn" type="PackedScene" id=4]
+
 
 [node name="Effect" type="Node"]
 script = ExtResource( 1 )

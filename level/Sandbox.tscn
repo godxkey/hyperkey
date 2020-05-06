@@ -24,13 +24,14 @@ environment = SubResource( 1 )
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
 planet_path = NodePath("../../Planet")
+typist_path = NodePath("../../Typist")
 
 [node name="BackgroundStars" parent="." instance=ExtResource( 6 )]
 
 [node name="ProjectileManager" parent="." instance=ExtResource( 3 )]
 
 [node name="Planet" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, 1024 )
+position = Vector2( 0, 904 )
 scale = Vector2( 2, 2 )
 
 [node name="Typist" parent="." instance=ExtResource( 5 )]
@@ -40,18 +41,18 @@ player_path = NodePath("../Player")
 [node name="Spawner" parent="Typist" index="0"]
 position = Vector2( 0, -632 )
 planet_path = NodePath("../../Planet")
-spawn_area = Rect2( -500, -100, 1000, 200 )
+spawn_area = Rect2( -500, -150, 1000, 100 )
 
 [node name="Timer" parent="Typist/Spawner" index="0"]
 wait_time = 2.0
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, -32 )
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2( 0, -200 )
+position = Vector2( 0, -300 )
 current = true
 smoothing_enabled = true
+smoothing_speed = 1.0
 __meta__ = {
 "_edit_lock_": true
 }

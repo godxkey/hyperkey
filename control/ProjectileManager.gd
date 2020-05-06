@@ -8,7 +8,17 @@ func spawn_projectile(location:Vector2, target:Node2D) -> Node2D:
   var projectile = BULLET_RESOURCE.instance()
   add_child(projectile)
   projectile.position = location
-  projectile.motion.start_moving_along(location.direction_to(target.position))
+
+  # Linear start trajectory
+  # projectile.motion.start_moving_along(location.direction_to(target.position))
+
+  # Randomize start trajectory slightly.
+  # Makes projectiles not follow directly behind another
+  var angle = rand_range(-1.0, 1.0)
+  var cast_force = location.direction_to(target.position.rotated(angle))
+  projectile.motion.acceleration = 1000.0
+  projectile.motion.apply_force(cast_force * 5000.0)
+
   projectile.motion.target = target
   projectile.connect("target_hit", self, "play_explosion")
   projectile.connect(

@@ -13,6 +13,13 @@ var _text_targets := TextTargets.new()
 var _text_generator := TextGenerator.new()
 var _current_tracker:HitTracker = null
 
+var _total_keypresses:int = 0
+var _total_keyhits:int = 0
+var _max_key_history:int = 100
+
+signal keyhits_stat_changed(hits, total)
+signal key_missed
+
 func create_tracker(target) -> HitTracker:
   var label = target.find_node("TypistLabel", true, false)
   return HitTracker.new(target, label)
@@ -56,17 +63,31 @@ func acquire_target(text:String):
   # draw over other targets in scene
   target.z_index += 1
 
+  _total_keypresses += 1
   if _current_tracker.hit(text[0]):
     spawn_bullet(target)
+    _total_keyhits += 1
+  emit_signal("keyhits_stat_changed", _total_keyhits, _total_keypresses )
+  shift_down_keyhit_stats()
 
 func continue_hit_target(letter:String):
   assert(_current_tracker != null)
+  _total_keypresses += 1
   if _current_tracker.hit(letter):
       spawn_bullet(_current_tracker.get_target())
+      _total_keyhits += 1
       if _current_tracker.is_done():
           clear_tracked()
   else:
     _mistype_player.play()
+    emit_signal("key_missed")
+  emit_signal("keyhits_stat_changed", _total_keyhits, _total_keypresses )
+  shift_down_keyhit_stats()
+
+func shift_down_keyhit_stats():
+  if _total_keyhits> _max_key_history:
+    _total_keyhits -= _max_key_history
+    _total_keypresses -= _max_key_history
 
 func spawn_bullet(target):
   var bullet = _projectile_manager.spawn_projectile(_player.position, target)
