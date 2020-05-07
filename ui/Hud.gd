@@ -8,9 +8,9 @@ export(Color) var accuracy_penalty_color = Color.red
 export(Gradient) var streak_gradient
 
 var min_streak_to_display:int = 5
-var high_streak_limit = 1000.0
-var silver_streak_limit = 1500.0
-var gold_streak_limit = 2500.0
+var high_streak_limit = 200
+var silver_streak_limit = 400
+var gold_streak_limit = 8000
 
 # UI components
 onready var _accuracy_stat = find_node("Accuracy")
@@ -90,7 +90,7 @@ func update_streak(streak:int):
     tween.start()
 
   # Streak was reset, show the last streak value
-  if streak == 0 and streak != _last_streak:
+  if streak == 0 and _last_streak > min_streak_to_display:
     _display_last_streak()
   _last_streak = streak
 
@@ -102,9 +102,9 @@ func _display_last_streak():
   streak_message.move_angle = to_view_center.angle()
 
   streak_message.score_prefix = "x"
-  streak_message.set_displayed_score(_last_streak, 0)
   streak_message.positive_score_color = streak_color(_last_streak)
   streak_message.scale = Vector2.ONE * lerp(1.0, 1.5, _last_streak / high_streak_limit as float)
+  streak_message.set_displayed_score(_last_streak, 0)
   add_child(streak_message)
 
 func streak_color(streak:int) -> Color:

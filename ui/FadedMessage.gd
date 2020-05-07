@@ -4,14 +4,18 @@ export(float) var move_angle = 0.0
 export(float) var move_offset = 100.0
 
 onready var _tween = $Tween
+onready var _life_timer = $LifeTimer
 
 func _ready():
+  _life_timer.connect("timeout", self, "queue_free")
+  _life_timer.start()
+
   _tween.interpolate_property(
     self,
     "modulate",
     Color(1.0, 1.0, 1.0, 1.0),
     Color(1.0, 1.0, 1.0, 0.0),
-    $LifeTimer.wait_time,
+    _life_timer.wait_time,
     Tween.TRANS_EXPO,
     Tween.EASE_IN)
 
@@ -20,7 +24,7 @@ func _ready():
     "position",
     position,
     position + _offset(),
-    $LifeTimer.wait_time,
+    _life_timer.wait_time,
     Tween.TRANS_EXPO,
     Tween.EASE_OUT)
 

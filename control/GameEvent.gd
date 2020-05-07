@@ -44,11 +44,11 @@ func _typing_score(text_length:int, total_keypress_count:int) -> int:
   return base_score - miss_penalty
 
 func _speed_bonus_score(text_length:int, time_to_complete:float) -> int:
-  var is_fast = time_to_complete < pow(text_length * time_per_letter, 1.35)
+  var is_fast = time_to_complete < pow(text_length * time_per_letter, 1.2)
   return speed_score_multiplier * pow(text_length, 1.2) if is_fast and text_length > 4 else 0
 
 func _super_bonus(text_length:int, total_keypress_count:int, time_to_complete:float) -> int:
-  var is_fast = time_to_complete < 1.8 * pow(text_length * time_per_letter, 1.35)
+  var is_fast = time_to_complete < 1.4 * pow(text_length * time_per_letter, 1.2)
   var is_impressive = text_length > min_length_super_bonus and text_length == total_keypress_count and is_fast
   return super_bonus if is_impressive else 0
 
