@@ -10,7 +10,7 @@ positive_score_color = Color( 0.109804, 1, 0.666667, 1 )
 negative_score_color = Color( 1, 0.227451, 0.227451, 1 )
 bonus_color = Color( 0.176471, 0.866667, 1, 1 )
 
-[node name="UI" type="VBoxContainer" parent="." index="3"]
+[node name="UI" type="VBoxContainer" parent="." index="2"]
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {

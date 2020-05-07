@@ -16,11 +16,13 @@ var _current_tracker:HitTracker = null
 var _total_keypresses:int = 0
 var _total_keyhits:int = 0
 var _max_key_history:int = 100
+var _typing_streak:int = 0
 
 var _active_stats = {}
 
 signal keyhits_stat_changed(hits, total)
 signal key_missed
+signal streak_changed(streak)
 
 func create_tracker(target) -> HitTracker:
   var label = target.find_node("TypistLabel", true, false)
@@ -57,6 +59,8 @@ func _attack_letter(letter:String):
       acquire_target(text)
     else:
       _mistype_player.play()
+      _typing_streak = 0
+      emit_signal("streak_changed", _typing_streak)
   else:
     continue_hit_target(letter)
 
@@ -75,6 +79,7 @@ func acquire_target(text:String):
   if result.is_hit:
     spawn_bullet(target)
     _total_keyhits += 1
+    _typing_streak += 1
   emit_signal("keyhits_stat_changed", _total_keyhits, _total_keypresses)
   shift_down_keyhit_stats()
 
@@ -86,12 +91,15 @@ func continue_hit_target(letter:String):
       var target = _current_tracker.get_target()
       spawn_bullet(target, result.hit_completed_word)
       _total_keyhits += 1
+      _typing_streak += 1
       if _current_tracker.is_done():
           _active_stats[target] = _current_tracker.stats()
           clear_tracked()
   else:
+    _typing_streak = 0
     _mistype_player.play()
     emit_signal("key_missed")
+  emit_signal("streak_changed", _typing_streak)
   emit_signal("keyhits_stat_changed", _total_keyhits, _total_keypresses)
   shift_down_keyhit_stats()
 

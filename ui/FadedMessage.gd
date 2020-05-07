@@ -3,11 +3,10 @@ extends Node2D
 export(float) var move_angle = 0.0
 export(float) var move_offset = 100.0
 
-onready var _color_tween = $ColorTween
-onready var _move_tween = $MoveTween
+onready var _tween = $Tween
 
 func _ready():
-  _color_tween.interpolate_property(
+  _tween.interpolate_property(
     self,
     "modulate",
     Color(1.0, 1.0, 1.0, 1.0),
@@ -15,9 +14,8 @@ func _ready():
     $LifeTimer.wait_time,
     Tween.TRANS_EXPO,
     Tween.EASE_IN)
-  _color_tween.start()
 
-  _move_tween.interpolate_property(
+  _tween.interpolate_property(
     self,
     "position",
     position,
@@ -25,7 +23,8 @@ func _ready():
     $LifeTimer.wait_time,
     Tween.TRANS_EXPO,
     Tween.EASE_OUT)
-  _move_tween.start()
+
+  _tween.start()
 
 func _offset():
   return Vector2.RIGHT.rotated(move_angle) * move_offset
