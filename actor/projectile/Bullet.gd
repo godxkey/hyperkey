@@ -7,6 +7,9 @@ export(float) var max_knockback_speed = 50.0
 export(float) var knock_back_angle = 10.0
 onready var motion := $FollowTarget as FollowTarget
 
+# Marks the bullet for critical hit
+var critical_hit: bool = false
+
 signal target_hit
 
 func _ready():
@@ -22,7 +25,7 @@ func on_hit(target):
 
 func _apply_damage(target):
   var target_health = target.get_node("Health")
-  target_health.apply_damage(damage)
+  target_health.apply_damage(damage, critical_hit)
 
 func _apply_knockback(target):
   var target_motion = target.get_node("FollowMotion")
@@ -34,7 +37,7 @@ func _apply_knockback(target):
   target_motion.set_velocity(knockback_force.rotated(angle))
 
 func _change_rotation_speed(target):
-  target.rotation_speed += sign(target.rotation_speed) * 2.0
+  target.rotation_speed += sign(target.rotation_speed) * 1.5
   if randf() < 0.1:
     target.rotation_speed = 1.0
   if randf() < 0.1:

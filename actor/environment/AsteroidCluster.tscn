@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://actor/environment/AsteroidCluster.gd" type="Script" id=4]
+[ext_resource path="res://control/Health.gd" type="Script" id=5]
+[ext_resource path="res://control/FollowTarget.gd" type="Script" id=6]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 40.0
+
+[node name="AsteroidCluster" type="Area2D"]
+position = Vector2( 96, 88 )
+script = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="FollowMotion" type="Node" parent="."]
+script = ExtResource( 6 )
+acceleration = 200.0
+damping = 0.0
+max_speed = 35.0
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="ClusterRoot" type="Node2D" parent="."]

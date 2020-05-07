@@ -1,9 +1,6 @@
 tool
 extends Node2D
-class_name Spawner
 
-export(PackedScene) var spawn_type
-export(Array) var spawn_sprites
 export(NodePath) var planet_path
 export(Rect2) var spawn_area = Rect2(0, 0, 400, 200) setget _set_spawn_area
 
@@ -11,6 +8,7 @@ const LABEL_SCENE = preload("res://ui/TypistLabel.tscn")
 
 onready var timer = $Timer as Timer
 onready var _planet_wref = weakref(get_node(planet_path))
+onready var _subspawn_root = get_node("Subspawns")
 
 var _debug_spawn_area_color = Color(0.8, 0.4, 0.0, 0.3)
 
@@ -23,17 +21,6 @@ func randomize_spawn_timer():
   if randf() < chance:
     timer.wait_time = rand_range(1.0, 3.0)
 
-func spawn(packed_scene) -> Node2D:
-  var x = rand_range(spawn_area.position.x, spawn_area.end.x)
-  var y = rand_range(spawn_area.position.y, spawn_area.end.y)
-  var spawn_object = packed_scene.instance()
-  spawn_object.position = transform.xform(Vector2(x, y))
-  spawn_object.get_node("Sprite").texture = _random_spawn_texture()
-  return spawn_object
-
-func _random_spawn_texture():
-  return spawn_sprites[randi() % spawn_sprites.size()]
-
 func _set_spawn_area(value):
   spawn_area = value
   if Engine.editor_hint:
@@ -43,12 +30,21 @@ func _draw():
   if Engine.editor_hint:
     draw_rect(spawn_area, _debug_spawn_area_color)
 
-func spawn_text_target(text:TypistText) -> Node2D:
-  var target = spawn(spawn_type)
+func spawn_text_target(text:TypistText, spawn_type:String) -> Node2D:
+  var target = _pick_spawner(spawn_type).spawn(text)
+  _position_spawn(target)
   _setup_label_for_target(text, target)
   _set_text_target_health(text, target)
   _set_text_target_motion(text, target)
   return target
+
+func _pick_spawner(spawn_type:String) -> Node:
+  return _subspawn_root.get_node(spawn_type)
+
+func _position_spawn(spawn_object):
+  var x = rand_range(spawn_area.position.x, spawn_area.end.x)
+  var y = rand_range(spawn_area.position.y, spawn_area.end.y)
+  spawn_object.position = transform.xform(Vector2(x, y))
 
 func _set_text_target_health(text:TypistText, target):
   var health = target.get_node("Health")

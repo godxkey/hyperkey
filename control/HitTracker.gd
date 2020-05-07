@@ -1,6 +1,10 @@
 extends Reference
 class_name HitTracker
 
+class HitResult:
+  var is_hit := false
+  var hit_completed_word := false
+
 var _target = null setget ,get_target
 var _label = null
 var _text = ""
@@ -13,10 +17,6 @@ var _current_word_index:int = 0
 
 # Keeps track of the local cursor of the current word.
 var _current_word_cursor:int = 0
-
-# Emits when the cursor passes end of word.
-# If a text target has multiple words, then it triggers at the end of each word.
-signal word_completed
 
 func _init(target, label):
   _target = target
@@ -38,21 +38,24 @@ func remove_label():
 func get_cursor() -> int:
   return _hit_cursor
 
-func hit(letter:String) -> bool:
+func hit(letter:String) -> HitResult:
+  var result = HitResult.new()
   if not is_done() and letter == _text[_hit_cursor]:
     _label.increment_cursor()
     _hit_cursor += 1
     _current_word_cursor += 1
-    _track_word_finish()
-    return true
-  return false
+    result.is_hit = true
+    result.hit_completed_word = _track_word_completed()
+  return result
 
-func _track_word_finish():
+# Returns true if the current cursor completed a word in the text.
+func _track_word_completed() -> bool:
   if _current_word_index < _word_count():
     if _current_word_cursor == _current_word().length():
       _current_word_index += 1 # Next word
       _current_word_cursor = 0 # Reset cursor for next word
-      emit_signal("word_completed")
+      return true
+  return false
 
 func _word_count() -> int:
   return _label.display_text.text_list.size()

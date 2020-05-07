@@ -6,7 +6,7 @@ export(NodePath) var player_path
 
 onready var _player = get_node(player_path)
 onready var _projectile_manager = get_node(projectile_manager_path)
-onready var _spawner = $Spawner as Spawner
+onready var _spawner = get_node("Spawner")
 onready var _mistype_player = $MistypePlayer
 
 var _text_targets := TextTargets.new()
@@ -64,24 +64,26 @@ func acquire_target(text:String):
   target.z_index += 1
 
   _total_keypresses += 1
-  if _current_tracker.hit(text[0]):
+  var result = _current_tracker.hit(text[0])
+  if result.is_hit:
     spawn_bullet(target)
     _total_keyhits += 1
-  emit_signal("keyhits_stat_changed", _total_keyhits, _total_keypresses )
+  emit_signal("keyhits_stat_changed", _total_keyhits, _total_keypresses)
   shift_down_keyhit_stats()
 
 func continue_hit_target(letter:String):
   assert(_current_tracker != null)
   _total_keypresses += 1
-  if _current_tracker.hit(letter):
-      spawn_bullet(_current_tracker.get_target())
+  var result = _current_tracker.hit(letter)
+  if result.is_hit:
+      spawn_bullet(_current_tracker.get_target(), result.hit_completed_word)
       _total_keyhits += 1
       if _current_tracker.is_done():
           clear_tracked()
   else:
     _mistype_player.play()
     emit_signal("key_missed")
-  emit_signal("keyhits_stat_changed", _total_keyhits, _total_keypresses )
+  emit_signal("keyhits_stat_changed", _total_keyhits, _total_keypresses)
   shift_down_keyhit_stats()
 
 # Reduces key hit stats so players can regain higher accuracy.
@@ -92,12 +94,13 @@ func shift_down_keyhit_stats():
     _total_keyhits /= 2
     _total_keypresses /= 2
 
-func spawn_bullet(target):
+func spawn_bullet(target, is_critical:bool = false):
   var bullet = _projectile_manager.spawn_projectile(_player.position, target)
+  bullet.critical_hit = is_critical
   target.connect("tree_exiting", bullet, "queue_free")
 
 func create_target(text:TypistText) -> Node2D:
-  var target = _spawner.spawn_text_target(text)
+  var target = _spawner.spawn_text_target(text, _select_spawn_type(text))
   target.connect(
     "tree_exiting",
     self,
@@ -106,6 +109,9 @@ func create_target(text:TypistText) -> Node2D:
     CONNECT_ONESHOT)
   add_child(target)
   return target
+
+func _select_spawn_type(text:TypistText) -> String:
+  return "Asteroid" if text.text_list.size() == 1 else "AsteroidCluster"
 
 func spawn_target():
   var letter = available_first_letter()

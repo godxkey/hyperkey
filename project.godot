@@ -44,11 +44,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://control/RadialMotion.gd"
 }, {
-"base": "Node2D",
-"class": "Spawner",
-"language": "GDScript",
-"path": "res://control/Spawner.gd"
-}, {
 "base": "Reference",
 "class": "TextGenerator",
 "language": "GDScript",
@@ -82,7 +77,6 @@ _global_script_class_icons={
 "LinearMotion": "",
 "Player": "",
 "RadialMotion": "",
-"Spawner": "",
 "TextGenerator": "",
 "TextTargets": "",
 "TypistLabel": "",
