@@ -8,7 +8,6 @@ export(Color) var accuracy_penalty_color
 # UI components
 onready var _accuracy_stat = find_node("Accuracy")
 onready var _planet_health_amount = find_node("PlanetHealthAmount")
-onready var _hits_stat = find_node("Hits")
 
 # World components
 onready var _planet = get_node(planet_path)
@@ -27,8 +26,7 @@ func set_planet_health(value:int):
 
 func set_accuracy_percent(hits:int, total:int):
   var percent = (hits / total as float) * 100
-  _accuracy_stat.text = String(percent as int)
-  _hits_stat.text = String(hits) + " - " + String(total)
+  _accuracy_stat.text = String(percent as int) + " %"
 
 func play_reduced_accuracy_effect():
   var color_tween = _accuracy_stat.get_node("ColorTween")
