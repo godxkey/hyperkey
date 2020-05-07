@@ -6,7 +6,7 @@
 [ext_resource path="res://control/FollowTarget.gd" type="Script" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 24.0
+radius = 16.0
 
 [node name="Asteroid" type="Area2D" groups=[
 "asteroid",
