@@ -1,9 +1,9 @@
 extends Node
 
 export(int) var score_per_letter = 10
-export(int) var score_miss_penalty = 18
+export(int) var score_miss_penalty = 20
 export(int) var speed_score_multiplier = 3
-export(float) var time_per_letter = 0.12
+export(float) var time_per_letter = 0.11
 export(int) var min_length_super_bonus = 14
 export(int) var super_bonus = 1000
 
@@ -11,6 +11,7 @@ export(int) var super_bonus = 1000
 export(PackedScene) var score_message_scene
 
 onready var super_bonus_sfx = $SuperBonusPlayer
+onready var speed_bonus_sfx = $SpeedBonusPlayer
 
 var _score = 0
 
@@ -25,6 +26,9 @@ func camera_shake():
 
 func play_impact_camera_effect():
   camera_shake().shake(0.14, 24.0, 14.0, 1)
+
+func view_center() -> Vector2:
+  return world_root().get_node("Player/Camera2D").global_position
 
 func update_score(text_length:int, total_keypress_count:int, time_to_complete:float, message_position:Vector2):
   var typing_score = _typing_score(text_length, total_keypress_count)
@@ -52,9 +56,13 @@ func _show_score_message(typing_score:int, speed_bonus:int, extra_bonus:int, pos
   var message = score_message_scene.instance()
   message.set_displayed_score(typing_score, speed_bonus)
   message.position = position
+  message.move_angle = position.direction_to(view_center()).angle()
   # Add to self or another node? Could text still exist in AutoLoad if there is a scene transition mid score?
   add_child(message)
   _show_super_bonus(extra_bonus, position)
+
+  if speed_bonus > 0:
+    speed_bonus_sfx.play()
 
 func _show_super_bonus(extra_bonus:int, position:Vector2):
   if extra_bonus > 0:
@@ -62,7 +70,8 @@ func _show_super_bonus(extra_bonus:int, position:Vector2):
     super_message.positive_score_color = Color.gold
     super_message.position = position
     super_message.score_prefix = "+"
-    super_message.move_orientation = Vector2.UP
+    super_message.move_angle = position.direction_to(view_center()).rotated(0.5).angle()
+    super_message.move_offset = 140
     super_message.set_displayed_score(extra_bonus, 0)
     add_child(super_message)
     super_bonus_sfx.play()

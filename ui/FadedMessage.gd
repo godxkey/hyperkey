@@ -1,6 +1,7 @@
 extends Node2D
 
-export(Vector2) var move_orientation = Vector2.DOWN
+export(float) var move_angle = 0.0
+export(float) var move_offset = 100.0
 
 onready var _color_tween = $ColorTween
 onready var _move_tween = $MoveTween
@@ -20,12 +21,11 @@ func _ready():
     self,
     "position",
     position,
-    position + _random_offset(),
+    position + _offset(),
     $LifeTimer.wait_time,
     Tween.TRANS_EXPO,
     Tween.EASE_OUT)
   _move_tween.start()
 
-func _random_offset():
-  var angle = rand_range(-1.0, 1.0)
-  return move_orientation.rotated(angle) * 100.0
+func _offset():
+  return Vector2.RIGHT.rotated(move_angle) * move_offset
