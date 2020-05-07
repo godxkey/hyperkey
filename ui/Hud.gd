@@ -7,7 +7,8 @@ export(Color) var accuracy_penalty_color
 
 # UI components
 onready var _accuracy_stat = find_node("Accuracy")
-onready var _planet_health_amount = find_node("PlanetHealthAmount")
+onready var _health_stat = find_node("Health")
+onready var _score_stat = find_node("Score")
 
 # World components
 onready var _planet = get_node(planet_path)
@@ -21,12 +22,17 @@ func _ready():
   _typist.connect("keyhits_stat_changed", self, "set_accuracy_percent")
   _typist.connect("key_missed", self, "play_reduced_accuracy_effect")
 
+  GameEvent.connect("score_changed", self, "update_score")
+
 func set_planet_health(value:int):
-  _planet_health_amount.text = String(value)
+  _health_stat.text = String(value)
 
 func set_accuracy_percent(hits:int, total:int):
   var percent = (hits / total as float) * 100
   _accuracy_stat.text = String(percent as int) + " %"
+
+func update_score(score:int):
+  _score_stat.text = String(score)
 
 func play_reduced_accuracy_effect():
   var color_tween = _accuracy_stat.get_node("ColorTween")

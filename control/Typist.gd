@@ -17,6 +17,8 @@ var _total_keypresses:int = 0
 var _total_keyhits:int = 0
 var _max_key_history:int = 100
 
+var _active_stats = {}
+
 signal keyhits_stat_changed(hits, total)
 signal key_missed
 
@@ -29,6 +31,10 @@ func _ready():
   _text_generator.word_dictionary = WordDictionary.new(words_file)
   _spawner.timer.connect("timeout", self, "spawn_target")
   _spawner.timer.start()
+
+func _process(delta):
+  if _current_tracker:
+    _current_tracker.process(delta)
 
 func available_first_letter() -> String:
   var max_tries = 100
@@ -64,6 +70,7 @@ func acquire_target(text:String):
   target.z_index += 1
 
   _total_keypresses += 1
+
   var result = _current_tracker.hit(text[0])
   if result.is_hit:
     spawn_bullet(target)
@@ -76,9 +83,11 @@ func continue_hit_target(letter:String):
   _total_keypresses += 1
   var result = _current_tracker.hit(letter)
   if result.is_hit:
-      spawn_bullet(_current_tracker.get_target(), result.hit_completed_word)
+      var target = _current_tracker.get_target()
+      spawn_bullet(target, result.hit_completed_word)
       _total_keyhits += 1
       if _current_tracker.is_done():
+          _active_stats[target] = _current_tracker.stats()
           clear_tracked()
   else:
     _mistype_player.play()
@@ -107,6 +116,12 @@ func create_target(text:TypistText) -> Node2D:
     "remove_exited_target",
     [text.merged_text(), weakref(target)],
     CONNECT_ONESHOT)
+  target.get_node("Health").connect(
+    "no_health",
+    self,
+    "show_target_score",
+    [weakref(target)],
+    CONNECT_ONESHOT)
   add_child(target)
   return target
 
@@ -120,6 +135,17 @@ func spawn_target():
     _text_targets.add_text_target(text.merged_text(), create_target(text))
   _spawner.randomize_spawn_timer()
 
+func show_target_score(target_wref):
+  var target = target_wref.get_ref()
+  if target:
+    var stats = _active_stats[target]
+    _active_stats.erase(target)
+    GameEvent.update_score(
+      stats.text_length,
+      stats.keypress_count,
+      stats.time_to_complete,
+      target.global_position)
+
 func remove_target_word(text:String):
   _text_targets.remove_text_target(text)
 
@@ -131,8 +157,11 @@ func clear_tracked():
   _player.aimed_target = null
 
 func remove_exited_target(text:String, target_wref):
-  if _text_targets.target(text) == target_wref.get_ref():
+  var target = target_wref.get_ref()
+  if _text_targets.target(text) == target:
     if _current_tracker and _current_tracker.text() == text:
       clear_tracked()
+      # Remove any tracked stats if found.
+      _active_stats.erase(target)
     else:
       remove_target_word(text)

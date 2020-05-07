@@ -92,7 +92,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-GameEvent="*res://control/GameEvent.gd"
+GameEvent="*res://control/GameEvent.tscn"
 Sound="*res://audio/Sound.tscn"
 Effect="*res://effect/Effect.tscn"
 

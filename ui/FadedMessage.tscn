@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/FadedMessage.gd" type="Script" id=1]
+
+[node name="FadedMessage" type="Node2D"]
+z_index = 2000
+script = ExtResource( 1 )
+
+[node name="ColorTween" type="Tween" parent="."]
+
+[node name="MoveTween" type="Tween" parent="."]
+
+[node name="LifeTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
