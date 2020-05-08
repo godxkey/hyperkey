@@ -19,6 +19,7 @@ stream = ExtResource( 6 )
 
 [node name="Shot" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 7 )
+volume_db = -1.0
 
 [node name="Break" parent="." instance=ExtResource( 4 )]
 

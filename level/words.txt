@@ -889,7 +889,6 @@ breakdown
 breakfast
 breaking
 breaks
-breast
 breath
 breathing
 breed
@@ -2666,7 +2665,6 @@ equivalent
 eric
 ericsson
 erik
-erotica
 error
 errors
 escape
