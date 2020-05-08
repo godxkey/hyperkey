@@ -16,7 +16,7 @@ shape = SubResource( 1 )
 
 [node name="FollowMotion" type="Node" parent="."]
 script = ExtResource( 6 )
-acceleration = 200.0
+acceleration = 180.0
 damping = 0.0
 max_speed = 35.0
 

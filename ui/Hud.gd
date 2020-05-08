@@ -3,9 +3,9 @@ extends Control
 export(NodePath) var planet_path
 export(NodePath) var typist_path
 export(PackedScene) var score_message_scene
-
-export(Color) var accuracy_penalty_color = Color.red
 export(Gradient) var streak_gradient
+
+const PENALTY_COLOR = Color("ff5e5e")
 
 var min_streak_to_display:int = 5
 var high_streak_limit = 200
@@ -17,14 +17,15 @@ onready var _accuracy_stat = find_node("Accuracy")
 onready var _health_stat = find_node("Health")
 onready var _score_stat = find_node("Score")
 onready var _streak_stat = find_node("Streak")
-
 onready var _streak_label = find_node("StreakLabel")
+onready var _streak_high_field = find_node("StreakHigh")
 
 # World components
 onready var _planet = get_node(planet_path)
 onready var _typist = get_node(typist_path)
 
 var _last_streak:int = 0
+var _streak_high:int = 0
 
 func _ready():
   var planet_health = _planet.get_node("Health")
@@ -52,7 +53,7 @@ func play_reduced_accuracy_effect():
   tween.interpolate_property(
     _accuracy_stat,
     "modulate",
-    accuracy_penalty_color,
+    PENALTY_COLOR,
     Color.white,
     0.3,
     Tween.TRANS_QUART,
@@ -77,6 +78,9 @@ func update_streak(streak:int):
     _streak_stat.text = String(streak)
     _streak_stat.modulate = color
     _streak_label.modulate = color
+
+    _streak_high = max(_streak_high, streak) as int
+    _streak_high_field.text = String(_streak_high)
 
     var tween = _streak_stat.get_node("Tween")
     tween.interpolate_property(

@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/SuperBonus.wav-063eb9b630368a7ee0312d6c8662805c.sample"
+path="res://.import/SuperBonus.wav-e4364bbd66ef1c07e772d7bed3218710.sample"
 
 [deps]
 
-source_file="res://audio/sfx/SuperBonus.wav"
-dest_files=[ "res://.import/SuperBonus.wav-063eb9b630368a7ee0312d6c8662805c.sample" ]
+source_file="res://audio/sfx/game/SuperBonus.wav"
+dest_files=[ "res://.import/SuperBonus.wav-e4364bbd66ef1c07e772d7bed3218710.sample" ]
 
 [params]
 

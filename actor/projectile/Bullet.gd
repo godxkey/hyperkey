@@ -3,7 +3,7 @@ class_name Bullet
 
 export(int) var damage = 1
 export(float) var hit_power = 0.5
-export(float) var max_knockback_speed = 50.0
+export(float) var max_knockback_speed = 75.0
 export(float) var knock_back_angle = 10.0
 onready var motion := $FollowTarget as FollowTarget
 

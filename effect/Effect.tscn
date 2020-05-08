@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://effect/Effect.gd" type="Script" id=1]
 [ext_resource path="res://effect/breaking/AsteroidHitBreak.tscn" type="PackedScene" id=2]
 [ext_resource path="res://effect/explosion/HitExplosion.tscn" type="PackedScene" id=3]
 [ext_resource path="res://effect/breaking/AsteroidExplodeBreak.tscn" type="PackedScene" id=4]
-
+[ext_resource path="res://effect/explosion/GroundExplosion.tscn" type="PackedScene" id=5]
 
 [node name="Effect" type="Node"]
 script = ExtResource( 1 )
 _breaking_effect = ExtResource( 2 )
 _explode_effect = ExtResource( 3 )
 _explode_break = ExtResource( 4 )
+_ground_explosion = ExtResource( 5 )

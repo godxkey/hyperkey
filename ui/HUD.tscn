@@ -5,8 +5,8 @@
 [ext_resource path="res://ui/ScoreMessage.tscn" type="PackedScene" id=3]
 
 [sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0, 0.111413, 0.32337, 0.679348, 0.891304 )
-colors = PoolColorArray( 1, 1, 1, 1, 0.164706, 1, 0.54902, 1, 0.309804, 0.952941, 1, 1, 0.403922, 0.427451, 1, 1, 0.741176, 0.501961, 1, 1 )
+offsets = PoolRealArray( 0, 0.111413, 0.32337, 0.785075, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.164706, 1, 0.54902, 1, 0.309804, 0.952941, 1, 1, 0.403922, 0.537255, 1, 1, 0.741176, 0.501961, 1, 1 )
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -16,7 +16,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 score_message_scene = ExtResource( 3 )
-accuracy_penalty_color = Color( 1, 0.403922, 0.403922, 1 )
 streak_gradient = SubResource( 1 )
 
 [node name="Stats" type="GridContainer" parent="."]
@@ -33,7 +32,7 @@ __meta__ = {
 margin_right = 77.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 2 )
-text = "Health:"
+text = "Health "
 uppercase = true
 
 [node name="Health" type="Label" parent="Stats"]
@@ -48,7 +47,7 @@ margin_top = 21.0
 margin_right = 77.0
 margin_bottom = 38.0
 custom_fonts/font = ExtResource( 2 )
-text = "Score:"
+text = "Score"
 uppercase = true
 
 [node name="Score" type="Label" parent="Stats"]
@@ -67,7 +66,7 @@ margin_top = 42.0
 margin_right = 77.0
 margin_bottom = 59.0
 custom_fonts/font = ExtResource( 2 )
-text = "Hit:"
+text = "Hit"
 uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -92,7 +91,7 @@ margin_top = 63.0
 margin_right = 77.0
 margin_bottom = 80.0
 custom_fonts/font = ExtResource( 2 )
-text = "Streak:"
+text = "Streak"
 uppercase = true
 
 [node name="Streak" type="Label" parent="Stats"]
@@ -107,3 +106,21 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="Stats/Streak"]
+
+[node name="StreakHighLabel" type="Label" parent="Stats"]
+modulate = Color( 0.709804, 0.709804, 0.709804, 1 )
+margin_top = 63.0
+margin_right = 77.0
+margin_bottom = 80.0
+custom_fonts/font = ExtResource( 2 )
+text = "HIGH"
+uppercase = true
+
+[node name="StreakHigh" type="Label" parent="Stats"]
+modulate = Color( 0.709804, 0.709804, 0.709804, 1 )
+margin_left = 81.0
+margin_top = 63.0
+margin_right = 114.0
+margin_bottom = 80.0
+custom_fonts/font = ExtResource( 2 )
+text = "0"

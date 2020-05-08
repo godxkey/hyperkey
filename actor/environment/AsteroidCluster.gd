@@ -17,12 +17,14 @@ func _process(delta):
 func kill_random_subasteroid():
   var pick = randi() % _cluster_root.get_child_count()
   var child = _cluster_root.get_child(pick)
-  GameEvent.play_impact_camera_effect()
-  Sound.play_break()
+  GameEvent.play_impact_camera_shake()
+  Sound.play("Break")
   Effect.play_explode_break(child.global_position)
   child.queue_free()
 
 func on_hit_body(body):
   if body.is_in_group("planet"):
     body.health.apply_damage(damage)
+    Effect.play_ground_explosion(global_position)
+    GameEvent.play_strong_impact_camera_shake()
     queue_free()

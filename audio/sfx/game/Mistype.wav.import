@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/SpeedBonus.wav-9cdb186b5d556601d90ae48ea8ef32d7.sample"
+path="res://.import/Mistype.wav-0cf9c46e7d2ca1201d61e361e977d7b1.sample"
 
 [deps]
 
-source_file="res://audio/sfx/SpeedBonus.wav"
-dest_files=[ "res://.import/SpeedBonus.wav-9cdb186b5d556601d90ae48ea8ef32d7.sample" ]
+source_file="res://audio/sfx/game/Mistype.wav"
+dest_files=[ "res://.import/Mistype.wav-0cf9c46e7d2ca1201d61e361e977d7b1.sample" ]
 
 [params]
 

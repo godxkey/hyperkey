@@ -3,6 +3,7 @@ extends Node
 export(PackedScene) var _breaking_effect
 export(PackedScene) var _explode_effect
 export(PackedScene) var _explode_break
+export(PackedScene) var _ground_explosion
 
 func play_explosion(position:Vector2, impact_rotation:float):
   var e = _explode_effect.instance()
@@ -21,6 +22,13 @@ func play_hit_break(position:Vector2, impact_rotation:float):
 func play_explode_break(position:Vector2):
   var e = _explode_break.instance()
   e.position = position
+  play_one_shot_effect(e)
+
+func play_ground_explosion(position:Vector2):
+  var e = _ground_explosion.instance()
+  e.position = position
+  e.get_node("Spark").emitting = true
+  e.get_node("Explosion").emitting = true
   play_one_shot_effect(e)
 
 func play_one_shot_effect(e):

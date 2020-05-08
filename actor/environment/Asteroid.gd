@@ -11,8 +11,8 @@ func _ready():
 
 # Killed means it was destroyed by bullets, not by crashing into the planet.
 func on_killed():
-  GameEvent.play_impact_camera_effect()
-  Sound.play_break()
+  GameEvent.play_impact_camera_shake()
+  Sound.play("Break")
   Effect.play_explode_break(global_position)
   queue_free()
 
@@ -22,4 +22,6 @@ func _process(delta):
 func on_hit_body(body):
   if body.is_in_group("planet"):
     body.health.apply_damage(damage)
+    Effect.play_ground_explosion(global_position)
+    GameEvent.play_strong_impact_camera_shake()
     queue_free()

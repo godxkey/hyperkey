@@ -10,9 +10,6 @@ export(int) var super_bonus = 1000
 # A score message is displayed whenever a target is killed.
 export(PackedScene) var score_message_scene
 
-onready var super_bonus_sfx = $SuperBonusPlayer
-onready var speed_bonus_sfx = $SpeedBonusPlayer
-
 var _score = 0
 
 signal score_changed(score)
@@ -24,8 +21,11 @@ func world_root():
 func camera_shake():
   return world_root().get_node("Player/Camera2D/CameraShake")
 
-func play_impact_camera_effect():
+func play_impact_camera_shake():
   camera_shake().shake(0.14, 24.0, 14.0, 1)
+
+func play_strong_impact_camera_shake():
+  camera_shake().shake(0.20, 24.0, 18.0, 2)
 
 func view_center() -> Vector2:
   return world_root().get_node("Player/Camera2D").global_position
@@ -62,7 +62,7 @@ func _show_score_message(typing_score:int, speed_bonus:int, extra_bonus:int, pos
   _show_super_bonus(extra_bonus, position)
 
   if speed_bonus > 0:
-    speed_bonus_sfx.play()
+    Sound.play("SpeedBonus")
 
 func _show_super_bonus(extra_bonus:int, position:Vector2):
   if extra_bonus > 0:
@@ -74,4 +74,4 @@ func _show_super_bonus(extra_bonus:int, position:Vector2):
     super_message.move_offset = 140
     super_message.set_displayed_score(extra_bonus, 0)
     add_child(super_message)
-    super_bonus_sfx.play()
+    Sound.play("SuperBonus")

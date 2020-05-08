@@ -7,7 +7,6 @@ export(NodePath) var player_path
 onready var _player = get_node(player_path)
 onready var _projectile_manager = get_node(projectile_manager_path)
 onready var _spawner = get_node("Spawner")
-onready var _mistype_player = $MistypePlayer
 
 var _text_targets := TextTargets.new()
 var _text_generator := TextGenerator.new()
@@ -58,7 +57,7 @@ func _attack_letter(letter:String):
     if text != null:
       acquire_target(text)
     else:
-      _mistype_player.play()
+      Sound.play("Mistype")
       _typing_streak = 0
       emit_signal("streak_changed", _typing_streak)
   else:
@@ -97,7 +96,7 @@ func continue_hit_target(letter:String):
           clear_tracked()
   else:
     _typing_streak = 0
-    _mistype_player.play()
+    Sound.play("Mistype")
     emit_signal("key_missed")
   emit_signal("streak_changed", _typing_streak)
   emit_signal("keyhits_stat_changed", _total_keyhits, _total_keypresses)

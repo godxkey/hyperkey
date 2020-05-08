@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://control/Typist.gd" type="Script" id=1]
 [ext_resource path="res://control/spawning/Spawner.tscn" type="PackedScene" id=2]
-[ext_resource path="res://audio/sfx/Mistype.wav" type="AudioStream" id=4]
 
 [node name="Typist" type="Node2D"]
 script = ExtResource( 1 )
@@ -10,8 +9,3 @@ words_file = "res://level/words.txt"
 
 [node name="Spawner" parent="." instance=ExtResource( 2 )]
 spawn_area = Rect2( -300, -100, 600, 200 )
-
-[node name="MistypePlayer" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 4 )
-volume_db = -2.0
-pitch_scale = 0.9

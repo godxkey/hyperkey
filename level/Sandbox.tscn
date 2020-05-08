@@ -25,14 +25,13 @@ environment = SubResource( 1 )
 [node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
 planet_path = NodePath("../../Planet")
 typist_path = NodePath("../../Typist")
-accuracy_penalty_color = Color( 1, 0.196078, 0.196078, 1 )
 
 [node name="BackgroundStars" parent="." instance=ExtResource( 6 )]
 
 [node name="ProjectileManager" parent="." instance=ExtResource( 3 )]
 
 [node name="Planet" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, 904 )
+position = Vector2( 0, 6.12433 )
 scale = Vector2( 2, 2 )
 
 [node name="Typist" parent="." instance=ExtResource( 5 )]

@@ -19,7 +19,7 @@ func _ready():
 func randomize_spawn_timer():
   var chance = 0.15 if timer.wait_time > 2.0 else 0.5
   if randf() < chance:
-    timer.wait_time = rand_range(1.0, 3.0)
+    timer.wait_time = rand_range(1.0, 2.2)
 
 func _set_spawn_area(value):
   spawn_area = value

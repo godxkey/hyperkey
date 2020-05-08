@@ -5,20 +5,20 @@
 [ext_resource path="res://effect/breaking/AsteroidExplodeBreak.gd" type="Script" id=3]
 [ext_resource path="res://effect/explosion/LightPurpleExplosion.tscn" type="PackedScene" id=4]
 
-[sub_resource type="CanvasItemMaterial" id=12]
+[sub_resource type="CanvasItemMaterial" id=1]
 particles_animation = true
 particles_anim_h_frames = 4
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Curve" id=13]
+[sub_resource type="Curve" id=2]
 bake_resolution = 10
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 1, Vector2( 0.256595, 1 ), 0.0, -3.62802, 0, 0, Vector2( 1, 0 ), -0.155231, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=14]
-curve = SubResource( 13 )
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
 
-[sub_resource type="ParticlesMaterial" id=15]
+[sub_resource type="ParticlesMaterial" id=4]
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 150, 0 )
@@ -33,57 +33,57 @@ angle = 360.0
 angle_random = 1.0
 scale = 2.5
 scale_random = 1.0
-scale_curve = SubResource( 14 )
+scale_curve = SubResource( 3 )
 anim_offset = 1.0
 anim_offset_random = 1.0
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 2 )
 region = Rect2( 48, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 2 )
 region = Rect2( 96, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 2 )
 region = Rect2( 144, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
 region = Rect2( 192, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 2 )
 region = Rect2( 240, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 2 )
 region = Rect2( 288, 0, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 2 )
 region = Rect2( 336, 0, 48, 48 )
 
-[sub_resource type="SpriteFrames" id=16]
+[sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": false,
 "name": "default",
 "speed": 30.0
 } ]
 
 [node name="AsteroidExplodeBreak" type="Particles2D"]
-material = SubResource( 12 )
+material = SubResource( 1 )
 amount = 3
 lifetime = 2.0
 explosiveness = 1.0
 local_coords = false
-process_material = SubResource( 15 )
+process_material = SubResource( 4 )
 texture = ExtResource( 1 )
 script = ExtResource( 3 )
 
@@ -92,6 +92,6 @@ amount = 10
 
 [node name="Blast" type="AnimatedSprite" parent="."]
 scale = Vector2( 3, 3 )
-frames = SubResource( 16 )
+frames = SubResource( 13 )
 
 [node name="Timer" type="Timer" parent="."]
