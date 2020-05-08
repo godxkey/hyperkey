@@ -6969,8 +6969,6 @@ seventh
 several
 severe
 sewing
-sexcam
-sexuality
 shade
 shades
 shadow
@@ -7982,8 +7980,6 @@ transactions
 transcript
 transcription
 transcripts
-transexual
-transexuales
 transfer
 transferred
 transfers
@@ -8594,7 +8590,6 @@ workstation
 world
 worldcat
 worlds
-worldsex
 worldwide
 worm
 worn
