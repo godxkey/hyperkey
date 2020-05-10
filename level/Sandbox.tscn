@@ -4,7 +4,7 @@
 [ext_resource path="res://actor/environment/Planet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://control/ProjectileManager.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=4]
-[ext_resource path="res://control/Typist.tscn" type="PackedScene" id=5]
+[ext_resource path="res://game/Typist.tscn" type="PackedScene" id=5]
 [ext_resource path="res://world/CelestialBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://control/CameraShake.tscn" type="PackedScene" id=8]
 

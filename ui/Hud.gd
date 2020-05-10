@@ -2,15 +2,11 @@ extends Control
 
 export(NodePath) var planet_path
 export(NodePath) var typist_path
-export(PackedScene) var score_message_scene
+export(PackedScene) var score_info_scene
 export(Gradient) var streak_gradient
+export(int) var min_streak_to_display = 5
 
 const PENALTY_COLOR = Color("ff5e5e")
-
-var min_streak_to_display:int = 5
-var high_streak_limit = 200
-var silver_streak_limit = 400
-var gold_streak_limit = 8000
 
 # UI components
 onready var _accuracy_stat = find_node("Accuracy")
@@ -18,34 +14,35 @@ onready var _health_stat = find_node("Health")
 onready var _score_stat = find_node("Score")
 onready var _streak_stat = find_node("Streak")
 onready var _streak_label = find_node("StreakLabel")
-onready var _streak_high_field = find_node("StreakHigh")
+onready var _streak_high = find_node("StreakHigh")
 
 # World components
+# TODO: Replace this with stats or score.
+# Health handling in HUD should be abstracted from Planet
 onready var _planet = get_node(planet_path)
-onready var _typist = get_node(typist_path)
-
-var _last_streak:int = 0
-var _streak_high:int = 0
 
 func _ready():
   var planet_health = _planet.get_node("Health")
   planet_health.connect("health_changed", self, "set_planet_health")
   set_planet_health(planet_health.hit_points)
 
-  _typist.connect("keyhits_stat_changed", self, "set_accuracy_percent")
-  _typist.connect("key_missed", self, "play_reduced_accuracy_effect")
-  _typist.connect("streak_changed", self, "update_streak")
+  Stats.connect("accuracy_changed", self, "set_accuracy_percent")
+  Stats.connect("key_missed", self, "play_reduced_accuracy_effect")
+  Stats.connect("streak_changed", self, "update_streak")
 
-  GameEvent.connect("score_changed", self, "update_score")
+  Score.connect("score_changed", self, "set_score")
+  Score.connect("scored_target", self, "show_target_score")
+
+  _streak_label.hide()
+  _streak_stat.hide()
 
 func set_planet_health(value:int):
   _health_stat.text = String(value)
 
-func set_accuracy_percent(hits:int, total:int):
-  var percent = (hits / total as float) * 100
-  _accuracy_stat.text = String(percent as int) + " %"
+func set_accuracy_percent(percent:int):
+  _accuracy_stat.text = String(percent) + " %"
 
-func update_score(score:int):
+func set_score(score:int):
   _score_stat.text = String(score)
 
 func play_reduced_accuracy_effect():
@@ -78,9 +75,7 @@ func update_streak(streak:int):
     _streak_stat.text = String(streak)
     _streak_stat.modulate = color
     _streak_label.modulate = color
-
-    _streak_high = max(_streak_high, streak) as int
-    _streak_high_field.text = String(_streak_high)
+    _streak_high.text = String(Stats.get_streak_high())
 
     var tween = _streak_stat.get_node("Tween")
     tween.interpolate_property(
@@ -94,27 +89,51 @@ func update_streak(streak:int):
     tween.start()
 
   # Streak was reset, show the last streak value
-  if streak == 0 and _last_streak > min_streak_to_display:
-    _display_last_streak()
-  _last_streak = streak
+  if streak == 0 and Stats.get_last_streak() > min_streak_to_display:
+    _display_last_streak(Stats.get_last_streak())
 
-func _display_last_streak():
-  var streak_message = score_message_scene.instance()
-  streak_message.position = _streak_stat.rect_position
+func show_target_score(score):
+  var info = score_info_scene.instance()
+  info.score = score.typing_score
+  info.bonus_score = score.speed_bonus
+  info.rect_position = score.position
+  info.move_angle = to_view_center_angle(score.position)
 
-  var to_view_center = _streak_stat.rect_position.direction_to(get_viewport_rect().size)
-  streak_message.move_angle = to_view_center.angle()
+  add_child(info)
+  _show_super_bonus(score.super_bonus, score.position)
 
-  streak_message.score_prefix = "x"
-  streak_message.positive_score_color = streak_color(_last_streak)
-  streak_message.scale = Vector2.ONE * lerp(1.0, 1.5, _last_streak / high_streak_limit as float)
-  streak_message.set_displayed_score(_last_streak, 0)
-  add_child(streak_message)
+  if score.speed_bonus > 0:
+    Sound.play("SpeedBonus")
+
+func _show_super_bonus(super_bonus:int, position:Vector2):
+  if super_bonus > 0:
+    var info = score_info_scene.instance()
+    info.positive_score_color = Color.gold
+    info.rect_position = position
+    info.move_angle = to_view_center_angle(position) + 0.5
+    info.move_distance = 140
+    info.score = super_bonus
+    add_child(info)
+    Sound.play("SuperBonus")
+
+func _display_last_streak(streak:int):
+  var info = score_info_scene.instance()
+  info.rect_position = _streak_stat.rect_position
+  info.move_angle = to_view_center_angle(_streak_stat.rect_position)
+  info.score_prefix = "x"
+  info.positive_score_color = streak_color(streak)
+  info.rect_scale = Vector2.ONE * lerp(1.0, 1.5, streak / Score.high_streak_limit as float)
+  info.score = streak
+  add_child(info)
+
+func to_view_center_angle(position:Vector2):
+  var half = get_viewport_rect().end / 2.0
+  return position.direction_to(half).angle()
 
 func streak_color(streak:int) -> Color:
-  if streak > gold_streak_limit:
+  if streak > Score.gold_streak_limit:
     return Color.gold
-  elif streak > silver_streak_limit:
+  elif streak > Score.silver_streak_limit:
     return Color.silver
   else:
-    return streak_gradient.interpolate(streak / high_streak_limit as float)
+    return streak_gradient.interpolate(streak / Score.high_streak_limit as float)

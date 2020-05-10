@@ -2,7 +2,7 @@
 
 [ext_resource path="res://ui/Hud.gd" type="Script" id=1]
 [ext_resource path="res://ui/font/TypistFont.tres" type="DynamicFont" id=2]
-[ext_resource path="res://ui/ScoreMessage.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/ScoreInfo.tscn" type="PackedScene" id=3]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.111413, 0.32337, 0.785075, 1 )
@@ -15,7 +15,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-score_message_scene = ExtResource( 3 )
+score_info_scene = ExtResource( 3 )
 streak_gradient = SubResource( 1 )
 
 [node name="Stats" type="GridContainer" parent="."]
@@ -86,7 +86,6 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="Stats/Accuracy"]
 
 [node name="StreakLabel" type="Label" parent="Stats"]
-visible = false
 margin_top = 63.0
 margin_right = 77.0
 margin_bottom = 80.0
@@ -95,9 +94,9 @@ text = "Streak"
 uppercase = true
 
 [node name="Streak" type="Label" parent="Stats"]
-visible = false
+margin_left = 81.0
 margin_top = 63.0
-margin_right = 77.0
+margin_right = 114.0
 margin_bottom = 80.0
 custom_fonts/font = ExtResource( 2 )
 text = "0"
@@ -109,9 +108,9 @@ __meta__ = {
 
 [node name="StreakHighLabel" type="Label" parent="Stats"]
 modulate = Color( 0.709804, 0.709804, 0.709804, 1 )
-margin_top = 63.0
+margin_top = 84.0
 margin_right = 77.0
-margin_bottom = 80.0
+margin_bottom = 101.0
 custom_fonts/font = ExtResource( 2 )
 text = "HIGH"
 uppercase = true
@@ -119,8 +118,8 @@ uppercase = true
 [node name="StreakHigh" type="Label" parent="Stats"]
 modulate = Color( 0.709804, 0.709804, 0.709804, 1 )
 margin_left = 81.0
-margin_top = 63.0
+margin_top = 84.0
 margin_right = 114.0
-margin_bottom = 80.0
+margin_bottom = 101.0
 custom_fonts/font = ExtResource( 2 )
 text = "0"

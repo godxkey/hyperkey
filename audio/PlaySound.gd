@@ -1,4 +1,5 @@
 extends Node
+class_name PlaySound
 
 export(Array, String) var sounds
 

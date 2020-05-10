@@ -34,10 +34,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://control/LinearMotion.gd"
 }, {
+"base": "Node",
+"class": "PlaySound",
+"language": "GDScript",
+"path": "res://audio/PlaySound.gd"
+}, {
 "base": "Node2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://actor/player/Player.gd"
+}, {
+"base": "Control",
+"class": "QuickInfo",
+"language": "GDScript",
+"path": "res://ui/QuickInfo.gd"
 }, {
 "base": "Node",
 "class": "RadialMotion",
@@ -67,7 +77,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "TypistText",
 "language": "GDScript",
-"path": "res://control/TypistText.gd"
+"path": "res://game/TypistText.gd"
 }, {
 "base": "Reference",
 "class": "WordDictionary",
@@ -80,7 +90,9 @@ _global_script_class_icons={
 "Health": "",
 "HitTracker": "",
 "LinearMotion": "",
+"PlaySound": "",
 "Player": "",
+"QuickInfo": "",
 "RadialMotion": "",
 "SoundSelector": "",
 "TextGenerator": "",
@@ -98,9 +110,11 @@ config/icon="res://icon.png"
 
 [autoload]
 
-GameEvent="*res://control/GameEvent.tscn"
+GameEvent="*res://game/GameEvent.tscn"
 Sound="*res://audio/Sound.tscn"
 Effect="*res://effect/Effect.tscn"
+Score="*res://game/Score.tscn"
+Stats="*res://game/Stats.tscn"
 
 [display]
 
