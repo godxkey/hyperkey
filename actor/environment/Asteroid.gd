@@ -7,7 +7,8 @@ onready var sprite = $Sprite as Sprite
 
 func _ready():
   health.connect("no_health", self, "on_killed")
-  connect("body_entered", self, "on_hit_body")
+  var res = connect("body_entered", self, "on_hit_body")
+  assert(res == OK)
 
 # Killed means it was destroyed by bullets, not by crashing into the planet.
 func on_killed():

@@ -13,7 +13,8 @@ var critical_hit: bool = false
 signal target_hit
 
 func _ready():
-  connect("area_entered", self, "on_hit")
+  var res = connect("area_entered", self, "on_hit")
+  assert(res == OK)
 
 func on_hit(target):
   if target == motion.target:

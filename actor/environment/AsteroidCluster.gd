@@ -9,7 +9,8 @@ onready var _cluster_root = $ClusterRoot
 func _ready():
   health.connect("no_health", self, "queue_free")
   health.connect("critical_hit", self, "kill_random_subasteroid")
-  connect("body_entered", self, "on_hit_body")
+  var res = connect("body_entered", self, "on_hit_body")
+  assert(res == OK)
 
 func _process(delta):
   _cluster_root.rotate(rotation_speed * delta)

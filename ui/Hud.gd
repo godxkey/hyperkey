@@ -26,12 +26,20 @@ func _ready():
   planet_health.connect("health_changed", self, "set_planet_health")
   set_planet_health(planet_health.hit_points)
 
-  Stats.connect("accuracy_changed", self, "set_accuracy_percent")
-  Stats.connect("key_missed", self, "play_decrease_accuracy_effect")
-  Stats.connect("streak_changed", self, "set_streak")
+  var res = Stats.connect("accuracy_changed", self, "set_accuracy_percent")
+  assert(res == OK)
 
-  Score.connect("score_changed", self, "set_score")
-  Score.connect("scored_target", self, "show_target_score")
+  res = Stats.connect("key_missed", self, "play_decrease_accuracy_effect")
+  assert(res == OK)
+
+  res = Stats.connect("streak_changed", self, "set_streak")
+  assert(res == OK)
+
+  res = Score.connect("score_changed", self, "set_score")
+  assert(res == OK)
+
+  res = Score.connect("scored_target", self, "show_target_score")
+  assert(res == OK)
 
   _streak_label.hide()
   _streak_stat.hide()

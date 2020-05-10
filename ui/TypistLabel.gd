@@ -24,7 +24,8 @@ func _set_display_text(value:TypistText):
   clear()
   reset_cursor()
   push_align(ALIGN_CENTER)
-  append_bbcode("[typist]")
+  var res = append_bbcode("[typist]")
+  assert(res == OK)
 
   if display_text.text_list.size() == 1:
     add_text(display_text.merged_text())
