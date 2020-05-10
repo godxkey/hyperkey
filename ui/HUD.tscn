@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ui/Hud.gd" type="Script" id=1]
 [ext_resource path="res://ui/font/TypistFont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://ui/ScoreInfo.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/ChangeEffect.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/TextInfo.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.111413, 0.32337, 0.785075, 1 )
@@ -17,6 +18,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 score_info_scene = ExtResource( 3 )
+text_info_scene = ExtResource( 5 )
 streak_gradient = SubResource( 1 )
 
 [node name="Stats" type="GridContainer" parent="."]

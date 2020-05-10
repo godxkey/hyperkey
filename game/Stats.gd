@@ -10,6 +10,7 @@ var _last_streak:int = 0
 var _streak_high:int = 0
 
 signal key_missed
+signal key_missed_tracked(letter, position)
 signal streak_changed(streak)
 signal accuracy_changed(accuracy)
 
@@ -37,6 +38,10 @@ func mistype():
   Sound.play("Mistype")
   emit_signal("key_missed")
   emit_signal("streak_changed", _typing_streak)
+
+func mistype_tracked(letter:String, target):
+  mistype()
+  emit_signal("key_missed_tracked", letter, target.get_global_transform_with_canvas().origin)
 
 func set_stats(target, stat):
   _active_stats[target] = stat

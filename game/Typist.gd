@@ -58,6 +58,7 @@ func acquire_target(text:String):
   _current_tracker = create_tracker(target)
 
   # draw over other targets in scene
+  # TODO: Have a variable stor the default Z and then do the increment?
   target.z_index += 1
 
   Stats.add_keypress()
@@ -78,7 +79,7 @@ func continue_hit_target(letter:String):
           Stats.set_stats(target, _current_tracker.stats())
           clear_tracked()
   else:
-    Stats.mistype()
+    Stats.mistype_tracked(letter, _current_tracker.get_target())
 
 func spawn_bullet(target, is_critical:bool = false):
   var bullet = _projectile_manager.spawn_projectile(_player.position, target)

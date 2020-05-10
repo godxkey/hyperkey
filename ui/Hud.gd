@@ -3,6 +3,7 @@ extends Control
 export(NodePath) var planet_path
 export(NodePath) var typist_path
 export(PackedScene) var score_info_scene
+export(PackedScene) var text_info_scene
 export(Gradient) var streak_gradient
 export(int) var min_streak_to_display = 5
 
@@ -30,6 +31,9 @@ func _ready():
   assert(res == OK)
 
   res = Stats.connect("key_missed", self, "play_decrease_accuracy_effect")
+  assert(res == OK)
+
+  res = Stats.connect("key_missed_tracked", self, "show_mistyped_letter")
   assert(res == OK)
 
   res = Stats.connect("streak_changed", self, "set_streak")
@@ -71,7 +75,7 @@ func set_streak(streak:int):
 
   # Streak was reset, show the last streak value
   if streak == 0 and Stats.get_last_streak() > min_streak_to_display:
-    _display_last_streak(Stats.get_last_streak())
+    _show_last_streak(Stats.get_last_streak())
 
 func show_target_score(score):
   var info = score_info_scene.instance()
@@ -97,7 +101,7 @@ func _show_super_bonus(super_bonus:int, position:Vector2):
     add_child(info)
     Sound.play("SuperBonus")
 
-func _display_last_streak(streak:int):
+func _show_last_streak(streak:int):
   var info = score_info_scene.instance()
   info.rect_position = _streak_stat.rect_position
   info.move_angle = to_view_center_angle(_streak_stat.rect_position)
@@ -105,6 +109,17 @@ func _display_last_streak(streak:int):
   info.positive_score_color = streak_color(streak)
   info.rect_scale = Vector2.ONE * lerp(1.0, 1.5, streak / Score.high_streak_limit as float)
   info.score = streak
+  add_child(info)
+
+func show_mistyped_letter(letter:String, position:Vector2):
+  var info = text_info_scene.instance()
+  info.rect_position = position
+  info.move_angle = (-PI/2) + rand_range(-0.5, 0.5)
+  info.move_distance = 50.0
+  info.display_time = 0.8
+  var label = info.get_node("Label")
+  label.modulate = PENALTY_COLOR
+  label.text = letter
   add_child(info)
 
 func to_view_center_angle(position:Vector2):
