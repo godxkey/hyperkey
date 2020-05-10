@@ -5,7 +5,7 @@
 [ext_resource path="res://control/ProjectileManager.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://control/Typist.tscn" type="PackedScene" id=5]
-[ext_resource path="res://world/BackgroundStars.tscn" type="PackedScene" id=6]
+[ext_resource path="res://world/CelestialBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://control/CameraShake.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Environment" id=1]
@@ -26,7 +26,7 @@ environment = SubResource( 1 )
 planet_path = NodePath("../../Planet")
 typist_path = NodePath("../../Typist")
 
-[node name="BackgroundStars" parent="." instance=ExtResource( 6 )]
+[node name="CelestialBackground" parent="." instance=ExtResource( 7 )]
 
 [node name="ProjectileManager" parent="." instance=ExtResource( 3 )]
 
