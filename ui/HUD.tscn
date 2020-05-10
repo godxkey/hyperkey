@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://ui/Hud.gd" type="Script" id=1]
 [ext_resource path="res://ui/font/TypistFont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://ui/ScoreInfo.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/ChangeEffect.tscn" type="PackedScene" id=4]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.111413, 0.32337, 0.785075, 1 )
@@ -32,8 +33,7 @@ __meta__ = {
 margin_right = 77.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 2 )
-text = "Health "
-uppercase = true
+text = "HEALTH "
 
 [node name="Health" type="Label" parent="Stats"]
 margin_left = 81.0
@@ -47,8 +47,7 @@ margin_top = 21.0
 margin_right = 77.0
 margin_bottom = 38.0
 custom_fonts/font = ExtResource( 2 )
-text = "Score"
-uppercase = true
+text = "SCORE"
 
 [node name="Score" type="Label" parent="Stats"]
 margin_left = 81.0
@@ -66,8 +65,7 @@ margin_top = 42.0
 margin_right = 77.0
 margin_bottom = 59.0
 custom_fonts/font = ExtResource( 2 )
-text = "Hit"
-uppercase = true
+text = "HIT"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -83,15 +81,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Tween" type="Tween" parent="Stats/Accuracy"]
+[node name="ChangeEffect" parent="Stats/Accuracy" instance=ExtResource( 4 )]
+start_color = Color( 1, 0.286275, 0.286275, 1 )
 
 [node name="StreakLabel" type="Label" parent="Stats"]
 margin_top = 63.0
 margin_right = 77.0
 margin_bottom = 80.0
 custom_fonts/font = ExtResource( 2 )
-text = "Streak"
-uppercase = true
+text = "STREAK"
 
 [node name="Streak" type="Label" parent="Stats"]
 margin_left = 81.0
@@ -104,7 +102,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Tween" type="Tween" parent="Stats/Streak"]
+[node name="ChangeEffect" parent="Stats/Streak" instance=ExtResource( 4 )]
+change_color = false
 
 [node name="StreakHighLabel" type="Label" parent="Stats"]
 modulate = Color( 0.709804, 0.709804, 0.709804, 1 )
@@ -113,7 +112,6 @@ margin_right = 77.0
 margin_bottom = 101.0
 custom_fonts/font = ExtResource( 2 )
 text = "HIGH"
-uppercase = true
 
 [node name="StreakHigh" type="Label" parent="Stats"]
 modulate = Color( 0.709804, 0.709804, 0.709804, 1 )

@@ -27,8 +27,8 @@ func _ready():
   set_planet_health(planet_health.hit_points)
 
   Stats.connect("accuracy_changed", self, "set_accuracy_percent")
-  Stats.connect("key_missed", self, "play_reduced_accuracy_effect")
-  Stats.connect("streak_changed", self, "update_streak")
+  Stats.connect("key_missed", self, "play_decrease_accuracy_effect")
+  Stats.connect("streak_changed", self, "set_streak")
 
   Score.connect("score_changed", self, "set_score")
   Score.connect("scored_target", self, "show_target_score")
@@ -45,48 +45,21 @@ func set_accuracy_percent(percent:int):
 func set_score(score:int):
   _score_stat.text = String(score)
 
-func play_reduced_accuracy_effect():
-  var tween = _accuracy_stat.get_node("Tween")
-  tween.interpolate_property(
-    _accuracy_stat,
-    "modulate",
-    PENALTY_COLOR,
-    Color.white,
-    0.3,
-    Tween.TRANS_QUART,
-    Tween.EASE_IN)
-  tween.interpolate_property(
-    _accuracy_stat,
-    "rect_scale",
-    Vector2.ONE * 1.5,
-    Vector2.ONE,
-    0.2,
-    Tween.TRANS_QUAD,
-    Tween.EASE_OUT)
-  tween.start()
+func play_decrease_accuracy_effect():
+  _accuracy_stat.get_node("ChangeEffect").start()
 
-func update_streak(streak:int):
+func set_streak(streak:int):
   var is_above_min = streak > min_streak_to_display
   _streak_stat.visible = is_above_min
   _streak_label.visible = is_above_min
 
   if is_above_min:
     var color = streak_color(streak)
+    _streak_label.modulate = color
     _streak_stat.text = String(streak)
     _streak_stat.modulate = color
-    _streak_label.modulate = color
+    _streak_stat.get_node("ChangeEffect").start()
     _streak_high.text = String(Stats.get_streak_high())
-
-    var tween = _streak_stat.get_node("Tween")
-    tween.interpolate_property(
-      _streak_stat,
-      "rect_scale",
-      Vector2.ONE * 1.5,
-      Vector2.ONE,
-      0.2,
-      Tween.TRANS_QUAD,
-      Tween.EASE_IN)
-    tween.start()
 
   # Streak was reset, show the last streak value
   if streak == 0 and Stats.get_last_streak() > min_streak_to_display:
