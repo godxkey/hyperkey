@@ -70,6 +70,7 @@ acrobat
 across
 acrylic
 acting
+actinium
 action
 actions
 activated
@@ -85,6 +86,7 @@ acts
 actual
 actually
 acute
+ada
 adaptation
 adapted
 adapter
@@ -265,6 +267,7 @@ amended
 amendment
 amendments
 amenities
+americium
 among
 amongst
 amount
@@ -318,6 +321,7 @@ antibodies
 antibody
 anticipated
 antigua
+antimony
 antique
 antiques
 antivirus
@@ -401,6 +405,7 @@ arctic
 area
 areas
 arena
+argon
 argue
 argued
 argument
@@ -425,6 +430,7 @@ arrive
 arrived
 arrives
 arrow
+arsenic
 arthritis
 article
 articles
@@ -475,6 +481,7 @@ assumptions
 assurance
 assure
 assured
+astatine
 astrology
 astronomy
 asylum
@@ -621,6 +628,7 @@ bare
 barely
 bargain
 bargains
+barium
 barn
 barnes
 barrel
@@ -731,10 +739,12 @@ bennett
 bent
 benz
 berkeley
+berkelium
 berlin
 bermuda
 bernard
 berry
+beryllium
 beside
 besides
 best
@@ -788,6 +798,7 @@ birmingham
 birth
 birthday
 bishop
+bismuth
 bite
 bits
 bizarre
@@ -839,6 +850,7 @@ boats
 bobby
 bodies
 body
+bohrium
 bold
 bolivia
 bolt
@@ -848,6 +860,7 @@ bonds
 bone
 bones
 bonus
+boo
 book
 booking
 bookings
@@ -867,6 +880,7 @@ borders
 bored
 boring
 born
+boron
 borough
 bosnia
 boss
@@ -898,6 +912,7 @@ brad
 bradford
 bradley
 brain
+brainf
 brake
 brakes
 branch
@@ -956,6 +971,7 @@ broke
 broken
 broker
 brokers
+bromine
 bronze
 brook
 brooklyn
@@ -1043,6 +1059,8 @@ cables
 cache
 cached
 cadillac
+cadmium
+caesium
 cafe
 cage
 cake
@@ -1059,9 +1077,11 @@ calendars
 calgary
 calibration
 california
+californium
 call
 called
 calling
+callisto
 calls
 calm
 calvin
@@ -1216,6 +1236,8 @@ centuries
 century
 ceramic
 ceremony
+ceres
+cerium
 certain
 certainly
 certificate
@@ -1276,6 +1298,7 @@ charlotte
 charm
 charming
 charms
+charon
 chart
 charter
 charts
@@ -1323,6 +1346,7 @@ china
 chinese
 chip
 chips
+chlorine
 chocolate
 choice
 choices
@@ -1343,6 +1367,7 @@ christine
 christmas
 christopher
 chrome
+chromium
 chronic
 chronicle
 chronicles
@@ -1431,6 +1456,7 @@ clip
 clips
 clock
 clocks
+clojure
 clone
 close
 closed
@@ -1461,6 +1487,8 @@ coastal
 coat
 coated
 coating
+cobalt
+cobol
 cocktail
 code
 codes
@@ -1520,6 +1548,7 @@ combo
 come
 comedy
 comes
+comet
 comfort
 comfortable
 comic
@@ -1815,6 +1844,7 @@ coordinates
 coordination
 coordinator
 cope
+copernicium
 copied
 copies
 copper
@@ -1895,6 +1925,7 @@ covered
 covering
 covers
 cowboy
+cpp
 crack
 cradle
 craft
@@ -1944,6 +1975,7 @@ cruise
 cruises
 cruz
 crystal
+csharp
 ctrl
 cuba
 cube
@@ -1957,6 +1989,7 @@ cumulative
 cups
 cure
 curious
+curium
 currencies
 currency
 current
@@ -2006,6 +2039,7 @@ dans
 dare
 dark
 darkness
+darmstadtium
 darwin
 dash
 data
@@ -2090,6 +2124,7 @@ definition
 definitions
 degree
 degrees
+deimos
 delaware
 delay
 delayed
@@ -2453,6 +2488,7 @@ dryer
 dual
 dubai
 dublin
+dubnium
 duck
 dude
 duke
@@ -2475,6 +2511,7 @@ dying
 dylan
 dynamic
 dynamics
+dysprosium
 dz
 each
 eagle
@@ -2550,6 +2587,7 @@ ego
 egypt
 egyptian
 eight
+einsteinium
 either
 elder
 elderly
@@ -2568,6 +2606,7 @@ electronics
 elegant
 element
 elementary
+elementaryos
 elements
 elephant
 elevation
@@ -2581,6 +2620,7 @@ elizabeth
 ellen
 elliott
 ellis
+elm
 else
 elsewhere
 elvis
@@ -2618,6 +2658,7 @@ enable
 enabled
 enables
 enabling
+enceladus
 enclosed
 enclosure
 encoding
@@ -2709,6 +2750,7 @@ equipment
 equipped
 equity
 equivalent
+erbium
 eric
 ericsson
 erik
@@ -2745,8 +2787,10 @@ ethiopia
 ethnic
 eugene
 euro
+europa
 europe
 european
+europium
 euros
 eval
 evaluate
@@ -2974,6 +3018,7 @@ featuring
 february
 federal
 federation
+fedora
 feed
 feedback
 feeding
@@ -2992,6 +3037,7 @@ female
 females
 fence
 feof
+fermium
 ferrari
 ferry
 festival
@@ -3089,6 +3135,7 @@ flat
 flavor
 fleece
 fleet
+flerovium
 flesh
 flex
 flexibility
@@ -3116,6 +3163,7 @@ flowers
 flows
 floyd
 fluid
+fluorine
 flush
 flux
 flyer
@@ -3177,6 +3225,7 @@ forms
 formula
 fort
 forth
+fortran
 fortune
 forty
 forum
@@ -3209,6 +3258,7 @@ france
 franchise
 francis
 francisco
+francium
 frank
 frankfurt
 franklin
@@ -3245,6 +3295,7 @@ frost
 frozen
 fruit
 fruits
+fsharp
 fuel
 fuji
 fujitsu
@@ -3276,6 +3327,7 @@ futures
 fuzzy
 gabriel
 gadgets
+gadolinium
 gage
 gain
 gained
@@ -3284,6 +3336,7 @@ galaxy
 gale
 galleries
 gallery
+gallium
 gambling
 game
 gamecube
@@ -3292,6 +3345,7 @@ gamespot
 gaming
 gamma
 gang
+ganymede
 gaps
 garage
 garbage
@@ -3312,6 +3366,7 @@ gathering
 gauge
 gave
 gazette
+gdscript
 gear
 geek
 gender
@@ -3352,6 +3407,7 @@ george
 georgia
 gerald
 german
+germanium
 germany
 gets
 getting
@@ -3392,6 +3448,7 @@ go
 goal
 goals
 goat
+godot
 gods
 goes
 going
@@ -3519,6 +3576,7 @@ habitat
 habits
 hack
 hacker
+hafnium
 hair
 hairy
 haiti
@@ -3578,6 +3636,8 @@ harvard
 harvest
 harvey
 hash
+haskell
+hassium
 hate
 hats
 have
@@ -3629,6 +3689,7 @@ held
 helen
 helena
 helicopter
+helium
 hello
 helmet
 help
@@ -3707,6 +3768,7 @@ hollow
 holly
 hollywood
 holmes
+holmium
 holocaust
 holy
 home
@@ -3807,6 +3869,7 @@ hygiene
 hypothesis
 hypothetical
 hyundai
+iapetus
 iceland
 ich
 icon
@@ -3928,6 +3991,7 @@ indices
 indie
 indigenous
 indirect
+indium
 individual
 individually
 individuals
@@ -4114,6 +4178,8 @@ involved
 involvement
 involves
 involving
+io
+iodine
 iowa
 ipaq
 ipod
@@ -4122,6 +4188,7 @@ iraq
 iraqi
 ire
 ireland
+iridium
 irish
 iron
 irrigation
@@ -4170,6 +4237,7 @@ jamie
 jane
 janet
 january
+janus
 japan
 japanese
 jason
@@ -4248,6 +4316,7 @@ june
 jungle
 junior
 junk
+jupiter
 jurisdiction
 jury
 just
@@ -4255,6 +4324,7 @@ justice
 justify
 justin
 juvenile
+kali
 kansas
 karaoke
 karen
@@ -4332,7 +4402,9 @@ kodak
 kong
 korea
 korean
+kotlin
 kruger
+krypton
 kurt
 kuwait
 kyle
@@ -4371,6 +4443,7 @@ lang
 language
 languages
 lanka
+lanthanum
 laos
 laptop
 laptops
@@ -4406,6 +4479,7 @@ laura
 lauren
 lawn
 lawrence
+lawrencium
 laws
 lawsuit
 lawyer
@@ -4541,6 +4615,7 @@ lions
 lips
 liquid
 lisa
+lisp
 list
 listed
 listen
@@ -4554,6 +4629,7 @@ literacy
 literally
 literary
 literature
+lithium
 lithuania
 litigation
 little
@@ -4561,6 +4637,7 @@ live
 livecam
 lived
 liver
+livermorium
 liverpool
 lives
 livestock
@@ -4642,6 +4719,7 @@ low
 lower
 lowest
 lows
+lua
 lucas
 lucia
 luck
@@ -4652,6 +4730,7 @@ luis
 luke
 lunch
 lung
+lutetium
 luther
 luxembourg
 luxury
@@ -4660,6 +4739,7 @@ lying
 lynn
 lyric
 lyrics
+mac
 macedonia
 machine
 machinery
@@ -4679,6 +4759,7 @@ magazine
 magazines
 magic
 magical
+magnesium
 magnet
 magnetic
 magnificent
@@ -4710,6 +4791,7 @@ makeup
 making
 malawi
 malaysia
+malbolge
 maldives
 male
 males
@@ -4728,8 +4810,10 @@ manchester
 mandate
 mandatory
 manga
+manganese
 manhattan
 manitoba
+manjaro
 manner
 manor
 manual
@@ -4863,6 +4947,7 @@ meetings
 meets
 meetup
 mega
+meitnerium
 melbourne
 melissa
 member
@@ -4876,6 +4961,7 @@ memorial
 memories
 memory
 memphis
+mendelevium
 mens
 ment
 mental
@@ -4956,6 +5042,7 @@ millions
 mills
 milton
 milwaukee
+mimas
 mime
 mind
 minds
@@ -5033,6 +5120,7 @@ mold
 moldova
 molecular
 molecules
+molybdenum
 moment
 moments
 momentum
@@ -5073,6 +5161,7 @@ morrison
 mortality
 mortgage
 mortgages
+moscovium
 moscow
 moses
 moss
@@ -5125,6 +5214,7 @@ mumbai
 munich
 municipal
 municipality
+munificent
 murphy
 murray
 muscle
@@ -5211,8 +5301,11 @@ neighbors
 neil
 neither
 nelson
+neodymium
 neon
 nepal
+neptune
+neptunium
 nerve
 nervous
 nest
@@ -5257,15 +5350,19 @@ night
 nightlife
 nightmare
 nights
+nihonium
 nike
 nikon
 nil
+nim
 nine
 nintendo
+niobium
 nirvana
 nissan
 nitrogen
 no
+nobelium
 noble
 nobody
 node
@@ -5360,6 +5457,7 @@ obtained
 obtaining
 obvious
 obviously
+ocaml
 occasion
 occasional
 occasionally
@@ -5399,6 +5497,7 @@ offline
 offset
 offshore
 often
+oganesson
 oh
 ohio
 oi
@@ -5496,6 +5595,7 @@ orlando
 orleans
 os
 oscar
+osmium
 other
 others
 otherwise
@@ -5571,6 +5671,7 @@ palace
 pale
 palestine
 palestinian
+palladium
 palm
 palmer
 pamela
@@ -5630,6 +5731,7 @@ partnership
 partnerships
 parts
 party
+pascal
 paso
 pass
 passage
@@ -5775,9 +5877,11 @@ philippines
 philips
 phillips
 philosophy
+phobos
 phoenix
 phone
 phones
+phosphorus
 photo
 photograph
 photographer
@@ -5884,6 +5988,8 @@ plugin
 plugins
 plumbing
 plus
+pluto
+plutonium
 plymouth
 pmid
 po
@@ -5918,6 +6024,7 @@ poll
 polls
 pollution
 polo
+polonium
 poly
 polyester
 polymer
@@ -5973,6 +6080,7 @@ posting
 postings
 postposted
 posts
+potassium
 potato
 potatoes
 potential
@@ -6001,6 +6109,7 @@ practitioners
 prague
 prairie
 praise
+praseodymium
 pray
 prayer
 prayers
@@ -6152,6 +6261,8 @@ projection
 projector
 projectors
 projects
+prolog
+promethium
 prominent
 promise
 promised
@@ -6188,6 +6299,7 @@ prospects
 prostate
 prostores
 prot
+protactinium
 protect
 protected
 protecting
@@ -6319,7 +6431,9 @@ radiation
 radical
 radio
 radios
+radium
 radius
+radon
 rage
 raid
 rail
@@ -6444,6 +6558,7 @@ recycling
 red
 reddit
 redeem
+redhat
 redhead
 reduce
 reduced
@@ -6716,7 +6831,9 @@ revolutionary
 reward
 rewards
 reynolds
+rhenium
 rhode
+rhodium
 rhythm
 ribbon
 rica
@@ -6766,6 +6883,7 @@ rock
 rocket
 rocks
 rocky
+roentgenium
 roger
 rogers
 roland
@@ -6815,6 +6933,7 @@ rows
 royal
 royalty
 rubber
+rubidium
 ruby
 rugby
 rugs
@@ -6831,7 +6950,10 @@ rush
 russell
 russia
 russian
+rust
 ruth
+ruthenium
+rutherfordium
 rwanda
 ryan
 rye
@@ -6865,6 +6987,7 @@ salon
 salt
 salvador
 salvation
+samarium
 samba
 same
 samoa
@@ -6905,9 +7028,11 @@ savings
 saying
 says
 sbjct
+scala
 scale
 scales
 scan
+scandium
 scanned
 scanner
 scanners
@@ -6964,6 +7089,7 @@ scroll
 scsi
 scuba
 sculpture
+seaborgium
 seafood
 seal
 sealed
@@ -7019,6 +7145,7 @@ selecting
 selection
 selections
 selective
+selenium
 self
 sell
 seller
@@ -7202,6 +7329,7 @@ simply
 simpson
 simpsons
 sims
+simula
 simulation
 simulations
 simultaneously
@@ -7263,6 +7391,7 @@ slowly
 small
 smaller
 smallest
+smalltalk
 smart
 smell
 smile
@@ -7293,6 +7422,7 @@ soft
 softball
 software
 soil
+sol
 solar
 solaris
 sold
@@ -7562,6 +7692,7 @@ strips
 strong
 stronger
 strongly
+strontium
 struck
 struct
 structural
@@ -7643,6 +7774,7 @@ suite
 suited
 suites
 suits
+sulfur
 sullivan
 summaries
 summary
@@ -7783,6 +7915,7 @@ tampa
 tangent
 tank
 tanks
+tantalum
 tanzania
 tape
 tapes
@@ -7810,6 +7943,7 @@ teams
 tear
 tears
 tech
+technetium
 technical
 technician
 technique
@@ -7837,6 +7971,7 @@ televisions
 tell
 telling
 tells
+tellurium
 temp
 temperature
 temperatures
@@ -7850,9 +7985,11 @@ tenant
 tend
 tender
 tennessee
+tennessine
 tennis
 tension
 tent
+terbium
 term
 terminal
 terminals
@@ -7884,6 +8021,7 @@ texts
 texture
 thai
 thailand
+thallium
 than
 thank
 thanks
@@ -7939,6 +8077,7 @@ thompson
 thomson
 thong
 thongs
+thorium
 thorough
 thoroughly
 those
@@ -7965,6 +8104,7 @@ throwing
 thrown
 throws
 thru
+thulium
 thumb
 thumbnail
 thumbnails
@@ -8004,6 +8144,7 @@ tire
 tired
 tires
 tissue
+titan
 titanium
 titans
 title
@@ -8180,6 +8321,7 @@ trip
 tripadvisor
 triple
 trips
+triton
 triumph
 trivia
 troops
@@ -8211,6 +8353,7 @@ tumor
 tune
 tuner
 tunes
+tungsten
 tuning
 tunisia
 tunnel
@@ -8240,6 +8383,7 @@ types
 typical
 typically
 typing
+ubuntu
 uganda
 ugly
 ukraine
@@ -8290,6 +8434,7 @@ unlikely
 unlimited
 unlock
 unnecessary
+unreal
 unsigned
 unsubscribe
 until
@@ -8312,6 +8457,8 @@ upon
 upper
 upset
 upskirts
+uranium
+uranus
 urban
 urge
 urgent
@@ -8357,6 +8504,7 @@ values
 valve
 valves
 vampire
+vanadium
 vancouver
 vanilla
 variable
@@ -8393,6 +8541,7 @@ venture
 ventures
 venue
 venues
+venus
 verbal
 verde
 verification
@@ -8409,6 +8558,7 @@ vertex
 vertical
 very
 verzeichnis
+vespa
 vessel
 vessels
 veteran
@@ -8472,6 +8622,7 @@ visual
 vital
 vitamin
 vitamins
+vlang
 vocabulary
 vocal
 vocals
@@ -8497,6 +8648,7 @@ votes
 voting
 voyeurweb
 voyuer
+vscode
 vsnet
 vulnerability
 vulnerable
@@ -8802,6 +8954,8 @@ yours
 yourself
 youth
 yoyo
+ytterbium
+yttrium
 yugoslavia
 yukon
 zambia
@@ -8810,211 +8964,10 @@ zealand
 zero
 zimbabwe
 zinc
+zirconium
 zoloft
 zone
 zones
 zoning
 zoom
 zope
-
-# Programmer Languages
-ada
-boo
-brainf
-clojure
-cobol
-cpp
-csharp
-elm
-fortran
-fsharp
-gdscript
-haskell
-java
-javascript
-kotlin
-lisp
-lua
-malbolge
-munificent
-nim
-ocaml
-pascal
-prolog
-python
-rust
-scala
-simula
-smalltalk
-swift
-vlang
-
-# Tools
-emacs
-godot
-nvim
-sublime
-unity
-unreal
-vim
-vscode
-
-# OS
-arch
-elementaryos
-fedora
-kali
-mac
-manjaro
-redhat
-ubuntu
-windows
-
-# Elements
-actinium
-aluminium
-americium
-antimony
-argon
-arsenic
-astatine
-barium
-berkelium
-beryllium
-bismuth
-bohrium
-boron
-bromine
-cadmium
-caesium
-calcium
-californium
-carbon
-cerium
-chlorine
-chromium
-cobalt
-copernicium
-copper
-curium
-darmstadtium
-dubnium
-dysprosium
-einsteinium
-erbium
-europium
-fermium
-flerovium
-fluorine
-francium
-gadolinium
-gallium
-germanium
-gold
-hafnium
-hassium
-helium
-holmium
-hydrogen
-indium
-iodine
-iridium
-iron
-krypton
-lanthanum
-lawrencium
-lead
-lithium
-livermorium
-lutetium
-magnesium
-manganese
-meitnerium
-mendelevium
-mercury
-molybdenum
-moscovium
-neodymium
-neon
-neptunium
-nickel
-nihonium
-niobium
-nitrogen
-nobelium
-oganesson
-osmium
-oxygen
-palladium
-phosphorus
-platinum
-plutonium
-polonium
-potassium
-praseodymium
-promethium
-protactinium
-radium
-radon
-rhenium
-rhodium
-roentgenium
-rubidium
-ruthenium
-rutherfordium
-samarium
-scandium
-seaborgium
-selenium
-silicon
-silver
-sodium
-strontium
-sulfur
-tantalum
-technetium
-tellurium
-tennessine
-terbium
-thallium
-thorium
-thulium
-tin
-titanium
-tungsten
-uranium
-vanadium
-xenon
-ytterbium
-yttrium
-zinc
-zirconium
-
-# Celestial
-sol
-#mercury
-venus
-#earth
-#moon
-#mars
-jupiter
-#saturn
-uranus
-neptune
-pluto
-charon
-ceres
-vespa
-comet
-phobos
-deimos
-enceladus
-iapetus
-janus
-mimas
-titan
-io
-ganymede
-callisto
-europa
-triton
