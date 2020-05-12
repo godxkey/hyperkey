@@ -65,6 +65,11 @@ _global_script_classes=[ {
 "path": "res://library/TextGenerator.gd"
 }, {
 "base": "Reference",
+"class": "TextServer",
+"language": "GDScript",
+"path": "res://library/TextServer.gd"
+}, {
+"base": "Reference",
 "class": "TextTargets",
 "language": "GDScript",
 "path": "res://library/TextTargets.gd"
@@ -96,6 +101,7 @@ _global_script_class_icons={
 "RadialMotion": "",
 "SoundSelector": "",
 "TextGenerator": "",
+"TextServer": "",
 "TextTargets": "",
 "TypistLabel": "",
 "TypistText": "",
@@ -105,6 +111,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Hyperkey"
+config/description="Typing game"
 run/main_scene="res://level/Sandbox.tscn"
 config/icon="res://icon.png"
 
@@ -122,6 +129,10 @@ window/size/height=800
 window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="keep_height"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "godot-behavior-tree-plugin" )
 
 [input]
 

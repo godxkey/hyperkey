@@ -8916,6 +8916,7 @@ xerarch
 xerosis
 xeruses
 xiphoid
+xray
 xylem
 xylenes
 xylophone

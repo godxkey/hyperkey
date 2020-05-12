@@ -1,24 +1,18 @@
 extends Node
 
-export(String, FILE, "*.txt") var words_file
 export(NodePath) var projectile_manager_path
 export(NodePath) var player_path
 
 onready var _player = get_node(player_path)
 onready var _projectile_manager = get_node(projectile_manager_path)
 onready var _spawner = get_node("Spawner")
-
-var _text_targets := TextTargets.new()
-var _text_generator := TextGenerator.new()
+onready var _text_targets = $TextTargets
+onready var _text_generator = $TextGenerator
 var _current_tracker:HitTracker = null
-
-func create_tracker(target) -> HitTracker:
-  var label = target.find_node("TypistLabel", true, false)
-  return HitTracker.new(target, label)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  _text_generator.word_dictionary = WordDictionary.new(words_file)
+  _text_generator.text_server.unused_letter_condition = funcref(self, "is_letter_unused")
   _spawner.timer.connect("timeout", self, "spawn_target")
   _spawner.timer.start()
 
@@ -26,19 +20,18 @@ func _process(delta):
   if _current_tracker:
     _current_tracker.process(delta)
 
-func available_first_letter() -> String:
-  var max_tries = 100
-  for _try in max_tries:
-    var letter = _text_generator.random_letter()
-    if not _text_targets.has_letter(letter):
-      return letter
-  return ""
-
 func _input(event):
   if event as InputEventKey and event.is_pressed() and not event.echo:
     if event.scancode >= KEY_A and event.scancode <= KEY_Z:
       var input_letter = char(event.scancode).to_lower()
       _attack_letter(input_letter)
+
+func is_letter_unused(letter:String) -> bool:
+  return not _text_targets.has_letter(letter)
+
+func create_tracker(target) -> HitTracker:
+  var label = target.find_node("TypistLabel", true, false)
+  return HitTracker.new(target, label)
 
 func _attack_letter(letter:String):
   if _current_tracker == null:
@@ -101,9 +94,8 @@ func _select_spawn_type(text:TypistText) -> String:
   return "Asteroid" if text.text_list.size() == 1 else "AsteroidCluster"
 
 func spawn_target():
-  var letter = available_first_letter()
-  if not letter.empty():
-    var text:TypistText = _text_generator.random_text(letter)
+  var text:TypistText = _text_generator.random_text()
+  if text:
     _text_targets.add_text_target(text.merged_text(), create_target(text))
   _spawner.randomize_spawn_timer()
 

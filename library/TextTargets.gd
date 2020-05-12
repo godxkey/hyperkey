@@ -1,5 +1,4 @@
-extends Reference
-class_name TextTargets
+extends Node
 
 # A specialized dictionary that associates a text label with a target object
 
