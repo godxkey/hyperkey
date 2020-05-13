@@ -36,15 +36,11 @@ scale = Vector2( 2, 2 )
 
 [node name="Typist" parent="." instance=ExtResource( 5 )]
 projectile_manager_path = NodePath("../ProjectileManager")
+planet_path = NodePath("../Planet")
 player_path = NodePath("../Player")
 
-[node name="Spawner" parent="Typist" index="0"]
-position = Vector2( 0, -632 )
-planet_path = NodePath("../../Planet")
-spawn_area = Rect2( -500, -150, 1000, 100 )
-
-[node name="Timer" parent="Typist/Spawner" index="0"]
-wait_time = 2.0
+[node name="SpawnArea" parent="Typist/SpawnSystem/BehaviorRepeater/BehaviorWait/AsteroidSpawner" index="0"]
+position = Vector2( 0, -500 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
@@ -61,4 +57,4 @@ __meta__ = {
 
 [editable path="Typist"]
 
-[editable path="Typist/Spawner"]
+[editable path="Typist/SpawnSystem"]

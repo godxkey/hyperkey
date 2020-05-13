@@ -10,6 +10,8 @@ class TypingStats:
   var keypress_count: int = 0
   var time_to_complete: float = 0.0
 
+# TODO? FIXME?: Have active time based on OS time delta (end-start) instead of ticking.
+
 # Keeps track of the total elapsed time since activation.
 var _total_active_time:float = 0.0
 
@@ -17,7 +19,8 @@ var _total_active_time:float = 0.0
 var _total_keypress_count:int = 0
 
 var _target = null setget ,get_target
-var _label = null
+var _label_root = null
+var _label:TypistLabel = null
 var _text = ""
 
 # The global cursor for the entire text.
@@ -29,10 +32,11 @@ var _current_word_index:int = 0
 # Keeps track of the local cursor of the current word.
 var _current_word_cursor:int = 0
 
-func _init(target, label):
+func _init(target, label_root):
   _target = target
-  _label = label
-  _text = label.display_text.merged_text()
+  _label_root = label_root
+  _label = _label_root.get_node("TypistLabel")
+  _text = _label.display_text.merged_text()
 
 func process(delta):
   _total_active_time += delta
@@ -47,7 +51,7 @@ func is_done() -> bool:
   return _hit_cursor >= _text.length()
 
 func remove_label():
-  _label.queue_free()
+  _label_root.queue_free()
 
 func get_cursor() -> int:
   return _hit_cursor

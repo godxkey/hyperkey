@@ -1,5 +1,8 @@
 extends Node
 
+func _ready():
+  randomize()
+
 # All levels should be under a node named World
 func world_root():
   return get_node("/root/World")

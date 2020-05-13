@@ -21,7 +21,12 @@ func default_unused_letter_condition(_letter:String) -> bool:
 
 # Returns a random word from the given specifications.
 # If the conditions could not be met, an empty string is returned.
-func request_word_with_letter(language:int, size:int, letter:String, condition:int = ConditionType.UNUSED_LETTER) -> String:
+func request_word_with_letter(
+  language:int,
+  size:int,
+  letter:String,
+  condition:int = ConditionType.UNUSED_LETTER) -> String:
+
   match condition:
     ConditionType.NONE:
       return pick_word(_word_dictionary.words(language, size, letter))
@@ -32,11 +37,14 @@ func request_word_with_letter(language:int, size:int, letter:String, condition:i
 
 # Get a word in the language of said size of any letter.
 # If the conditions could not be met, an empty string is returned.
-func request_word_with_size(language:int, size:int, condition:int = ConditionType.UNUSED_LETTER) -> String:
+func request_word_with_size(
+  language:int,
+  size:int,
+  condition:int = ConditionType.UNUSED_LETTER) -> String:
+
   var letter = random_letter()
-  # We subtract one since we already have a random letter for the first pass.
   # Linearly try each letter to see if a word could be requested if the current letter failed.
-  var tries = Z_UNICODE - A_UNICODE - 1
+  var tries = Z_UNICODE - A_UNICODE
   for _i in tries:
     var word = request_word_with_letter(language, size, letter, condition)
     if not word.empty():
@@ -46,7 +54,10 @@ func request_word_with_size(language:int, size:int, condition:int = ConditionTyp
 
 # Get a word in the language of any size and letter.
 # If the conditions could not be met, an empty string is returned.
-func request_word_in_language(language:int, condition:int = ConditionType.UNUSED_LETTER) -> String:
+func request_word_in_language(
+  language:int,
+  condition:int = ConditionType.UNUSED_LETTER) -> String:
+
   var size = _rng.randi() % WordDictionary.WordSize.COUNT
   # We subtract one since we already have a random size for the first pass and COUNT
   # Linearly try each size to see if a word could be requested if the current letter failed.

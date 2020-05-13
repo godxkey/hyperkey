@@ -1,0 +1,25 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://addons/godot-behavior-tree-plugin/behavior_tree.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/repeater.gd" type="Script" id=2]
+[ext_resource path="res://control/spawning/SpawnArea.tscn" type="PackedScene" id=3]
+[ext_resource path="res://control/spawning/AsteroidSpawn.gd" type="Script" id=4]
+[ext_resource path="res://actor/environment/BrownAsteroid.png" type="Texture" id=5]
+[ext_resource path="res://actor/environment/Asteroid.png" type="Texture" id=6]
+[ext_resource path="res://actor/environment/GreyAsteroid.png" type="Texture" id=7]
+[ext_resource path="res://addons/godot-behavior-tree-plugin/extensions/wait.gd" type="Script" id=8]
+
+[node name="SpawnSystem" type="Node"]
+script = ExtResource( 1 )
+
+[node name="BehaviorRepeater" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="BehaviorWait" type="Node" parent="BehaviorRepeater"]
+script = ExtResource( 8 )
+
+[node name="AsteroidSpawner" type="Node" parent="BehaviorRepeater/BehaviorWait"]
+script = ExtResource( 4 )
+textures = [ ExtResource( 7 ), ExtResource( 5 ), ExtResource( 6 ) ]
+
+[node name="SpawnArea" parent="BehaviorRepeater/BehaviorWait/AsteroidSpawner" instance=ExtResource( 3 )]

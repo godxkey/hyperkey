@@ -11,8 +11,6 @@
 script = ExtResource( 5 )
 spawn_area = Rect2( 0, 0, 100, 100 )
 
-[node name="Timer" type="Timer" parent="."]
-
 [node name="Subspawns" type="Node" parent="."]
 
 [node name="Asteroid" type="Node" parent="Subspawns"]
