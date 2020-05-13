@@ -40,7 +40,9 @@ planet_path = NodePath("../Planet")
 player_path = NodePath("../Player")
 
 [node name="SpawnArea" parent="Typist/SpawnSystem/BehaviorRepeater/BehaviorWait/AsteroidSpawner" index="0"]
-position = Vector2( 0, -500 )
+position = Vector2( 0, -672.853 )
+width = 1000.0
+height = 50.0
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
