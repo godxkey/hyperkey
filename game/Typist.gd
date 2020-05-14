@@ -15,7 +15,7 @@ var _current_tracker:HitTracker = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
   _text_generator.text_server.unused_letter_condition = funcref(self, "is_letter_unused")
-  _blackboard.set("AttackTarget", get_node(planet_path))
+  _blackboard.set("AttackTarget", weakref(get_node(planet_path)))
 
 func _process(delta):
   if _current_tracker:

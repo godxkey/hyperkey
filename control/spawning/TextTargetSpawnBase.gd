@@ -45,7 +45,8 @@ func _set_text_target_motion(text:TypistText, target):
   var max_speed = motion.max_speed
   var starting_speed = rand_range(0.2 * max_speed, 0.8 * max_speed)
 
-  var attack_target:Node2D = _current_tick.blackboard.get("AttackTarget")
+  var attack_target_wref:WeakRef = _current_tick.blackboard.get("AttackTarget")
+  var attack_target = attack_target_wref.get_ref()
   if attack_target:
     motion.set_velocity(starting_speed * target.position.direction_to(attack_target.position))
     motion.target = attack_target
