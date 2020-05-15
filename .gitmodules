@@ -1,9 +1,0 @@
-[submodule "addons/BehaviorTree"]
-	path = addons/BehaviorTree
-	url = https://github.com/luis-l/godot-behavior-tree-plugin.git
-[submodule "godot-behavior-tree-plugin"]
-	path = godot-behavior-tree-plugin
-	url = https://github.com/luis-l/godot-behavior-tree-plugin.git
-[submodule "modules/godot-behavior-tree-plugin"]
-	path = modules/godot-behavior-tree-plugin
-	url = https://github.com/luis-l/godot-behavior-tree-plugin
