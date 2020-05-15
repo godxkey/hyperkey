@@ -5,9 +5,9 @@ export(Array, Texture) var textures
 
 const SCENE = preload("res://actor/environment/AsteroidCluster.tscn")
 
-func spawn(_tick) -> Node2D:
+func _spawn_text_target(text:TypistText) -> Node2D:
   var cluster = SCENE.instance()
-  # _add_cluster(cluster, text.text_list.size())
+  _add_cluster(cluster, text.text_list.size())
   return cluster
 
 func _add_cluster(cluster, count:int):

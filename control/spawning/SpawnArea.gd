@@ -1,5 +1,6 @@
 tool
 extends Node2D
+class_name SpawnArea, "res://icons/area_position_icon.png"
 
 export(float) var width = 400.0 setget _set_width
 export(float) var height = 200.0 setget _set_height

@@ -39,10 +39,8 @@ projectile_manager_path = NodePath("../ProjectileManager")
 planet_path = NodePath("../Planet")
 player_path = NodePath("../Player")
 
-[node name="SpawnArea" parent="Typist/SpawnSystem/Positioned" index="0"]
-position = Vector2( 0, -675.289 )
-width = 800.0
-height = 50.0
+[node name="SpawnArea" parent="Typist/Spawner" index="0"]
+position = Vector2( 0, -604.007 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
@@ -59,4 +57,4 @@ __meta__ = {
 
 [editable path="Typist"]
 
-[editable path="Typist/SpawnSystem/Positioned"]
+[editable path="Typist/Spawner"]

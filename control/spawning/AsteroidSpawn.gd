@@ -1,10 +1,10 @@
-extends Spawner
+extends TextSpawner
 
 export(Array, Texture) var textures
 
 const SCENE = preload("res://actor/environment/Asteroid.tscn")
 
-func spawn(_tick) -> Node2D:
+func _spawn_text_target(_text) -> Node2D:
   var asteroid = SCENE.instance()
   asteroid.get_node("Sprite").texture = _random_texture()
   return asteroid

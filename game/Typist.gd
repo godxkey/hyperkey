@@ -8,22 +8,20 @@ onready var _player = get_node(player_path)
 onready var _projectile_manager = get_node(projectile_manager_path)
 onready var _text_targets = $TextTargets
 onready var _text_generator = $TextGenerator
-onready var _spawner = $SpawnSystem
+onready var _spawner = $Spawner
 
 var _current_tracker:HitTracker = null
-var spawn_tick := SpawnTick.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
   _text_generator.text_server.unused_letter_condition = funcref(self, "is_letter_unused")
-  spawn_tick.blackboard["AttackTarget"] = weakref(get_node(planet_path))
-  spawn_tick.blackboard["Typist"] = self
+  _spawner.blackboard["AttackTarget"] = weakref(get_node(planet_path))
+  _spawner.blackboard["Typist"] = self
+  _spawner.connect("spawned", self, "add_child")
 
 func _process(delta):
   if _current_tracker:
     _current_tracker.process(delta)
-  var s = _spawner.spawn(spawn_tick)
-  if s: add_child(s)
 
 func _input(event):
   if event as InputEventKey and event.is_pressed() and not event.echo:
