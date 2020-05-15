@@ -29,7 +29,7 @@ func _apply_damage(target):
   target_health.apply_damage(damage, critical_hit)
 
 func _apply_knockback(target):
-  var target_motion = target.get_node("FollowMotion")
+  var target_motion = target.get_node("FollowTarget")
   var to_target = position.direction_to(target.position)
   var speed = target_motion.get_velocity().length()
   var knockback_speed = max(speed * hit_power, max_knockback_speed)

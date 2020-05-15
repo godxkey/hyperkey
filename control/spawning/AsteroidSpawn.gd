@@ -1,10 +1,10 @@
-extends "res://control/spawning/TextTargetSpawnBase.gd"
+extends Spawner
 
 export(Array, Texture) var textures
 
 const SCENE = preload("res://actor/environment/Asteroid.tscn")
 
-func spawn_target(_text:TypistText) -> Node2D:
+func spawn(_tick) -> Node2D:
   var asteroid = SCENE.instance()
   asteroid.get_node("Sprite").texture = _random_texture()
   return asteroid

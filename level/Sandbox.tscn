@@ -20,9 +20,9 @@ glow_bicubic_upscale = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="GUI Layer" type="CanvasLayer" parent="."]
 
-[node name="HUD" parent="CanvasLayer" instance=ExtResource( 4 )]
+[node name="HUD" parent="GUI Layer" instance=ExtResource( 4 )]
 planet_path = NodePath("../../Planet")
 typist_path = NodePath("../../Typist")
 
@@ -39,9 +39,9 @@ projectile_manager_path = NodePath("../ProjectileManager")
 planet_path = NodePath("../Planet")
 player_path = NodePath("../Player")
 
-[node name="SpawnArea" parent="Typist/SpawnSystem/BehaviorRepeater/BehaviorWait/AsteroidSpawner" index="0"]
-position = Vector2( 0, -672.853 )
-width = 1000.0
+[node name="SpawnArea" parent="Typist/SpawnSystem/Positioned" index="0"]
+position = Vector2( 0, -675.289 )
+width = 800.0
 height = 50.0
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
@@ -59,4 +59,4 @@ __meta__ = {
 
 [editable path="Typist"]
 
-[editable path="Typist/SpawnSystem"]
+[editable path="Typist/SpawnSystem/Positioned"]

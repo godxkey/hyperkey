@@ -1,12 +1,18 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://game/Typist.gd" type="Script" id=1]
-[ext_resource path="res://control/spawning/SpawnSystem.tscn" type="PackedScene" id=2]
+[ext_resource path="res://control/spawning/Ticked.tscn" type="PackedScene" id=2]
 [ext_resource path="res://library/WordDictionary.gd" type="Script" id=3]
 [ext_resource path="res://library/TextGenerator.gd" type="Script" id=4]
 [ext_resource path="res://library/TextServer.gd" type="Script" id=5]
 [ext_resource path="res://library/TextTargets.gd" type="Script" id=6]
-[ext_resource path="res://addons/godot-behavior-tree-plugin/blackboard.gd" type="Script" id=7]
+[ext_resource path="res://control/spawning/Targeted.gd" type="Script" id=8]
+[ext_resource path="res://control/spawning/WithText.gd" type="Script" id=9]
+[ext_resource path="res://control/spawning/AsteroidSpawn.gd" type="Script" id=10]
+[ext_resource path="res://control/spawning/Positioned.tscn" type="PackedScene" id=11]
+[ext_resource path="res://actor/environment/Asteroid.png" type="Texture" id=12]
+[ext_resource path="res://actor/environment/BrownAsteroid.png" type="Texture" id=13]
+[ext_resource path="res://actor/environment/GreyAsteroid.png" type="Texture" id=14]
 
 [node name="Typist" type="Node2D"]
 script = ExtResource( 1 )
@@ -26,5 +32,15 @@ english_words_file = "res://dictionary/english_words.txt"
 
 [node name="SpawnSystem" parent="." instance=ExtResource( 2 )]
 
-[node name="Blackboard" type="Node" parent="."]
-script = ExtResource( 7 )
+[node name="Positioned" parent="SpawnSystem" instance=ExtResource( 11 )]
+
+[node name="Targeted" type="Node" parent="SpawnSystem/Positioned"]
+script = ExtResource( 8 )
+target_key = "AttackTarget"
+
+[node name="WithText" type="Node" parent="SpawnSystem/Positioned/Targeted"]
+script = ExtResource( 9 )
+
+[node name="AsteroidSpawner" type="Node" parent="SpawnSystem/Positioned/Targeted/WithText"]
+script = ExtResource( 10 )
+textures = [ ExtResource( 14 ), ExtResource( 12 ), ExtResource( 13 ) ]

@@ -8,19 +8,22 @@ onready var _player = get_node(player_path)
 onready var _projectile_manager = get_node(projectile_manager_path)
 onready var _text_targets = $TextTargets
 onready var _text_generator = $TextGenerator
-onready var _spawn_system = $SpawnSystem
-onready var _blackboard = $Blackboard
+onready var _spawner = $SpawnSystem
+
 var _current_tracker:HitTracker = null
+var spawn_tick := SpawnTick.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
   _text_generator.text_server.unused_letter_condition = funcref(self, "is_letter_unused")
-  _blackboard.set("AttackTarget", weakref(get_node(planet_path)))
+  spawn_tick.blackboard["AttackTarget"] = weakref(get_node(planet_path))
+  spawn_tick.blackboard["Typist"] = self
 
 func _process(delta):
   if _current_tracker:
     _current_tracker.process(delta)
-  _spawn_system.tick(self, _blackboard)
+  var s = _spawner.spawn(spawn_tick)
+  if s: add_child(s)
 
 func _input(event):
   if event as InputEventKey and event.is_pressed() and not event.echo:
@@ -78,15 +81,20 @@ func spawn_bullet(target, is_critical:bool = false):
   bullet.critical_hit = is_critical
   target.connect("tree_exiting", bullet, "queue_free")
 
-func create_text_target(target_spawner_delegate:FuncRef):
-  var text:TypistText = _text_generator.random_text()
-  if text:
-    var target = target_spawner_delegate.call_func(text)
-    _add_text_target(text, target)
+# Generates any text that is not currently used in text targets.
+# Beware that consecutive calls may generate the same word or with the same start letter.
+# Client code should handle according to needs.
+# It is recommended to use hand in hand with add_text_targets.
+func generate_text() -> TypistText:
+  return _text_generator.random_text()
 
-func _add_text_target(text:TypistText, target):
+# Add a text target. Text targets are game objects the player can type to shoot.
+# Will fail if adding a text target with an already used starting letter.
+# Empty text is not allowed and will fail.
+func add_text_target(text:TypistText, target):
   var merged_text = text.merged_text()
-  assert(not _text_targets.has_word(merged_text))
+  assert(not merged_text.empty())
+  assert(not _text_targets.has_letter(merged_text[0]))
   target.connect(
     "tree_exiting",
     self,

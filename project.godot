@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://actor/player/Player.gd"
 }, {
+"base": "Spawner",
+"class": "PositionedSpawner",
+"language": "GDScript",
+"path": "res://control/spawning/Positioned.gd"
+}, {
 "base": "Control",
 "class": "QuickInfo",
 "language": "GDScript",
@@ -59,10 +64,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://audio/SoundSelector.gd"
 }, {
+"base": "Reference",
+"class": "SpawnTick",
+"language": "GDScript",
+"path": "res://control/spawning/SpawnTick.gd"
+}, {
+"base": "Node",
+"class": "Spawner",
+"language": "GDScript",
+"path": "res://control/spawning/Spawner.gd"
+}, {
+"base": "Spawner",
+"class": "TargetedSpawner",
+"language": "GDScript",
+"path": "res://control/spawning/Targeted.gd"
+}, {
 "base": "Node",
 "class": "TextServer",
 "language": "GDScript",
 "path": "res://library/TextServer.gd"
+}, {
+"base": "Spawner",
+"class": "TickedSpawner",
+"language": "GDScript",
+"path": "res://control/spawning/Ticked.gd"
 }, {
 "base": "RichTextLabel",
 "class": "TypistLabel",
@@ -73,6 +98,11 @@ _global_script_classes=[ {
 "class": "TypistText",
 "language": "GDScript",
 "path": "res://game/TypistText.gd"
+}, {
+"base": "Spawner",
+"class": "WithTextSpawner",
+"language": "GDScript",
+"path": "res://control/spawning/WithText.gd"
 }, {
 "base": "Node",
 "class": "WordDictionary",
@@ -87,12 +117,18 @@ _global_script_class_icons={
 "LinearMotion": "",
 "PlaySound": "",
 "Player": "",
+"PositionedSpawner": "res://icons/area_position_icon.png",
 "QuickInfo": "",
 "RadialMotion": "",
 "SoundSelector": "",
+"SpawnTick": "",
+"Spawner": "",
+"TargetedSpawner": "res://icons/target_icon.png",
 "TextServer": "",
+"TickedSpawner": "res://icons/wait_icon.png",
 "TypistLabel": "",
 "TypistText": "",
+"WithTextSpawner": "res://icons/text_icon.png",
 "WordDictionary": ""
 }
 
@@ -120,7 +156,7 @@ window/stretch/aspect="keep_height"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "godot-behavior-tree-plugin" )
+enabled=PoolStringArray(  )
 
 [input]
 

@@ -1,13 +1,13 @@
-extends Node
+extends Spawner
 
 export(float) var cluster_offset = 20.0
 export(Array, Texture) var textures
 
 const SCENE = preload("res://actor/environment/AsteroidCluster.tscn")
 
-func spawn(text:TypistText) -> Node2D:
+func spawn(_tick) -> Node2D:
   var cluster = SCENE.instance()
-  _add_cluster(cluster, text.text_list.size())
+  # _add_cluster(cluster, text.text_list.size())
   return cluster
 
 func _add_cluster(cluster, count:int):
