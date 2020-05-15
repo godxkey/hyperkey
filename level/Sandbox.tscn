@@ -39,6 +39,11 @@ projectile_manager_path = NodePath("../ProjectileManager")
 planet_path = NodePath("../Planet")
 player_path = NodePath("../Player")
 
+[node name="Spawner" parent="Typist" index="2"]
+max_active = 3
+max_spawns = 10
+sizes = 10
+
 [node name="SpawnArea" parent="Typist/Spawner" index="0"]
 position = Vector2( 0, -604.007 )
 

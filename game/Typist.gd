@@ -7,17 +7,17 @@ export(NodePath) var player_path
 onready var _player = get_node(player_path)
 onready var _projectile_manager = get_node(projectile_manager_path)
 onready var _text_targets = $TextTargets
-onready var _text_generator = $TextGenerator
 onready var _spawner = $Spawner
 
 var _current_tracker:HitTracker = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  _text_generator.text_server.unused_letter_condition = funcref(self, "is_letter_unused")
+  var text_gen = $TextGenerator
+  text_gen.text_server.unused_letter_condition = funcref(self, "is_letter_unused")
   _spawner.blackboard["AttackTarget"] = weakref(get_node(planet_path))
-  _spawner.blackboard["Typist"] = self
-  _spawner.connect("spawned", self, "add_child")
+  _spawner.blackboard["TextGen"] = text_gen
+  _spawner.connect("text_spawned", self, "add_text_target")
 
 func _process(delta):
   if _current_tracker:
@@ -79,13 +79,6 @@ func spawn_bullet(target, is_critical:bool = false):
   bullet.critical_hit = is_critical
   target.connect("tree_exiting", bullet, "queue_free")
 
-# Generates any text that is not currently used in text targets.
-# Beware that consecutive calls may generate the same word or with the same start letter.
-# Client code should handle according to needs.
-# It is recommended to use hand in hand with add_text_targets.
-func generate_text() -> TypistText:
-  return _text_generator.random_text()
-
 # Add a text target. Text targets are game objects the player can type to shoot.
 # Will fail if adding a text target with an already used starting letter.
 # Empty text is not allowed and will fail.
@@ -93,6 +86,7 @@ func add_text_target(text:TypistText, target):
   var merged_text = text.merged_text()
   assert(not merged_text.empty())
   assert(not _text_targets.has_letter(merged_text[0]))
+  add_child(target)
   target.connect(
     "tree_exiting",
     self,

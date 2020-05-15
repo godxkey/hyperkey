@@ -29,5 +29,8 @@ english_words_file = "res://dictionary/english_words.txt"
 
 [node name="Spawner" parent="." instance=ExtResource( 10 )]
 script = ExtResource( 2 )
+max_active = 2
+max_spawns = 4
+sizes = 1
 attack_target_key = "AttackTarget"
 textures = [ ExtResource( 9 ), ExtResource( 7 ), ExtResource( 8 ) ]

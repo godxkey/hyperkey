@@ -1,17 +1,19 @@
 extends Spawner
 class_name TextSpawner, "res://icons/text_icon.png"
 
-export(int, FLAGS, "Tiny", "Short", "Medium", "Long") var sizes
+enum SizeFlags{TINY=1, SHORT=2, MEDIUM=4, LONG=8}
+export(int, FLAGS, "Tiny", "Short", "Medium", "Long") var sizes = SizeFlags.MEDIUM
 
 # The blackboard key for the attack target that spawns will follow.
 export(String) var attack_target_key
 
 const LABEL_SCENE = preload("res://ui/TypistLabel.tscn")
 
+signal text_spawned(text, spawned)
+
 # Spawns text targets. Null is returned if it could not be created.
 func _spawn() -> Node2D:
-  var typist = blackboard.get("Typist")
-  var text = typist.generate_text()
+  var text = _generate_text()
   if text:
     var s = _spawn_text_target(text)
     if s:
@@ -19,13 +21,23 @@ func _spawn() -> Node2D:
       _set_text_target_health(text, s)
       _set_text_target_motion(text, s)
       _set_text_target_follow(s)
-      typist.add_text_target(text, s)
+      emit_signal("text_spawned", text, s)
     return s
   return null
 
 # Extended classes need to implement this to create the spawn with text.
 func _spawn_text_target(_text:TypistText) -> Node2D:
   return null
+
+func _generate_text() -> TypistText:
+  # Stores the size selections available from the size flags.
+  var s = PoolIntArray()
+  if sizes & SizeFlags.TINY: s.append(WordDictionary.WordSize.TINY)
+  if sizes & SizeFlags.SHORT: s.append(WordDictionary.WordSize.SHORT)
+  if sizes & SizeFlags.MEDIUM: s.append(WordDictionary.WordSize.MEDIUM)
+  if sizes & SizeFlags.LONG: s.append(WordDictionary.WordSize.LONG)
+  var gen = blackboard["TextGen"]
+  return null if s.empty() else gen.random_sized_text(s[randi() % s.size()])
 
 func _setup_label_for_target(text:TypistText, target):
   var label_root = LABEL_SCENE.instance()
