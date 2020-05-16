@@ -41,8 +41,7 @@ func _generate_text() -> TypistText:
   return blackboard["TextGen"].random_sized_word_list(_word_sizes(), count)
 
 func _random_word_count() -> int:
-  # TODO FIXME: BUGGED? Check 2-3 limits. seems only getting 2
-  var r = max_word_count - min_word_count
+  var r = (max_word_count - min_word_count) + 1
   return randi() % r + min_word_count
 
 func _word_sizes() -> int:

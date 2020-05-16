@@ -8,7 +8,7 @@
 [ext_resource path="res://actor/projectile/Missile.gd" type="Script" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 12 )
+extents = Vector2( 22, 12 )
 
 [node name="Missile" instance=ExtResource( 3 )]
 script = ExtResource( 6 )
