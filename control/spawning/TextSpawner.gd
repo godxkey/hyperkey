@@ -2,7 +2,14 @@ extends Spawner
 class_name TextSpawner, "res://icons/text_icon.png"
 
 enum SizeFlags{TINY=1, SHORT=2, MEDIUM=4, LONG=8}
+
+# Specify what words sizes the spawner should use.
 export(int, FLAGS, "Tiny", "Short", "Medium", "Long") var sizes = SizeFlags.MEDIUM
+
+# Specifies if the spawner should generate text with multiple words.
+export(bool) var multiwords = false
+export(int) var min_word_count = 2
+export(int) var max_word_count = 4
 
 # The blackboard key for the attack target that spawns will follow.
 export(String) var attack_target_key
@@ -27,17 +34,25 @@ func _spawn() -> Node2D:
 
 # Extended classes need to implement this to create the spawn with text.
 func _spawn_text_target(_text:TypistText) -> Node2D:
-  return null
+  return spawn_scene.instance()
 
 func _generate_text() -> TypistText:
+  var count = _random_word_count() if multiwords else 1
+  return blackboard["TextGen"].random_sized_word_list(_word_sizes(), count)
+
+func _random_word_count() -> int:
+  # TODO FIXME: BUGGED? Check 2-3 limits. seems only getting 2
+  var r = max_word_count - min_word_count
+  return randi() % r + min_word_count
+
+func _word_sizes() -> int:
   # Stores the size selections available from the size flags.
-  var s = PoolIntArray()
-  if sizes & SizeFlags.TINY: s.append(WordDictionary.WordSize.TINY)
-  if sizes & SizeFlags.SHORT: s.append(WordDictionary.WordSize.SHORT)
-  if sizes & SizeFlags.MEDIUM: s.append(WordDictionary.WordSize.MEDIUM)
-  if sizes & SizeFlags.LONG: s.append(WordDictionary.WordSize.LONG)
-  var gen = blackboard["TextGen"]
-  return null if s.empty() else gen.random_sized_text(s[randi() % s.size()])
+  var picks = []
+  if sizes & SizeFlags.TINY: picks.append(WordDictionary.WordSize.TINY)
+  if sizes & SizeFlags.SHORT: picks.append(WordDictionary.WordSize.SHORT)
+  if sizes & SizeFlags.MEDIUM: picks.append(WordDictionary.WordSize.MEDIUM)
+  if sizes & SizeFlags.LONG: picks.append(WordDictionary.WordSize.LONG)
+  return picks
 
 func _setup_label_for_target(text:TypistText, target):
   var label_root = LABEL_SCENE.instance()

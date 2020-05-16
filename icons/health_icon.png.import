@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/inverter_icon.png-59aa2cf1910783c155cbad9ec4831eb6.stex"
+path="res://.import/health_icon.png-6c62ef8ad090299d0bb3519658e1fce3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/inverter_icon.png"
-dest_files=[ "res://.import/inverter_icon.png-59aa2cf1910783c155cbad9ec4831eb6.stex" ]
+source_file="res://icons/health_icon.png"
+dest_files=[ "res://.import/health_icon.png-6c62ef8ad090299d0bb3519658e1fce3.stex" ]
 
 [params]
 

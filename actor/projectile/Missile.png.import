@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/limiter_icon.png-d20c37ee5e7b54e35fd1f8ea6da58fcf.stex"
+path="res://.import/Missile.png-7ae279fc8768302f65759ca7d6ab5172.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icons/limiter_icon.png"
-dest_files=[ "res://.import/limiter_icon.png-d20c37ee5e7b54e35fd1f8ea6da58fcf.stex" ]
+source_file="res://actor/projectile/Missile.png"
+dest_files=[ "res://.import/Missile.png-7ae279fc8768302f65759ca7d6ab5172.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -30,5 +30,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0

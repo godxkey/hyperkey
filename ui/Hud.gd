@@ -56,6 +56,7 @@ func set_accuracy_percent(percent:int):
 
 func set_score(score:int):
   _score_stat.text = String(score)
+  _score_stat.get_node("ChangeEffect").start()
 
 func play_decrease_accuracy_effect():
   _accuracy_stat.get_node("ChangeEffect").start()

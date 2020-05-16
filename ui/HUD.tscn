@@ -62,6 +62,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ChangeEffect" parent="Stats/Score" instance=ExtResource( 4 )]
+change_color = false
+
 [node name="AccuracyLabel" type="Label" parent="Stats"]
 margin_top = 42.0
 margin_right = 77.0

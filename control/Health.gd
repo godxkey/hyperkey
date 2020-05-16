@@ -1,5 +1,5 @@
 extends Node
-class_name Health
+class_name Health, "res://icons/health_icon.png"
 
 export(int) var hit_points = 100 setget _set_hitpoints
 
@@ -14,9 +14,11 @@ func apply_damage(damage, is_critical:bool = false):
     emit_signal("critical_hit")
   if hit_points <= 0:
     emit_signal("no_health")
+    get_parent().queue_free()
 
 func _set_hitpoints(value):
   hit_points = value
   emit_signal("health_changed", hit_points)
   if hit_points <= 0:
     emit_signal("no_health")
+    get_parent().queue_free()

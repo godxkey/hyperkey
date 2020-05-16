@@ -1,5 +1,5 @@
 extends LinearMotion
-class_name FollowTarget
+class_name FollowTarget, "res://icons/follow_icon.png"
 
 var target = weakref(null) setget _set_target, _get_target
 

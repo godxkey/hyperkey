@@ -12,6 +12,8 @@ export(int) var max_spawns = UNLIMITED_COUNT
 # How often to spawn.
 export(float) var frequency = 1.0 setget _set_frequency
 
+export(PackedScene) var spawn_scene = null
+
 # The area where spawns are placed.
 onready var spawn_area = $SpawnArea
 
@@ -48,6 +50,11 @@ func _signal_spawned():
 func _decrement_active_spawns():
   _active_count -= 1
 
+func reset():
+  _active_count = 0
+  _spawned_count = 0
+  $Timer.start()
+
 func is_at_capacity() -> bool:
   return false if max_active == UNLIMITED_COUNT else _active_count >= max_active
 
@@ -67,4 +74,4 @@ func spawn() -> Node2D:
 
 # Extended classes implement this to return a spawn object.
 func _spawn() -> Node2D:
-  return null
+  return spawn_scene.instance()

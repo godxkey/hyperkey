@@ -1,18 +1,17 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://game/Typist.gd" type="Script" id=1]
-[ext_resource path="res://control/spawning/AsteroidSpawn.gd" type="Script" id=2]
+[ext_resource path="res://control/spawning/SpawnSystem.tscn" type="PackedScene" id=2]
 [ext_resource path="res://library/WordDictionary.gd" type="Script" id=3]
 [ext_resource path="res://library/TextGenerator.gd" type="Script" id=4]
 [ext_resource path="res://library/TextServer.gd" type="Script" id=5]
 [ext_resource path="res://library/TextTargets.gd" type="Script" id=6]
-[ext_resource path="res://actor/environment/BrownAsteroid.png" type="Texture" id=7]
-[ext_resource path="res://actor/environment/GreyAsteroid.png" type="Texture" id=8]
-[ext_resource path="res://actor/environment/Asteroid.png" type="Texture" id=9]
-[ext_resource path="res://control/spawning/Spawner.tscn" type="PackedScene" id=10]
 
 [node name="Typist" type="Node2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ -1445.35 ]
+}
 
 [node name="TextTargets" type="Node" parent="."]
 script = ExtResource( 6 )
@@ -27,10 +26,4 @@ script = ExtResource( 5 )
 script = ExtResource( 3 )
 english_words_file = "res://dictionary/english_words.txt"
 
-[node name="Spawner" parent="." instance=ExtResource( 10 )]
-script = ExtResource( 2 )
-max_active = 2
-max_spawns = 4
-sizes = 1
-attack_target_key = "AttackTarget"
-textures = [ ExtResource( 9 ), ExtResource( 7 ), ExtResource( 8 ) ]
+[node name="SpawnSystem" parent="." instance=ExtResource( 2 )]

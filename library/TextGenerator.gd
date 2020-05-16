@@ -34,10 +34,15 @@ func random_words() -> Array:
       words.append(word)
   return words
 
-func random_sized_text(size:int) -> TypistText:
-  var word = text_server.request_word_with_size(WordDictionary.LangType.ENGLISH, size)
-  if word:
+func random_sized_word_list(sizes:Array, count) -> TypistText:
+  var word_list = []
+  for _i in count:
+    var size = sizes[randi() % sizes.size()]
+    var word = text_server.request_word_with_size(WordDictionary.LangType.ENGLISH, size)
+    if word:
+      word_list.append(word)
+  if not word_list.empty():
     var t = TypistText.new()
-    t.text_list = [word]
+    t.text_list = word_list
     return t
   return null

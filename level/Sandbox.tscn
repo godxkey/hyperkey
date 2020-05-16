@@ -39,13 +39,21 @@ projectile_manager_path = NodePath("../ProjectileManager")
 planet_path = NodePath("../Planet")
 player_path = NodePath("../Player")
 
-[node name="Spawner" parent="Typist" index="2"]
-max_active = 3
-max_spawns = 10
-sizes = 10
+[node name="SpawnArea" parent="Typist/SpawnSystem/Asteroid" index="0"]
+position = Vector2( 0, -696 )
+width = 800.0
+height = 50.0
 
-[node name="SpawnArea" parent="Typist/Spawner" index="0"]
-position = Vector2( 0, -604.007 )
+[node name="SpawnArea" parent="Typist/SpawnSystem/Cluster" index="0"]
+position = Vector2( 0, -696 )
+height = 100.0
+debug_color = Color( 0, 0.8, 0.733333, 0.301961 )
+
+[node name="SpawnArea" parent="Typist/SpawnSystem/Spawner" index="0"]
+position = Vector2( 0, -912 )
+width = 1500.0
+height = 100.0
+debug_color = Color( 0.917647, 0.341176, 1, 0.301961 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
@@ -62,4 +70,10 @@ __meta__ = {
 
 [editable path="Typist"]
 
-[editable path="Typist/Spawner"]
+[editable path="Typist/SpawnSystem"]
+
+[editable path="Typist/SpawnSystem/Asteroid"]
+
+[editable path="Typist/SpawnSystem/Cluster"]
+
+[editable path="Typist/SpawnSystem/Spawner"]
