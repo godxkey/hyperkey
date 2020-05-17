@@ -34,7 +34,7 @@ func random_words() -> Array:
       words.append(word)
   return words
 
-func random_sized_word_list(sizes:Array, count) -> TypistText:
+func random_sized_word_list(sizes:PoolIntArray, count) -> TypistText:
   var word_list = []
   for _i in count:
     var size = sizes[randi() % sizes.size()]

@@ -10,7 +10,7 @@ func _ready():
   assert(res == OK)
 
 func on_hit(target):
-  if target == motion.target:
+  if target and target == motion.target:
     $Damage.apply_damage(target)
     _change_rotation_speed(target)
     emit_signal("target_hit", global_position, motion.get_velocity().angle())

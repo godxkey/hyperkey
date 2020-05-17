@@ -7,19 +7,16 @@ export(NodePath) var player_path
 onready var _player = get_node(player_path)
 onready var _projectile_manager = get_node(projectile_manager_path)
 onready var _text_targets = $TextTargets
-onready var _spawn_system = $SpawnSystem
+onready var text_gen = $TextGenerator
+onready var blackboard := {}
 
 var _current_tracker:HitTracker = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  var text_gen = $TextGenerator
   text_gen.text_server.unused_letter_condition = funcref(self, "is_letter_unused")
-  _spawn_system.blackboard["Planet"] = weakref(get_node(planet_path))
-  _spawn_system.blackboard["TextGen"] = text_gen
-  for spawner in _spawn_system.get_children():
-    if spawner is TextSpawner:
-      spawner.connect("text_spawned", self, "add_text_target")
+  blackboard["Planet"] = weakref(get_node(planet_path))
+  blackboard["Player"] = weakref(_player)
 
 func _process(delta):
   if _current_tracker:

@@ -84,7 +84,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://control/spawning/SpawnArea.gd"
 }, {
-"base": "Node",
+"base": "Node2D",
 "class": "Spawner",
 "language": "GDScript",
 "path": "res://control/spawning/Spawner.gd"

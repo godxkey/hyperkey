@@ -11,7 +11,7 @@ var _area := Rect2()
 func spawn_position() -> Vector2:
   var x = rand_range(_area.position.x, _area.end.x)
   var y = rand_range(_area.position.y, _area.end.y)
-  return transform.xform(Vector2(x, y))
+  return to_global(Vector2(x, y))
 
 func _set_width(value):
   width = value

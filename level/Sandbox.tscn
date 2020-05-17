@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://actor/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actor/environment/Planet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://control/ProjectileManager.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game/Typist.tscn" type="PackedScene" id=5]
+[ext_resource path="res://control/spawning/SpawnSystem.tscn" type="PackedScene" id=6]
 [ext_resource path="res://world/CelestialBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://control/CameraShake.tscn" type="PackedScene" id=8]
 
@@ -34,32 +35,36 @@ typist_path = NodePath("../../Typist")
 position = Vector2( 0, 6.12433 )
 scale = Vector2( 2, 2 )
 
+[node name="SpawnSystem" parent="." instance=ExtResource( 6 )]
+
+[node name="SpawnArea" parent="SpawnSystem/Asteroid" index="0"]
+position = Vector2( 0, -704 )
+width = 800.0
+height = 50.0
+debug_color = Color( 0.8, 0.4, 0, 0.301961 )
+
+[node name="SpawnArea" parent="SpawnSystem/Cluster" index="0"]
+position = Vector2( 0, -696 )
+width = 800.0
+height = 50.0
+debug_color = Color( 0.8, 0.0196078, 0, 0.301961 )
+
+[node name="SpawnArea" parent="SpawnSystem/Missile" index="0"]
+position = Vector2( 0, -768 )
+width = 900.0
+height = 50.0
+debug_color = Color( 0.313726, 0.968627, 1, 0.301961 )
+
+[node name="SpawnArea" parent="SpawnSystem/Bomber" index="0"]
+position = Vector2( -512, -544 )
+width = 50.0
+height = 250.0
+debug_color = Color( 0.266667, 0, 1, 0.301961 )
+
 [node name="Typist" parent="." instance=ExtResource( 5 )]
 projectile_manager_path = NodePath("../ProjectileManager")
 planet_path = NodePath("../Planet")
 player_path = NodePath("../Player")
-
-[node name="SpawnArea" parent="Typist/SpawnSystem/Asteroid" index="0"]
-position = Vector2( 0, -696 )
-width = 800.0
-height = 50.0
-
-[node name="SpawnArea" parent="Typist/SpawnSystem/Cluster" index="0"]
-position = Vector2( 0, -696 )
-height = 100.0
-debug_color = Color( 0, 0.8, 0.733333, 0.301961 )
-
-[node name="SpawnArea" parent="Typist/SpawnSystem/Missile" index="0"]
-position = Vector2( 0, -744 )
-width = 1000.0
-height = 50.0
-debug_color = Color( 0.996078, 0.392157, 1, 0.301961 )
-
-[node name="SpawnArea" parent="Typist/SpawnSystem/HeavyMissiles" index="0"]
-position = Vector2( 0, -744 )
-width = 1000.0
-height = 50.0
-debug_color = Color( 1, 0.313726, 0.313726, 0.301961 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
@@ -74,14 +79,14 @@ __meta__ = {
 
 [node name="CameraShake" parent="Player/Camera2D" instance=ExtResource( 8 )]
 
+[editable path="SpawnSystem"]
+
+[editable path="SpawnSystem/Asteroid"]
+
+[editable path="SpawnSystem/Cluster"]
+
+[editable path="SpawnSystem/Missile"]
+
+[editable path="SpawnSystem/Bomber"]
+
 [editable path="Typist"]
-
-[editable path="Typist/SpawnSystem"]
-
-[editable path="Typist/SpawnSystem/Asteroid"]
-
-[editable path="Typist/SpawnSystem/Cluster"]
-
-[editable path="Typist/SpawnSystem/Missile"]
-
-[editable path="Typist/SpawnSystem/HeavyMissiles"]

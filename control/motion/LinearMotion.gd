@@ -18,10 +18,10 @@ func move(delta:float):
   _velocity += delta * _accumulated_forces
   if is_accelerating():
     _velocity += delta * _acceleration
-    _velocity = _velocity.clamped(max_speed)
   else:
     if is_moving():
       _velocity = _velocity.linear_interpolate(Vector2.ZERO, delta * damping)
+  _velocity = _velocity.clamped(max_speed)
   _parent.translate(_velocity * delta);
   _accumulated_forces = Vector2.ZERO
 

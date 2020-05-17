@@ -4,7 +4,6 @@
 [ext_resource path="res://control/motion/FollowTarget.gd" type="Script" id=3]
 [ext_resource path="res://control/Health.gd" type="Script" id=4]
 
-
 [sub_resource type="CircleShape2D" id=1]
 
 [node name="BaseActor" type="Area2D"]
