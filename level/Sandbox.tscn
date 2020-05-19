@@ -84,17 +84,18 @@ __meta__ = {
 
 [node name="TimeStream" parent="." instance=ExtResource( 11 )]
 position = Vector2( 0, -496 )
-duration = 120.0
+duration = 20.0
 slow_scale = 0.25
 
 [node name="MassAttractor" parent="." instance=ExtResource( 10 )]
 position = Vector2( 240, -264 )
-duration = 120.0
+duration = 20.0
 
 [node name="Shield" parent="." instance=ExtResource( 9 )]
 position = Vector2( 9.53674e-07, 6.12432 )
 scale = Vector2( 5, 5 )
 z_index = -1
+duration = 20.0
 
 [editable path="SpawnSystem"]
 
