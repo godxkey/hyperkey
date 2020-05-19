@@ -4,6 +4,7 @@ class_name LinearMotion
 export(float) var acceleration = 1000.0
 export(float) var damping = 1500.0
 export(float) var max_speed = 200.0
+export(float) var motion_scale = 1.0
 
 onready var _parent = get_parent() as Node2D
 
@@ -15,6 +16,7 @@ func _physics_process(delta):
   move(delta)
 
 func move(delta:float):
+  delta *= motion_scale
   _velocity += delta * _accumulated_forces
   if is_accelerating():
     _velocity += delta * _acceleration
