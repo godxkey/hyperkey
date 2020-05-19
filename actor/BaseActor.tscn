@@ -6,7 +6,9 @@
 
 [sub_resource type="CircleShape2D" id=1]
 
-[node name="BaseActor" type="Area2D"]
+[node name="BaseActor" type="Area2D" groups=[
+"BaseActor",
+]]
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": ""

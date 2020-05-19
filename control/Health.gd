@@ -16,6 +16,9 @@ func apply_damage(damage, is_critical:bool = false):
     emit_signal("no_health")
     get_parent().queue_free()
 
+func instakill():
+  _set_hitpoints(0)
+
 func _set_hitpoints(value):
   hit_points = value
   emit_signal("health_changed", hit_points)
