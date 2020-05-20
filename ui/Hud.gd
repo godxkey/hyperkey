@@ -104,8 +104,8 @@ func _show_super_bonus(super_bonus:int, position:Vector2):
 
 func _show_last_streak(streak:int):
   var info = score_info_scene.instance()
-  info.rect_position = _streak_stat.rect_position
-  info.move_angle = to_view_center_angle(_streak_stat.rect_position)
+  info.rect_position = _streak_stat.rect_global_position
+  info.move_angle = to_view_center_angle(_streak_stat.rect_global_position)
   info.score_prefix = "x"
   info.positive_score_color = streak_color(streak)
   info.rect_scale = Vector2.ONE * lerp(1.0, 1.5, streak / Score.high_streak_limit as float)
