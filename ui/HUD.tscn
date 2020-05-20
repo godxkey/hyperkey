@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://ui/Hud.gd" type="Script" id=1]
 [ext_resource path="res://ui/font/TypistFont.tres" type="DynamicFont" id=2]
@@ -9,6 +9,9 @@
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.111413, 0.32337, 0.785075, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 0.164706, 1, 0.54902, 1, 0.309804, 0.952941, 1, 1, 0.403922, 0.537255, 1, 1, 0.741176, 0.501961, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.203922, 0.172549, 0.298039, 0.772549 )
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -21,37 +24,45 @@ score_info_scene = ExtResource( 3 )
 text_info_scene = ExtResource( 5 )
 streak_gradient = SubResource( 1 )
 
-[node name="Stats" type="GridContainer" parent="."]
-margin_left = 20.0
-margin_top = 20.0
-margin_right = 134.0
-margin_bottom = 79.0
+[node name="PanelContainer" type="PanelContainer" parent="."]
+margin_left = 32.0
+margin_top = 672.0
+margin_right = 146.0
+margin_bottom = 773.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stats" type="GridContainer" parent="PanelContainer"]
+margin_right = 114.0
+margin_bottom = 101.0
 columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HealthLabel" type="Label" parent="Stats"]
+[node name="HealthLabel" type="Label" parent="PanelContainer/Stats"]
 margin_right = 77.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 2 )
 text = "HEALTH "
 
-[node name="Health" type="Label" parent="Stats"]
+[node name="Health" type="Label" parent="PanelContainer/Stats"]
 margin_left = 81.0
 margin_right = 114.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 2 )
 text = "100"
 
-[node name="ScoreLabel" type="Label" parent="Stats"]
+[node name="ScoreLabel" type="Label" parent="PanelContainer/Stats"]
 margin_top = 21.0
 margin_right = 77.0
 margin_bottom = 38.0
 custom_fonts/font = ExtResource( 2 )
 text = "SCORE"
 
-[node name="Score" type="Label" parent="Stats"]
+[node name="Score" type="Label" parent="PanelContainer/Stats"]
 margin_left = 81.0
 margin_top = 21.0
 margin_right = 114.0
@@ -62,10 +73,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ChangeEffect" parent="Stats/Score" instance=ExtResource( 4 )]
+[node name="ChangeEffect" parent="PanelContainer/Stats/Score" instance=ExtResource( 4 )]
 change_color = false
 
-[node name="AccuracyLabel" type="Label" parent="Stats"]
+[node name="AccuracyLabel" type="Label" parent="PanelContainer/Stats"]
 margin_top = 42.0
 margin_right = 77.0
 margin_bottom = 59.0
@@ -75,7 +86,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Accuracy" type="Label" parent="Stats"]
+[node name="Accuracy" type="Label" parent="PanelContainer/Stats"]
 margin_left = 81.0
 margin_top = 42.0
 margin_right = 114.0
@@ -86,17 +97,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ChangeEffect" parent="Stats/Accuracy" instance=ExtResource( 4 )]
+[node name="ChangeEffect" parent="PanelContainer/Stats/Accuracy" instance=ExtResource( 4 )]
 start_color = Color( 1, 0.286275, 0.286275, 1 )
 
-[node name="StreakLabel" type="Label" parent="Stats"]
+[node name="StreakLabel" type="Label" parent="PanelContainer/Stats"]
 margin_top = 63.0
 margin_right = 77.0
 margin_bottom = 80.0
 custom_fonts/font = ExtResource( 2 )
 text = "STREAK"
 
-[node name="Streak" type="Label" parent="Stats"]
+[node name="Streak" type="Label" parent="PanelContainer/Stats"]
 margin_left = 81.0
 margin_top = 63.0
 margin_right = 114.0
@@ -107,10 +118,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ChangeEffect" parent="Stats/Streak" instance=ExtResource( 4 )]
+[node name="ChangeEffect" parent="PanelContainer/Stats/Streak" instance=ExtResource( 4 )]
 change_color = false
 
-[node name="StreakHighLabel" type="Label" parent="Stats"]
+[node name="StreakHighLabel" type="Label" parent="PanelContainer/Stats"]
 modulate = Color( 0.709804, 0.709804, 0.709804, 1 )
 margin_top = 84.0
 margin_right = 77.0
@@ -118,7 +129,7 @@ margin_bottom = 101.0
 custom_fonts/font = ExtResource( 2 )
 text = "HIGH"
 
-[node name="StreakHigh" type="Label" parent="Stats"]
+[node name="StreakHigh" type="Label" parent="PanelContainer/Stats"]
 modulate = Color( 0.709804, 0.709804, 0.709804, 1 )
 margin_left = 81.0
 margin_top = 84.0
