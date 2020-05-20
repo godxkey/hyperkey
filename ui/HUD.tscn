@@ -25,10 +25,12 @@ text_info_scene = ExtResource( 5 )
 streak_gradient = SubResource( 1 )
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+anchor_top = 0.99
+anchor_bottom = 0.99
 margin_left = 32.0
-margin_top = 672.0
+margin_top = -120.0
 margin_right = 146.0
-margin_bottom = 773.0
+margin_bottom = -19.0001
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
