@@ -12,5 +12,5 @@ func _get_target():
 func _physics_process(delta):
   var target_node = target.get_ref()
   if target_node:
-    _acceleration = _parent.position.direction_to(target_node.position) * acceleration
+    start_moving_towards(target_node.position)
   move(delta)
