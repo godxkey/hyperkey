@@ -1,29 +1,37 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://actor/ability/MassAttractor.gd" type="Script" id=1]
 [ext_resource path="res://actor/ability/Singularity.png" type="Texture" id=2]
+[ext_resource path="res://actor/ability/Shield.shader" type="Shader" id=3]
+[ext_resource path="res://texture/WhiteSquare.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 100.0
+radius = 152.21
 
-[sub_resource type="Gradient" id=2]
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 3 )
+shader_param/ShieldColor = Color( 0.301961, 0.270588, 0.529412, 1 )
+shader_param/OuterRadius = 0.5
+shader_param/InnerRadius = 0.48
+shader_param/Thickness = 0.05
+
+[sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0, 0.313099, 1 )
 colors = PoolColorArray( 0.36325, 0.305033, 1, 1, 0.619608, 0.396078, 1, 1, 1, 1, 1, 1 )
 
-[sub_resource type="GradientTexture" id=3]
-gradient = SubResource( 2 )
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
 
-[sub_resource type="Curve" id=4]
+[sub_resource type="Curve" id=5]
 max_value = 2.0
 _data = [ Vector2( 0, 0.5 ), 0.0, 2.0, 0, 0, Vector2( 0.994048, 1.41636 ), -3.26765, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=5]
-curve = SubResource( 4 )
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
 
-[sub_resource type="ParticlesMaterial" id=6]
-trail_divisor = 2
+[sub_resource type="ParticlesMaterial" id=7]
 emission_shape = 1
-emission_sphere_radius = 50.0
+emission_sphere_radius = 100.0
 flag_disable_z = true
 direction = Vector3( 0, 0, 1 )
 spread = 180.0
@@ -31,32 +39,38 @@ gravity = Vector3( 0, 0, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 radial_accel = -300.0
-scale_curve = SubResource( 5 )
-color_ramp = SubResource( 3 )
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 4 )
 
 [node name="MassAttractor" type="Area2D"]
 gravity_point = true
 gravity_distance_scale = 50.0
 script = ExtResource( 1 )
+duration = 20.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
-
-[node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.5, 0.5 )
-z_index = -1
-texture = ExtResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
 repeat = true
 playback/repeat = true
 
+[node name="Ring" type="Sprite" parent="."]
+material = SubResource( 2 )
+scale = Vector2( 4.5, 4.25 )
+texture = ExtResource( 4 )
+
 [node name="Particles2D" type="Particles2D" parent="."]
 amount = 64
-lifetime = 0.4
-process_material = SubResource( 6 )
+lifetime = 0.5
+process_material = SubResource( 7 )
+
+[node name="Center" type="Sprite" parent="."]
+z_index = 10
+texture = ExtResource( 2 )
 [connection signal="area_entered" from="." to="." method="_on_MassAttractor_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_MassAttractor_area_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

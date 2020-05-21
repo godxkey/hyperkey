@@ -22,11 +22,12 @@ func _process(delta):
   if _current_tracker:
     _current_tracker.process(delta)
 
-func _input(event):
-  if event as InputEventKey and event.is_pressed() and not event.echo:
-    if event.scancode >= KEY_A and event.scancode <= KEY_Z:
-      var input_letter = char(event.scancode).to_lower()
-      _attack_letter(input_letter)
+func _unhandled_input(event):
+  if not Input.is_action_pressed("game_ability_hold"):
+    if event as InputEventKey and event.is_pressed() and not event.echo:
+      if event.scancode >= KEY_A and event.scancode <= KEY_Z:
+        var input_letter = char(event.scancode).to_lower()
+        _attack_letter(input_letter)
 
 func is_letter_unused(letter:String) -> bool:
   return not _text_targets.has_letter(letter)

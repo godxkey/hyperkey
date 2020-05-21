@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://actor/player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actor/environment/Planet.tscn" type="PackedScene" id=2]
@@ -8,9 +8,6 @@
 [ext_resource path="res://control/spawning/SpawnSystem.tscn" type="PackedScene" id=6]
 [ext_resource path="res://world/CelestialBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://control/CameraShake.tscn" type="PackedScene" id=8]
-[ext_resource path="res://actor/ability/Shield.tscn" type="PackedScene" id=9]
-[ext_resource path="res://actor/ability/MassAttractor.tscn" type="PackedScene" id=10]
-[ext_resource path="res://actor/ability/TimeStream.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -59,10 +56,16 @@ height = 50.0
 debug_color = Color( 0.313726, 0.968627, 1, 0.301961 )
 
 [node name="SpawnArea" parent="SpawnSystem/Bomber" index="0"]
-position = Vector2( -512, -544 )
+position = Vector2( -436, -544 )
 width = 50.0
 height = 250.0
 debug_color = Color( 0.266667, 0, 1, 0.301961 )
+
+[node name="SpawnArea" parent="SpawnSystem/Bomber2" index="0"]
+position = Vector2( 448, -544 )
+width = 50.0
+height = 250.0
+debug_color = Color( 0.160784, 0.0666667, 1, 0.301961 )
 
 [node name="Typist" parent="." instance=ExtResource( 5 )]
 projectile_manager_path = NodePath("../ProjectileManager")
@@ -82,21 +85,6 @@ __meta__ = {
 
 [node name="CameraShake" parent="Player/Camera2D" instance=ExtResource( 8 )]
 
-[node name="TimeStream" parent="." instance=ExtResource( 11 )]
-position = Vector2( 0, -496 )
-duration = 20.0
-slow_scale = 0.25
-
-[node name="MassAttractor" parent="." instance=ExtResource( 10 )]
-position = Vector2( 240, -264 )
-duration = 20.0
-
-[node name="Shield" parent="." instance=ExtResource( 9 )]
-position = Vector2( 9.53674e-07, 6.12432 )
-scale = Vector2( 5, 5 )
-z_index = -1
-duration = 20.0
-
 [editable path="SpawnSystem"]
 
 [editable path="SpawnSystem/Asteroid"]
@@ -106,5 +94,7 @@ duration = 20.0
 [editable path="SpawnSystem/Missile"]
 
 [editable path="SpawnSystem/Bomber"]
+
+[editable path="SpawnSystem/Bomber2"]
 
 [editable path="Typist"]

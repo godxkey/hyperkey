@@ -23,7 +23,7 @@ textures = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ) ]
 
 [node name="Cluster" parent="." instance=ExtResource( 7 )]
 script = ExtResource( 1 )
-max_active = 1
+max_active = 2
 frequency = 10.0
 spawn_scene = ExtResource( 8 )
 sizes = 14
@@ -54,6 +54,15 @@ attack_target_key = "Planet"
 script = ExtResource( 2 )
 max_active = 1
 frequency = 30.0
+spawn_scene = ExtResource( 6 )
+sizes = 6
+multiwords = true
+min_word_count = 3
+
+[node name="Bomber2" parent="." instance=ExtResource( 7 )]
+script = ExtResource( 2 )
+max_active = 1
+frequency = 50.0
 spawn_scene = ExtResource( 6 )
 sizes = 6
 multiwords = true

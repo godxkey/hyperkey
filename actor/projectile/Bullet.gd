@@ -17,7 +17,6 @@ func on_hit(target):
     queue_free()
 
 func _change_rotation_speed(target):
-  # TODO FIXME: Ensure find_node here is not a performance hit
   var rotator = target.get_node_or_null("Rotator")
   if rotator:
     rotator.speed += sign(rotator.speed) * 1.5

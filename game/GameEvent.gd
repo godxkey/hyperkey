@@ -1,5 +1,7 @@
 extends Node
 
+signal bullet_created(bullet)
+
 func _ready():
   randomize()
 

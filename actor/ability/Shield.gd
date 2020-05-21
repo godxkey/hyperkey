@@ -14,3 +14,6 @@ func _on_Shield_area_entered(other):
 
 func _on_Timer_timeout():
   queue_free()
+
+func _on_Health_no_health():
+  queue_free()
