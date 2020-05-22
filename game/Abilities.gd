@@ -16,6 +16,12 @@ var ability_costs := {
   AbilityType.STREAM : 0
 }
 
+var _active_abilities := {
+  AbilityType.SHIELD : false,
+  AbilityType.ATTRACTOR : false,
+  AbilityType.STREAM : false
+}
+
 const SHIELD_SCENE = preload("res://actor/ability/Shield.tscn")
 const STREAM_SCENE = preload("res://actor/ability/TimeStream.tscn")
 const ATTRACTOR_SCENE = preload("res://actor/ability/MassAttractor.tscn")
@@ -39,24 +45,32 @@ func add_currency_from_score(target_score):
 
 func cast_ability(type:int, parameters:Dictionary):
   var cost = ability_costs[type]
-  if _total_currency >= cost:
+  if not is_ability_active(type) and _total_currency >= cost:
     _total_currency -= cost
+    _active_abilities[type] = true
     emit_signal("currency_changed", _total_currency)
-    match type:
-      AbilityType.SHIELD:
-        var shield = SHIELD_SCENE.instance()
-        shield.position = parameters["position"]
-        add_child(shield)
-      AbilityType.STREAM:
-        var stream = STREAM_SCENE.instance()
-        stream.position = parameters["position"]
-        add_child(stream)
-      AbilityType.ATTRACTOR:
-        var attractor = ATTRACTOR_SCENE.instance()
-        attractor.position = parameters["position"]
-        add_child(attractor)
+    var ability = ability_scene(type).instance()
+    ability.connect("tree_exiting", self, "_set_ability_inactive", [type], CONNECT_ONESHOT)
+    ability.position = parameters["position"]
+    add_child(ability)
   else:
     Sound.play("Mistype")
+
+func ability_scene(type:int) -> PackedScene:
+  match type:
+    AbilityType.SHIELD:
+      return SHIELD_SCENE
+    AbilityType.STREAM:
+      return STREAM_SCENE
+    AbilityType.ATTRACTOR:
+      return ATTRACTOR_SCENE
+  return null
+
+func is_ability_active(type:int) -> bool:
+  return false if not _active_abilities.has(type) else _active_abilities[type]
+
+func _set_ability_inactive(type:int):
+  _active_abilities[type] = false
 
 func _typing_score_currency(score:int) -> int:
   if score < 200:

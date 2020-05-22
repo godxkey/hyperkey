@@ -3,6 +3,8 @@ extends Area2D
 export var attraction_strength:float = 1000.0
 export var duration:float = 5.0
 export var tangent_strength:float = 10.0
+export var distance_strength:float = 1.0
+export var acceleration_modifer:float = 0.0
 var targets_to_attract := []
 
 func _ready():
@@ -10,23 +12,25 @@ func _ready():
   timer.wait_time = duration
   timer.one_shot = true
 
+  var center_tween_delay := 1.0
   $Tween.interpolate_property(
     $Center,
     "scale",
-    Vector2.ONE,
+    $Center.scale,
     Vector2.ZERO,
-    duration,
-    Tween.TRANS_ELASTIC,
-    Tween.EASE_OUT_IN)
+    duration - center_tween_delay,
+    Tween.TRANS_EXPO,
+    Tween.EASE_IN,
+    center_tween_delay)
 
   $Tween.interpolate_property(
     $Ring,
     "scale",
-    Vector2.ONE,
     Vector2.ZERO,
-    duration,
+    $Ring.scale,
+    1.0,
     Tween.TRANS_ELASTIC,
-    Tween.EASE_OUT_IN)
+    Tween.EASE_OUT)
 
 func _process(_delta):
   for target in targets_to_attract:
@@ -44,12 +48,13 @@ func tangent_force(attraction:Vector2, other) -> Vector2:
 
 func attraction_force(other) -> Vector2:
   var to_center = other.position.direction_to(position)
-  var distance = other.position.distance_to(position)
-  return to_center * attraction_strength / max(1.0, distance * 0.05)
+  var distance = other.position.distance_squared_to(position)
+  return to_center * attraction_strength * max(1.0, distance * distance_strength)
 
 func _on_MassAttractor_area_entered(other):
   if other.is_in_group("BaseActor"):
     if not is_under_attraction(other):
+      other.motion.acceleration += acceleration_modifer
       targets_to_attract.append(other)
       # If the target dies inside the ability, then remove from processing list.
       other.connect("tree_exiting", self, "_remove_target", [other], CONNECT_ONESHOT)
@@ -66,4 +71,7 @@ func is_under_attraction(target):
   return targets_to_attract.has(target)
 
 func _on_Timer_timeout():
+  # Remove the acceleration modifier
+  for target in targets_to_attract:
+    target.motion.acceleration -= acceleration_modifer
   queue_free()

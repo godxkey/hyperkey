@@ -29,7 +29,7 @@ func _unhandled_input(event):
       var params := {"position" : global_position + Vector2.UP * 300}
       Abilities.cast_ability(Abilities.AbilityType.STREAM, params)
     elif event.is_action_pressed("game_mass_attractor"):
-      var params := {"position" : global_position + Vector2.UP * 100}
+      var params := {"position" : global_position + Vector2.UP * 150}
       Abilities.cast_ability(Abilities.AbilityType.ATTRACTOR, params)
 
 func aim_rotation_angle() -> float:
