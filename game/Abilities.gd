@@ -11,8 +11,8 @@ enum AbilityType{
 }
 
 var ability_costs := {
-  AbilityType.SHIELD : 5,
-  AbilityType.ATTRACTOR : 5,
+  AbilityType.SHIELD : 0,
+  AbilityType.ATTRACTOR : 0,
   AbilityType.STREAM : 0
 }
 
@@ -26,7 +26,6 @@ var _total_currency:int = 0
 var _is_attractor_selected := false
 
 signal currency_changed(currency)
-signal attractor_ready_changed(enabled)
 
 func _ready():
   var res = Score.connect("scored_target", self, "add_currency_from_score")
@@ -37,21 +36,6 @@ func add_currency_from_score(target_score):
   _total_currency += _speed_bonus_currency(target_score.speed_bonus)
   _total_currency += _super_bonus_currency(target_score.super_bonus)
   emit_signal("currency_changed", _total_currency)
-
-func select_ability(type:int):
-  var cost = ability_costs[type]
-  if _total_currency >= cost:
-    match type:
-      # toggle
-      AbilityType.ATTRACTOR:
-        _is_attractor_selected = not _is_attractor_selected
-        emit_signal("attractor_ready_changed", _is_attractor_selected)
-  else:
-    Sound.play("Mistype")
-    match type:
-      AbilityType.ATTRACTOR:
-        _is_attractor_selected = false
-        emit_signal("attractor_ready_changed", _is_attractor_selected)
 
 func cast_ability(type:int, parameters:Dictionary):
   var cost = ability_costs[type]
@@ -73,12 +57,6 @@ func cast_ability(type:int, parameters:Dictionary):
         add_child(attractor)
   else:
     Sound.play("Mistype")
-
-func place_selected_ability(position:Vector2):
-  if _is_attractor_selected:
-    cast_ability(AbilityType.ATTRACTOR, {"position" : position})
-    _is_attractor_selected = false
-    emit_signal("attractor_ready_changed", _is_attractor_selected)
 
 func _typing_score_currency(score:int) -> int:
   if score < 200:

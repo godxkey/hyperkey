@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://ui/Hud.gd" type="Script" id=1]
 [ext_resource path="res://ui/font/TypistFont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://ui/ScoreInfo.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/ChangeEffect.tscn" type="PackedScene" id=4]
 [ext_resource path="res://ui/TextInfo.tscn" type="PackedScene" id=5]
-[ext_resource path="res://texture/WhiteSquare.png" type="Texture" id=6]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.111413, 0.32337, 0.785075, 1 )
@@ -156,22 +155,6 @@ custom_styles/fg = SubResource( 3 )
 custom_styles/bg = SubResource( 4 )
 custom_fonts/font = ExtResource( 2 )
 step = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AbilityReadyStatus" type="TextureRect" parent="."]
-visible = false
-modulate = Color( 1, 0.698039, 0.305882, 1 )
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -160.0
-margin_top = -64.0
-margin_right = -96.0
-rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

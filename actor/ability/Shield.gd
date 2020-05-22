@@ -6,7 +6,6 @@ func _ready():
   var timer = $Timer
   timer.wait_time = duration
   timer.one_shot = true
-  timer.start()
 
   $Tween.interpolate_property(self,
     "scale",
@@ -15,7 +14,6 @@ func _ready():
     0.5,
     Tween.TRANS_BOUNCE,
     Tween.EASE_OUT)
-  $Tween.start()
 
 func _on_Shield_area_entered(other):
   if other.is_in_group("BaseActor"):

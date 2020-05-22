@@ -1,5 +1,5 @@
 extends Node
-class_name LinearMotion
+class_name LinearMotion, "res://icons/linear_motion_icon.png"
 
 export(float) var acceleration = 1000.0
 export(float) var damping = 1500.0

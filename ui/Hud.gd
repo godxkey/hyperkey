@@ -17,7 +17,6 @@ onready var _streak_stat = find_node("Streak")
 onready var _streak_label = find_node("StreakLabel")
 onready var _streak_high = find_node("StreakHigh")
 onready var _currency_bar = find_node("CurrencyBar")
-onready var _ability_ready_status = find_node("AbilityReadyStatus")
 
 # World components
 # TODO: Replace this with stats or score.
@@ -50,9 +49,6 @@ func _ready():
   res = Abilities.connect("currency_changed", self, "set_currency")
   assert(res == OK)
 
-  res = Abilities.connect("attractor_ready_changed", self, "set_ability_ready_status")
-  assert(res == OK)
-
   _streak_label.hide()
   _streak_stat.hide()
 
@@ -68,9 +64,6 @@ func set_score(score:int):
 
 func set_currency(currency:int):
   _currency_bar.value = currency
-
-func set_ability_ready_status(enable:bool):
-  _ability_ready_status.visible = enable
 
 func play_decrease_accuracy_effect():
   _accuracy_stat.get_node("ChangeEffect").start()

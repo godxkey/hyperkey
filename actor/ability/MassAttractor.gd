@@ -6,6 +6,10 @@ export var tangent_strength:float = 10.0
 var targets_to_attract := []
 
 func _ready():
+  var timer = $Timer
+  timer.wait_time = duration
+  timer.one_shot = true
+
   $Tween.interpolate_property(
     $Center,
     "scale",
@@ -15,10 +19,14 @@ func _ready():
     Tween.TRANS_ELASTIC,
     Tween.EASE_OUT_IN)
 
-  var timer = $Timer
-  timer.wait_time = duration
-  timer.one_shot = true
-  timer.start()
+  $Tween.interpolate_property(
+    $Ring,
+    "scale",
+    Vector2.ONE,
+    Vector2.ZERO,
+    duration,
+    Tween.TRANS_ELASTIC,
+    Tween.EASE_OUT_IN)
 
 func _process(_delta):
   for target in targets_to_attract:

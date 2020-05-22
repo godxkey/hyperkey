@@ -9,7 +9,7 @@ func _ready():
   var timer = $Timer
   timer.wait_time = duration
   timer.one_shot = true
-  timer.start()
+
   $Tween.interpolate_property(
     self,
     "scale",
@@ -18,7 +18,6 @@ func _ready():
     1.0,
     Tween.TRANS_EXPO,
     Tween.EASE_OUT)
-  $Tween.start()
 
 func _process(_delta):
   # Continuously set the time scale slowdown.

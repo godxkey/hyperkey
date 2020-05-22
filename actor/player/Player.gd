@@ -19,8 +19,6 @@ func _ready():
 
 func _process(delta):
   rotate_sprite(delta)
-  if Input.is_action_just_pressed("game_ability_place"):
-    Abilities.place_selected_ability(get_global_mouse_position())
 
 func _unhandled_input(event):
   if Input.is_action_pressed("game_ability_hold"):
@@ -31,7 +29,8 @@ func _unhandled_input(event):
       var params := {"position" : global_position + Vector2.UP * 300}
       Abilities.cast_ability(Abilities.AbilityType.STREAM, params)
     elif event.is_action_pressed("game_mass_attractor"):
-      Abilities.select_ability(Abilities.AbilityType.ATTRACTOR)
+      var params := {"position" : global_position + Vector2.UP * 100}
+      Abilities.cast_ability(Abilities.AbilityType.ATTRACTOR, params)
 
 func aim_rotation_angle() -> float:
   var target = aimed_target.get_ref()
