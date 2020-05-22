@@ -10,6 +10,12 @@ enum AbilityType{
   # AUTO
 }
 
+var _ability_scenes := {
+  AbilityType.SHIELD : preload("res://actor/ability/Shield.tscn"),
+  AbilityType.ATTRACTOR : preload("res://actor/ability/MassAttractor.tscn"),
+  AbilityType.STREAM : preload("res://actor/ability/TimeStream.tscn")
+}
+
 var ability_costs := {
   AbilityType.SHIELD : 0,
   AbilityType.ATTRACTOR : 0,
@@ -21,10 +27,6 @@ var _active_abilities := {
   AbilityType.ATTRACTOR : false,
   AbilityType.STREAM : false
 }
-
-const SHIELD_SCENE = preload("res://actor/ability/Shield.tscn")
-const STREAM_SCENE = preload("res://actor/ability/TimeStream.tscn")
-const ATTRACTOR_SCENE = preload("res://actor/ability/MassAttractor.tscn")
 
 var _total_currency:int = 0
 
@@ -49,22 +51,12 @@ func cast_ability(type:int, parameters:Dictionary):
     _total_currency -= cost
     _active_abilities[type] = true
     emit_signal("currency_changed", _total_currency)
-    var ability = ability_scene(type).instance()
+    var ability = _ability_scenes[type].instance()
     ability.connect("tree_exiting", self, "_set_ability_inactive", [type], CONNECT_ONESHOT)
     ability.position = parameters["position"]
     add_child(ability)
   else:
     Sound.play("Mistype")
-
-func ability_scene(type:int) -> PackedScene:
-  match type:
-    AbilityType.SHIELD:
-      return SHIELD_SCENE
-    AbilityType.STREAM:
-      return STREAM_SCENE
-    AbilityType.ATTRACTOR:
-      return ATTRACTOR_SCENE
-  return null
 
 func is_ability_active(type:int) -> bool:
   return false if not _active_abilities.has(type) else _active_abilities[type]
