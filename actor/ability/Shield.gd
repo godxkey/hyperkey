@@ -8,6 +8,15 @@ func _ready():
   timer.one_shot = true
   timer.start()
 
+  $Tween.interpolate_property(self,
+    "scale",
+    Vector2.ZERO,
+    Vector2.ONE,
+    0.5,
+    Tween.TRANS_BOUNCE,
+    Tween.EASE_OUT)
+  $Tween.start()
+
 func _on_Shield_area_entered(other):
   if other.is_in_group("BaseActor"):
     other.get_node("Health").instakill()

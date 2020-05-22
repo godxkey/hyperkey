@@ -184,7 +184,8 @@ color = Color( 0.819608, 0.756863, 1, 1 )
 
 [node name="TimeStream" type="Area2D"]
 script = ExtResource( 2 )
-duration = 20.0
+duration = 30.0
+slow_scale = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 16 )
@@ -200,6 +201,8 @@ amount = 32
 process_material = SubResource( 22 )
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Tween" type="Tween" parent="."]
 [connection signal="area_entered" from="." to="." method="_on_TimeStream_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_TimeStream_area_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

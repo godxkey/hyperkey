@@ -13,7 +13,7 @@ enum AbilityType{
 var ability_costs := {
   AbilityType.SHIELD : 5,
   AbilityType.ATTRACTOR : 5,
-  AbilityType.STREAM : 12
+  AbilityType.STREAM : 0
 }
 
 const SHIELD_SCENE = preload("res://actor/ability/Shield.tscn")
@@ -23,7 +23,7 @@ const ATTRACTOR_SCENE = preload("res://actor/ability/MassAttractor.tscn")
 var _total_currency:int = 0
 
 # Flags if the player loaded the attractor for the next shot.
-var _is_attractor_loaded := false
+var _is_attractor_selected := false
 
 signal currency_changed(currency)
 signal attractor_ready_changed(enabled)
@@ -32,34 +32,32 @@ func _ready():
   var res = Score.connect("scored_target", self, "add_currency_from_score")
   assert(res == OK)
 
-  res = GameEvent.connect("bullet_created", self, "_try_attach_attractor_to_bullet")
-  assert(res == OK)
-
 func add_currency_from_score(target_score):
   _total_currency += _typing_score_currency(target_score.typing_score)
   _total_currency += _speed_bonus_currency(target_score.speed_bonus)
   _total_currency += _super_bonus_currency(target_score.super_bonus)
   emit_signal("currency_changed", _total_currency)
 
-func ready_ability(type:int):
+func select_ability(type:int):
   var cost = ability_costs[type]
   if _total_currency >= cost:
     match type:
       # toggle
       AbilityType.ATTRACTOR:
-        _is_attractor_loaded = not _is_attractor_loaded
-        emit_signal("attractor_ready_changed", _is_attractor_loaded)
+        _is_attractor_selected = not _is_attractor_selected
+        emit_signal("attractor_ready_changed", _is_attractor_selected)
   else:
     Sound.play("Mistype")
     match type:
       AbilityType.ATTRACTOR:
-        _is_attractor_loaded = false
-        emit_signal("attractor_ready_changed", _is_attractor_loaded)
+        _is_attractor_selected = false
+        emit_signal("attractor_ready_changed", _is_attractor_selected)
 
 func cast_ability(type:int, parameters:Dictionary):
   var cost = ability_costs[type]
   if _total_currency >= cost:
     _total_currency -= cost
+    emit_signal("currency_changed", _total_currency)
     match type:
       AbilityType.SHIELD:
         var shield = SHIELD_SCENE.instance()
@@ -76,17 +74,11 @@ func cast_ability(type:int, parameters:Dictionary):
   else:
     Sound.play("Mistype")
 
-func _try_attach_attractor_to_bullet(bullet):
-  if _is_attractor_loaded:
-    bullet.connect("target_hit", self, "_cast_attractor")
-    _is_attractor_loaded = false
-    _total_currency -= ability_costs[AbilityType.ATTRACTOR]
-    emit_signal("attractor_ready_changed", _is_attractor_loaded)
-
-func _cast_attractor(position:Vector2, _impact_rotation):
-    var attractor = ATTRACTOR_SCENE.instance()
-    attractor.position = position
-    add_child(attractor)
+func place_selected_ability(position:Vector2):
+  if _is_attractor_selected:
+    cast_ability(AbilityType.ATTRACTOR, {"position" : position})
+    _is_attractor_selected = false
+    emit_signal("attractor_ready_changed", _is_attractor_selected)
 
 func _typing_score_currency(score:int) -> int:
   if score < 200:

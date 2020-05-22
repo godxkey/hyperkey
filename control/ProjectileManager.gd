@@ -28,7 +28,6 @@ func spawn_projectile(location:Vector2, target:Node2D) -> Node2D:
   # Prevent repetitive trails by preprocessing the particles.
   projectile.get_node("BulletTrail").preprocess = rand_range(1, 10)
   Sound.play("Shot")
-  GameEvent.emit_signal("bullet_created", projectile)
   return projectile
 
 func prepare_bullet_trail_for_removal(projectile):

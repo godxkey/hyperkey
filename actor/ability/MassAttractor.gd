@@ -7,7 +7,7 @@ var targets_to_attract := []
 
 func _ready():
   $Tween.interpolate_property(
-    $Sprite,
+    $Center,
     "scale",
     Vector2.ONE,
     Vector2.ZERO,
@@ -43,6 +43,7 @@ func _on_MassAttractor_area_entered(other):
   if other.is_in_group("BaseActor"):
     if not is_under_attraction(other):
       targets_to_attract.append(other)
+      # If the target dies inside the ability, then remove from processing list.
       other.connect("tree_exiting", self, "_remove_target", [other], CONNECT_ONESHOT)
 
 # Once attracted, do not let go.
