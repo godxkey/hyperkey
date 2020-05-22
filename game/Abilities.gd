@@ -49,12 +49,14 @@ func cast_ability(type:int, parameters:Dictionary):
   var cost = ability_costs[type]
   if not is_ability_active(type) and _total_currency >= cost:
     _total_currency -= cost
-    _active_abilities[type] = true
     emit_signal("currency_changed", _total_currency)
+
     var ability = _ability_scenes[type].instance()
     ability.connect("tree_exiting", self, "_set_ability_inactive", [type], CONNECT_ONESHOT)
     ability.position = parameters["position"]
     add_child(ability)
+
+    _active_abilities[type] = true
   else:
     Sound.play("Mistype")
 
