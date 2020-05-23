@@ -17,9 +17,15 @@ var _ability_scenes := {
 }
 
 var ability_costs := {
-  AbilityType.SHIELD : 0,
-  AbilityType.ATTRACTOR : 0,
-  AbilityType.STREAM : 0
+  AbilityType.SHIELD : 8,
+  AbilityType.ATTRACTOR : 10,
+  AbilityType.STREAM : 20
+}
+
+var ability_durations := {
+  AbilityType.SHIELD : 8.0,
+  AbilityType.ATTRACTOR : 15.0,
+  AbilityType.STREAM : 20.0
 }
 
 var _active_abilities := {
@@ -34,16 +40,20 @@ var _total_currency:int = 0
 var _is_attractor_selected := false
 
 signal currency_changed(currency)
+signal ability_activated(type, object)
+signal ability_inactive(type)
 
 func _ready():
   var res = Score.connect("scored_target", self, "add_currency_from_score")
   assert(res == OK)
 
 func add_currency_from_score(target_score):
-  _total_currency += _typing_score_currency(target_score.typing_score)
-  _total_currency += _speed_bonus_currency(target_score.speed_bonus)
-  _total_currency += _super_bonus_currency(target_score.super_bonus)
-  emit_signal("currency_changed", _total_currency)
+  var gained = _typing_score_currency(target_score.typing_score)
+  gained += _speed_bonus_currency(target_score.speed_bonus)
+  gained += _super_bonus_currency(target_score.super_bonus)
+  if gained > 0:
+    _total_currency += gained
+    emit_signal("currency_changed", _total_currency)
 
 func cast_ability(type:int, parameters:Dictionary):
   var cost = ability_costs[type]
@@ -52,11 +62,13 @@ func cast_ability(type:int, parameters:Dictionary):
     emit_signal("currency_changed", _total_currency)
 
     var ability = _ability_scenes[type].instance()
+    ability.duration = ability_durations[type]
     ability.connect("tree_exiting", self, "_set_ability_inactive", [type], CONNECT_ONESHOT)
     ability.position = parameters["position"]
     add_child(ability)
 
     _active_abilities[type] = true
+    emit_signal("ability_activated", type, ability)
   else:
     Sound.play("Mistype")
 
@@ -65,6 +77,7 @@ func is_ability_active(type:int) -> bool:
 
 func _set_ability_inactive(type:int):
   _active_abilities[type] = false
+  emit_signal("ability_inactive", type)
 
 func _typing_score_currency(score:int) -> int:
   if score < 200:

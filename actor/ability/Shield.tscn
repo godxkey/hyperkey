@@ -6,7 +6,7 @@
 [ext_resource path="res://control/Health.gd" type="Script" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 128.25
+radius = 160.2
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 2 )
@@ -22,7 +22,6 @@ script = ExtResource( 3 )
 duration = 8.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
