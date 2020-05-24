@@ -7,23 +7,23 @@
 [ext_resource path="res://control/motion/LinearMotion.gd" type="Script" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 152.21
+radius = 160.0
 
-[sub_resource type="Gradient" id=3]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.313099, 1 )
 colors = PoolColorArray( 0.36325, 0.305033, 1, 1, 0.619608, 0.396078, 1, 1, 1, 1, 1, 1 )
 
-[sub_resource type="GradientTexture" id=4]
-gradient = SubResource( 3 )
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 
-[sub_resource type="Curve" id=5]
+[sub_resource type="Curve" id=4]
 max_value = 2.0
 _data = [ Vector2( 0, 0.5 ), 0.0, 2.0, 0, 0, Vector2( 0.994048, 1.41636 ), -3.26765, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=6]
-curve = SubResource( 5 )
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=6]
 emission_shape = 1
 emission_sphere_radius = 100.0
 flag_disable_z = true
@@ -33,10 +33,10 @@ gravity = Vector3( 0, 0, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 radial_accel = -300.0
-scale_curve = SubResource( 6 )
-color_ramp = SubResource( 4 )
+scale_curve = SubResource( 5 )
+color_ramp = SubResource( 3 )
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=7]
 shader = ExtResource( 3 )
 shader_param/ShieldColor = Color( 0.301961, 0.270588, 0.529412, 1 )
 shader_param/OuterRadius = 0.5
@@ -55,17 +55,16 @@ tangent_strength = 12.0
 acceleration_modifer = 400.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 1 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 amount = 64
 lifetime = 0.5
-process_material = SubResource( 7 )
+process_material = SubResource( 6 )
 
 [node name="Ring" type="Sprite" parent="."]
-material = SubResource( 2 )
-scale = Vector2( 4.5, 4.25 )
+material = SubResource( 7 )
+scale = Vector2( 4.5, 4.5 )
 texture = ExtResource( 4 )
 
 [node name="Center" type="Sprite" parent="."]
