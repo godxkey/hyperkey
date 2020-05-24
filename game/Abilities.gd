@@ -10,22 +10,17 @@ enum AbilityType{
   # AUTO
 }
 
-var _ability_scenes := {
-  AbilityType.SHIELD : preload("res://actor/ability/Shield.tscn"),
-  AbilityType.ATTRACTOR : preload("res://actor/ability/MassAttractor.tscn"),
-  AbilityType.STREAM : preload("res://actor/ability/TimeStream.tscn")
-}
+# Ability description resources which contain information such as cost and duration.
+export(Resource) var shield
+export(Resource) var attractor
+export(Resource) var stream
+export(bool) var no_cost = false
 
-var ability_costs := {
-  AbilityType.SHIELD : 8,
-  AbilityType.ATTRACTOR : 10,
-  AbilityType.STREAM : 20
-}
-
-var ability_durations := {
-  AbilityType.SHIELD : 8.0,
-  AbilityType.ATTRACTOR : 15.0,
-  AbilityType.STREAM : 20.0
+# Maps the enumeration to interface with the ability resource to simplify direct access.
+onready var abilities := {
+  AbilityType.SHIELD : shield,
+  AbilityType.ATTRACTOR : attractor,
+  AbilityType.STREAM : stream,
 }
 
 var _active_abilities := {
@@ -35,9 +30,6 @@ var _active_abilities := {
 }
 
 var _total_currency:int = 0
-
-# Flags if the player loaded the attractor for the next shot.
-var _is_attractor_selected := false
 
 signal currency_changed(currency)
 signal ability_activated(type, object)
@@ -56,13 +48,10 @@ func add_currency_from_score(target_score):
     emit_signal("currency_changed", _total_currency)
 
 func cast_ability(type:int, parameters:Dictionary):
-  var cost = ability_costs[type]
-  if not is_ability_active(type) and _total_currency >= cost:
-    _total_currency -= cost
-    emit_signal("currency_changed", _total_currency)
-
-    var ability = _ability_scenes[type].instance()
-    ability.duration = ability_durations[type]
+  if _can_use_ability(type):
+    _use_up_currency(type)
+    var ability = abilities[type].scene.instance()
+    ability.duration = abilities[type].duration
     ability.connect("tree_exiting", self, "_set_ability_inactive", [type], CONNECT_ONESHOT)
     ability.position = parameters["position"]
     add_child(ability)
@@ -74,6 +63,16 @@ func cast_ability(type:int, parameters:Dictionary):
 
 func is_ability_active(type:int) -> bool:
   return false if not _active_abilities.has(type) else _active_abilities[type]
+
+func _can_use_ability(type:int) -> bool:
+  var is_inactive = not is_ability_active(type)
+  var cost = abilities[type].cost
+  return is_inactive and (no_cost or _total_currency >= cost)
+
+func _use_up_currency(type:int) -> void:
+  if not no_cost:
+    _total_currency -= abilities[type].cost
+    emit_signal("currency_changed", _total_currency)
 
 func _set_ability_inactive(type:int):
   _active_abilities[type] = false

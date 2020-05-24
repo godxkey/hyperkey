@@ -165,10 +165,11 @@ func streak_color(streak:int) -> Color:
 
 # Set ability display costs and durations
 func _set_ability_display_values():
-  _shield.display_duration = Abilities.ability_durations[Abilities.AbilityType.SHIELD]
-  _attractor.display_duration = Abilities.ability_durations[Abilities.AbilityType.ATTRACTOR]
-  _stream.display_duration = Abilities.ability_durations[Abilities.AbilityType.STREAM]
+  _shield.display_duration = Abilities.shield.duration
+  _shield.display_cost = Abilities.shield.cost
 
-  _shield.display_cost = Abilities.ability_costs[Abilities.AbilityType.SHIELD]
-  _attractor.display_cost = Abilities.ability_costs[Abilities.AbilityType.ATTRACTOR]
-  _stream.display_cost = Abilities.ability_costs[Abilities.AbilityType.STREAM]
+  _attractor.display_duration = Abilities.attractor.duration
+  _attractor.display_cost = Abilities.attractor.cost
+
+  _stream.display_duration = Abilities.stream.duration
+  _stream.display_cost = Abilities.stream.cost

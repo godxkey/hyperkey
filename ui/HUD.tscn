@@ -16,7 +16,7 @@ colors = PoolColorArray( 1, 1, 1, 1, 0.164706, 1, 0.54902, 1, 0.309804, 0.952941
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.203922, 0.172549, 0.298039, 0.772549 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.203922, 0.172549, 0.298039, 0.862745 )
 
 [node name="HUD" type="Control"]
@@ -155,7 +155,7 @@ margin_left = -128.0
 margin_top = -96.0
 margin_right = -16.0
 margin_bottom = -13.0
-custom_styles/panel = SubResource( 5 )
+custom_styles/panel = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -176,15 +176,15 @@ change_color = false
 [node name="AbilityStatusBar" type="HBoxContainer" parent="Ability/VBoxContainer"]
 margin_top = 21.0
 margin_right = 112.0
-margin_bottom = 83.0
+margin_bottom = 82.0
 
 [node name="Shield" parent="Ability/VBoxContainer/AbilityStatusBar" instance=ExtResource( 8 )]
-margin_bottom = 62.0
+margin_bottom = 61.0
 
 [node name="Attractor" parent="Ability/VBoxContainer/AbilityStatusBar" instance=ExtResource( 8 )]
 margin_left = 36.0
 margin_right = 68.0
-margin_bottom = 62.0
+margin_bottom = 61.0
 
 [node name="Texture" parent="Ability/VBoxContainer/AbilityStatusBar/Attractor/HBoxContainer" index="0"]
 texture = ExtResource( 7 )
@@ -195,7 +195,7 @@ tint_progress = Color( 1, 0.607843, 0, 0.666667 )
 [node name="Stream" parent="Ability/VBoxContainer/AbilityStatusBar" instance=ExtResource( 8 )]
 margin_left = 72.0
 margin_right = 104.0
-margin_bottom = 62.0
+margin_bottom = 61.0
 
 [node name="Texture" parent="Ability/VBoxContainer/AbilityStatusBar/Stream/HBoxContainer" index="0"]
 texture = ExtResource( 6 )
