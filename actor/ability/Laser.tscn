@@ -12,6 +12,4 @@ shader_param/BrightStrength = 5.0
 
 [node name="Laser" type="Sprite"]
 material = SubResource( 9 )
-position = Vector2( 168, -24 )
-scale = Vector2( 5.25, 1 )
 texture = ExtResource( 1 )
