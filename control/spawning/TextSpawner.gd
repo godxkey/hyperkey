@@ -59,6 +59,7 @@ func _word_sizes() -> PoolIntArray:
 func _setup_label_for_target(text:TypistText, target):
   var label_root = LABEL_SCENE.instance()
   label_root.get_node("TypistLabel").display_text = text
+  label_root.z_index = TypistLabel.DEFAULT_Z
   label_root.position.y = 30
   target.add_child(label_root)
 

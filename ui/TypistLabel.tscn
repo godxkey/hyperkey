@@ -10,7 +10,6 @@
 bg_color = Color( 0.152941, 0.152941, 0.341176, 0.654902 )
 
 [node name="TypistLabelRoot" type="Node2D"]
-z_index = 1000
 
 [node name="TypistLabel" type="RichTextLabel" parent="."]
 margin_left = -16.0

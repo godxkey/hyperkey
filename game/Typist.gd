@@ -35,7 +35,7 @@ func is_letter_unused(letter:String) -> bool:
 func create_tracker(target) -> HitTracker:
   var label = target.find_node("TypistLabelRoot", true, false)
   # Current targeted label should render above others
-  label.z_index += 1
+  label.z_index = TypistLabel.DEFAULT_Z + 1
   return HitTracker.new(target, label)
 
 func _attack_letter(letter:String):
