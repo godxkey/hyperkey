@@ -23,3 +23,7 @@ rotated_node_path = NodePath("../Sprite")
 
 [node name="Damage" type="Node" parent="." index="5"]
 script = ExtResource( 3 )
+[connection signal="area_entered" from="." to="." method="_on_hit_body"]
+[connection signal="body_entered" from="." to="." method="_on_hit_body"]
+[connection signal="critical_hit" from="Health" to="." method="_kill_subasteroid"]
+[connection signal="no_health" from="Health" to="." method="_on_killed" flags=6]

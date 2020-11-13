@@ -17,7 +17,6 @@ script = ExtResource( 1 )
 max_active = 7
 frequency = 2.0
 spawn_scene = ExtResource( 8 )
-attack_target_key = "Planet"
 textures = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ) ]
 
 [node name="Cluster" parent="." instance=ExtResource( 7 )]
@@ -28,7 +27,6 @@ spawn_scene = ExtResource( 8 )
 sizes = 6
 multiwords = true
 max_word_count = 3
-attack_target_key = "Planet"
 textures = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ) ]
 
 [node name="Missile" parent="." instance=ExtResource( 7 )]
@@ -38,7 +36,6 @@ frequency = 10.0
 emit_count = 2
 spawn_scene = ExtResource( 9 )
 sizes = 1
-attack_target_key = "Planet"
 
 [node name="HeavyMissiles" parent="." instance=ExtResource( 7 )]
 script = ExtResource( 2 )
@@ -46,4 +43,3 @@ max_active = 1
 frequency = 8.0
 spawn_scene = ExtResource( 10 )
 sizes = 2
-attack_target_key = "Planet"

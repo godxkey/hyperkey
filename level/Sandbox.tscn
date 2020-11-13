@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://actor/player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://actor/environment/Planet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://control/ProjectileManager.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game/Typist.tscn" type="PackedScene" id=5]
@@ -24,18 +23,16 @@ environment = SubResource( 1 )
 [node name="GUI Layer" type="CanvasLayer" parent="."]
 
 [node name="HUD" parent="GUI Layer" instance=ExtResource( 4 )]
-planet_path = NodePath("../../Planet")
 typist_path = NodePath("../../Typist")
 
 [node name="CelestialBackground" parent="." instance=ExtResource( 7 )]
 
 [node name="ProjectileManager" parent="." instance=ExtResource( 3 )]
 
-[node name="Planet" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, 32 )
-scale = Vector2( 2, 2 )
-
 [node name="SpawnSystem" parent="." instance=ExtResource( 6 )]
+
+[node name="Asteroid" parent="SpawnSystem" index="0"]
+attack_target_key = "Player"
 
 [node name="SpawnArea" parent="SpawnSystem/Asteroid" index="0"]
 position = Vector2( 0, -704 )
@@ -43,11 +40,17 @@ width = 800.0
 height = 50.0
 debug_color = Color( 0.8, 0.4, 0, 0.301961 )
 
+[node name="Cluster" parent="SpawnSystem" index="1"]
+attack_target_key = "Player"
+
 [node name="SpawnArea" parent="SpawnSystem/Cluster" index="0"]
 position = Vector2( 0, -696 )
 width = 800.0
 height = 50.0
 debug_color = Color( 0.8, 0.0196078, 0, 0.301961 )
+
+[node name="Missile" parent="SpawnSystem" index="2"]
+attack_target_key = "Player"
 
 [node name="SpawnArea" parent="SpawnSystem/Missile" index="0"]
 position = Vector2( 0, -768 )
@@ -55,26 +58,27 @@ width = 900.0
 height = 50.0
 debug_color = Color( 0.313726, 0.968627, 1, 0.301961 )
 
+[node name="HeavyMissiles" parent="SpawnSystem" index="3"]
+attack_target_key = "Player"
+
 [node name="SpawnArea" parent="SpawnSystem/HeavyMissiles" index="0"]
 position = Vector2( 0, -800 )
 
 [node name="Typist" parent="." instance=ExtResource( 5 )]
 projectile_manager_path = NodePath("../ProjectileManager")
-planet_path = NodePath("../Planet")
 player_path = NodePath("../Player")
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2( 0, -300 )
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, -350 )
 current = true
-smoothing_enabled = true
 smoothing_speed = 1.0
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CameraShake" parent="Player/Camera2D" instance=ExtResource( 8 )]
+[node name="CameraShake" parent="Camera2D" instance=ExtResource( 8 )]
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
 
 [editable path="SpawnSystem"]
 

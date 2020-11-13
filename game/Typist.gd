@@ -1,7 +1,6 @@
 extends Node
 
 export(NodePath) var projectile_manager_path
-export(NodePath) var planet_path
 export(NodePath) var player_path
 
 onready var _player = get_node(player_path)
@@ -15,7 +14,6 @@ var _current_tracker:HitTracker = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
   text_gen.text_server.unused_letter_condition = funcref(self, "is_letter_unused")
-  blackboard["Planet"] = weakref(get_node(planet_path))
   blackboard["Player"] = weakref(_player)
 
 func _process(delta):
