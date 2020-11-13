@@ -10,8 +10,6 @@ blend_mode = 1
 [node name="CelestialBackground" type="ParallaxBackground"]
 
 [node name="Stars" type="ParallaxLayer" parent="."]
-motion_scale = Vector2( 0.05, 0.05 )
-motion_mirroring = Vector2( 2048, 1600 )
 
 [node name="Stars" parent="Stars" instance=ExtResource( 2 )]
 material = SubResource( 1 )
