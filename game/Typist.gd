@@ -15,17 +15,19 @@ var _current_tracker:HitTracker = null
 func _ready():
   text_gen.text_server.unused_letter_condition = funcref(self, "is_letter_unused")
   blackboard["Player"] = weakref(_player)
+  if _player:
+    var res = _player.connect("tree_exiting", self, "_on_player_killed");
+    assert(res == OK)
 
 func _process(delta):
   if _current_tracker:
     _current_tracker.process(delta)
 
 func _unhandled_input(event):
-  if not Input.is_action_pressed("game_ability_hold"):
-    if event as InputEventKey and event.is_pressed() and not event.echo:
-      if event.scancode >= KEY_A and event.scancode <= KEY_Z:
-        var input_letter = char(event.scancode).to_lower()
-        _attack_letter(input_letter)
+  if _player && event as InputEventKey and event.is_pressed() and not event.echo:
+    if event.scancode >= KEY_A and event.scancode <= KEY_Z:
+      var input_letter = char(event.scancode).to_lower()
+      _attack_letter(input_letter)
 
 func is_letter_unused(letter:String) -> bool:
   return not _text_targets.has_letter(letter)
@@ -110,3 +112,8 @@ func _remove_exited_target(text:String, target_wref):
       _clear_tracked()
     else:
       _remove_target_word(text)
+
+func _on_player_killed():
+  _current_tracker = null
+  _player.aimed_target = null
+  _player = null
