@@ -1,8 +1,5 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://ui/font/TypistFontBoldItalic.tres" type="DynamicFont" id=1]
-[ext_resource path="res://ui/font/TypistFontBold.tres" type="DynamicFont" id=2]
-[ext_resource path="res://ui/font/TypistFontItalic.tres" type="DynamicFont" id=3]
 [ext_resource path="res://ui/font/TypistFont.tres" type="DynamicFont" id=4]
 [ext_resource path="res://ui/TypistLabel.gd" type="Script" id=5]
 
@@ -21,9 +18,9 @@ grow_vertical = 2
 rect_clip_content = false
 custom_styles/normal = SubResource( 1 )
 custom_fonts/mono_font = ExtResource( 4 )
-custom_fonts/bold_italics_font = ExtResource( 1 )
-custom_fonts/italics_font = ExtResource( 3 )
-custom_fonts/bold_font = ExtResource( 2 )
+custom_fonts/bold_italics_font = ExtResource( 4 )
+custom_fonts/italics_font = ExtResource( 4 )
+custom_fonts/bold_font = ExtResource( 4 )
 custom_fonts/normal_font = ExtResource( 4 )
 bbcode_enabled = true
 scroll_active = false

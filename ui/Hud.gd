@@ -16,11 +16,9 @@ onready var _score_stat = find_node("Score")
 onready var _streak_stat = find_node("Streak")
 onready var _streak_label = find_node("StreakLabel")
 onready var _streak_high = find_node("StreakHigh")
-onready var _currency_total = find_node("CurrencyTotal")
 onready var _shield = find_node("Shield")
 onready var _attractor = find_node("Attractor")
 onready var _stream = find_node("Stream")
-onready var _ability_status_bar = find_node("AbilityStatusBar")
 
 # World components
 # TODO: Replace this with stats or score.
@@ -50,14 +48,6 @@ func _ready():
   res = Score.connect("scored_target", self, "show_target_score")
   assert(res == OK)
 
-  res = Abilities.connect("currency_changed", self, "set_currency")
-  assert(res == OK)
-
-  res = Abilities.connect("ability_activated", self, "set_ability_timer")
-  assert(res == OK)
-
-  _set_ability_display_values()
-
   _streak_label.hide()
   _streak_stat.hide()
 
@@ -70,21 +60,6 @@ func set_accuracy_percent(percent:int):
 func set_score(score:int):
   _score_stat.text = String(score)
   _score_stat.get_node("ChangeEffect").start()
-
-func set_currency(currency:int):
-  _currency_total.text = "$ %s" % currency
-  _currency_total.get_node("ChangeEffect").start()
-  for ability in _ability_status_bar.get_children():
-    ability.set_currency(currency)
-
-func set_ability_timer(type, ability):
-  match type:
-    Abilities.AbilityType.SHIELD:
-      _shield.tracked_ability_timer = ability.get_node("Timer")
-    Abilities.AbilityType.ATTRACTOR:
-      _attractor.tracked_ability_timer = ability.get_node("Timer")
-    Abilities.AbilityType.STREAM:
-      _stream.tracked_ability_timer = ability.get_node("Timer")
 
 func play_decrease_accuracy_effect():
   _accuracy_stat.get_node("ChangeEffect").start()
@@ -162,14 +137,3 @@ func streak_color(streak:int) -> Color:
     return Color.silver
   else:
     return streak_gradient.interpolate(streak / Score.high_streak_limit as float)
-
-# Set ability display costs and durations
-func _set_ability_display_values():
-  _shield.display_duration = Abilities.shield.duration
-  _shield.display_cost = Abilities.shield.cost
-
-  _attractor.display_duration = Abilities.attractor.duration
-  _attractor.display_cost = Abilities.attractor.cost
-
-  _stream.display_duration = Abilities.stream.duration
-  _stream.display_cost = Abilities.stream.cost

@@ -1,11 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://control/spawning/AsteroidSpawn.gd" type="Script" id=1]
 [ext_resource path="res://control/spawning/TextSpawner.gd" type="Script" id=2]
 [ext_resource path="res://actor/environment/BrownAsteroid.png" type="Texture" id=3]
 [ext_resource path="res://actor/environment/GreyAsteroid.png" type="Texture" id=4]
 [ext_resource path="res://actor/environment/Asteroid.png" type="Texture" id=5]
-[ext_resource path="res://actor/enemy/Bomber.tscn" type="PackedScene" id=6]
 [ext_resource path="res://control/spawning/Spawner.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actor/environment/Asteroid.tscn" type="PackedScene" id=8]
 [ext_resource path="res://actor/projectile/Missile.tscn" type="PackedScene" id=9]
@@ -15,8 +14,8 @@
 
 [node name="Asteroid" parent="." instance=ExtResource( 7 )]
 script = ExtResource( 1 )
-max_active = 5
-frequency = 3.0
+max_active = 7
+frequency = 2.0
 spawn_scene = ExtResource( 8 )
 attack_target_key = "Planet"
 textures = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ) ]
@@ -26,7 +25,7 @@ script = ExtResource( 1 )
 max_active = 2
 frequency = 10.0
 spawn_scene = ExtResource( 8 )
-sizes = 14
+sizes = 6
 multiwords = true
 max_word_count = 3
 attack_target_key = "Planet"
@@ -35,7 +34,7 @@ textures = [ ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ) ]
 [node name="Missile" parent="." instance=ExtResource( 7 )]
 script = ExtResource( 2 )
 max_active = 2
-frequency = 25.0
+frequency = 10.0
 emit_count = 2
 spawn_scene = ExtResource( 9 )
 sizes = 1
@@ -45,25 +44,6 @@ attack_target_key = "Planet"
 script = ExtResource( 2 )
 max_active = 1
 frequency = 8.0
-active = false
 spawn_scene = ExtResource( 10 )
 sizes = 2
 attack_target_key = "Planet"
-
-[node name="Bomber" parent="." instance=ExtResource( 7 )]
-script = ExtResource( 2 )
-max_active = 1
-frequency = 35.0
-spawn_scene = ExtResource( 6 )
-sizes = 6
-multiwords = true
-min_word_count = 3
-
-[node name="Bomber2" parent="." instance=ExtResource( 7 )]
-script = ExtResource( 2 )
-max_active = 1
-frequency = 120.0
-spawn_scene = ExtResource( 6 )
-sizes = 6
-multiwords = true
-min_word_count = 3

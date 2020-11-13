@@ -55,17 +55,8 @@ width = 900.0
 height = 50.0
 debug_color = Color( 0.313726, 0.968627, 1, 0.301961 )
 
-[node name="SpawnArea" parent="SpawnSystem/Bomber" index="0"]
-position = Vector2( -436, -544 )
-width = 50.0
-height = 250.0
-debug_color = Color( 0.266667, 0, 1, 0.301961 )
-
-[node name="SpawnArea" parent="SpawnSystem/Bomber2" index="0"]
-position = Vector2( 448, -544 )
-width = 50.0
-height = 250.0
-debug_color = Color( 0.160784, 0.0666667, 1, 0.301961 )
+[node name="SpawnArea" parent="SpawnSystem/HeavyMissiles" index="0"]
+position = Vector2( 0, -800 )
 
 [node name="Typist" parent="." instance=ExtResource( 5 )]
 projectile_manager_path = NodePath("../ProjectileManager")
@@ -93,8 +84,6 @@ __meta__ = {
 
 [editable path="SpawnSystem/Missile"]
 
-[editable path="SpawnSystem/Bomber"]
-
-[editable path="SpawnSystem/Bomber2"]
+[editable path="SpawnSystem/HeavyMissiles"]
 
 [editable path="Typist"]
