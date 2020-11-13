@@ -1,31 +1,86 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://world/Planet.png" type="Texture" id=1]
-[ext_resource path="res://world/StarParticles.tscn" type="PackedScene" id=2]
-[ext_resource path="res://world/Moon.png" type="Texture" id=3]
+[ext_resource path="res://texture/WhiteSquare.png" type="Texture" id=1]
+[ext_resource path="res://world/StarSquare.png" type="Texture" id=3]
+[ext_resource path="res://curves/wave.tres" type="Curve" id=4]
 
-[sub_resource type="CanvasItemMaterial" id=1]
+[sub_resource type="CanvasItemMaterial" id=5]
 blend_mode = 1
 
-[node name="CelestialBackground" type="ParallaxBackground"]
+[sub_resource type="CurveTexture" id=4]
+curve = ExtResource( 4 )
 
-[node name="Stars" type="ParallaxLayer" parent="."]
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 360, 1, 1 )
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 50.0
+initial_velocity_random = 0.25
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.5
+scale_random = 0.25
+scale_curve = SubResource( 4 )
 
-[node name="Stars" parent="Stars" instance=ExtResource( 2 )]
-material = SubResource( 1 )
-amount = 64
-lifetime = 10.0
+[node name="CelestialBackground" type="CanvasLayer"]
+layer = -1
 
-[node name="Planets" type="ParallaxLayer" parent="."]
-motion_scale = Vector2( 0.2, 0.2 )
-
-[node name="Planet" type="Sprite" parent="Planets"]
-position = Vector2( -336, -336 )
+[node name="BaseColor" type="Sprite" parent="."]
+modulate = Color( 0.17523, 0.1474, 0.22, 1 )
 texture = ExtResource( 1 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 720, 960 )
 
-[node name="Moons" type="ParallaxLayer" parent="."]
-motion_scale = Vector2( 0.5, 0.5 )
+[node name="StarsWhite" type="Particles2D" parent="."]
+material = SubResource( 5 )
+position = Vector2( 352, 0 )
+amount = 32
+lifetime = 22.0
+preprocess = 21.0
+visibility_rect = Rect2( -350, 0, 720, 960 )
+process_material = SubResource( 3 )
+texture = ExtResource( 3 )
 
-[node name="Moon" type="Sprite" parent="Moons"]
-position = Vector2( -160, -304 )
+[node name="StarsBlue" type="Particles2D" parent="."]
+modulate = Color( 0.486275, 0.733333, 1, 1 )
+material = SubResource( 5 )
+position = Vector2( 352, 0 )
+lifetime = 22.0
+preprocess = 21.0
+visibility_rect = Rect2( -350, 0, 720, 960 )
+process_material = SubResource( 3 )
+texture = ExtResource( 3 )
+
+[node name="StarsRed" type="Particles2D" parent="."]
+modulate = Color( 1, 0.309804, 0.309804, 1 )
+material = SubResource( 5 )
+position = Vector2( 352, 0 )
+lifetime = 22.0
+preprocess = 21.0
+visibility_rect = Rect2( -350, 0, 720, 960 )
+process_material = SubResource( 3 )
+texture = ExtResource( 3 )
+
+[node name="StarsOrange" type="Particles2D" parent="."]
+modulate = Color( 1, 0.619608, 0.133333, 1 )
+material = SubResource( 5 )
+position = Vector2( 352, 0 )
+lifetime = 22.0
+preprocess = 21.0
+visibility_rect = Rect2( -350, 0, 720, 960 )
+process_material = SubResource( 3 )
+texture = ExtResource( 3 )
+
+[node name="StarsYellow" type="Particles2D" parent="."]
+modulate = Color( 0.996078, 1, 0.329412, 1 )
+material = SubResource( 5 )
+position = Vector2( 352, 0 )
+lifetime = 22.0
+preprocess = 21.0
+visibility_rect = Rect2( -350, 0, 720, 960 )
+process_material = SubResource( 3 )
 texture = ExtResource( 3 )

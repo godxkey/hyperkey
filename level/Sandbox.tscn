@@ -35,8 +35,8 @@ typist_path = NodePath("../../Typist")
 attack_target_key = "Player"
 
 [node name="SpawnArea" parent="SpawnSystem/Asteroid" index="0"]
-position = Vector2( 0, -704 )
-width = 800.0
+position = Vector2( 0, -880 )
+width = 600.0
 height = 50.0
 debug_color = Color( 0.8, 0.4, 0, 0.301961 )
 
@@ -44,8 +44,8 @@ debug_color = Color( 0.8, 0.4, 0, 0.301961 )
 attack_target_key = "Player"
 
 [node name="SpawnArea" parent="SpawnSystem/Cluster" index="0"]
-position = Vector2( 0, -696 )
-width = 800.0
+position = Vector2( 0, -880 )
+width = 600.0
 height = 50.0
 debug_color = Color( 0.8, 0.0196078, 0, 0.301961 )
 
@@ -53,8 +53,8 @@ debug_color = Color( 0.8, 0.0196078, 0, 0.301961 )
 attack_target_key = "Player"
 
 [node name="SpawnArea" parent="SpawnSystem/Missile" index="0"]
-position = Vector2( 0, -768 )
-width = 900.0
+position = Vector2( 0, -880 )
+width = 600.0
 height = 50.0
 debug_color = Color( 0.313726, 0.968627, 1, 0.301961 )
 
@@ -62,14 +62,16 @@ debug_color = Color( 0.313726, 0.968627, 1, 0.301961 )
 attack_target_key = "Player"
 
 [node name="SpawnArea" parent="SpawnSystem/HeavyMissiles" index="0"]
-position = Vector2( 0, -800 )
+position = Vector2( 0, -880 )
+width = 600.0
+height = 50.0
 
 [node name="Typist" parent="." instance=ExtResource( 5 )]
 projectile_manager_path = NodePath("../ProjectileManager")
 player_path = NodePath("../Player")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 0, -350 )
+position = Vector2( 0, -420 )
 current = true
 smoothing_speed = 1.0
 __meta__ = {
