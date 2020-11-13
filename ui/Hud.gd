@@ -16,20 +16,8 @@ onready var _score_stat = find_node("Score")
 onready var _streak_stat = find_node("Streak")
 onready var _streak_label = find_node("StreakLabel")
 onready var _streak_high = find_node("StreakHigh")
-onready var _shield = find_node("Shield")
-onready var _attractor = find_node("Attractor")
-onready var _stream = find_node("Stream")
-
-# World components
-# TODO: Replace this with stats or score.
-# Health handling in HUD should be abstracted from Planet
-onready var _planet = get_node(planet_path)
 
 func _ready():
-  var planet_health = _planet.get_node("Health")
-  planet_health.connect("health_changed", self, "set_planet_health")
-  set_planet_health(planet_health.hit_points)
-
   var res = Stats.connect("accuracy_changed", self, "set_accuracy_percent")
   assert(res == OK)
 
@@ -50,9 +38,6 @@ func _ready():
 
   _streak_label.hide()
   _streak_stat.hide()
-
-func set_planet_health(value:int):
-  _health_stat.text = String(value)
 
 func set_accuracy_percent(percent:int):
   _accuracy_stat.text = "%s %%" % percent
