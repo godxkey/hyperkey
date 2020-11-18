@@ -20,6 +20,7 @@ z_index = 10
 script = ExtResource( 2 )
 
 [node name="BulletTrail" parent="." instance=ExtResource( 4 )]
+amount = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -28, 0 )

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/BrownAsteroid.png-89c4378218e4dea8b1b703bce7f294dd.stex"
+path="res://.import/GreyAsteroid.png-176e01b1a95df79ae309a7146271051e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actor/environment/BrownAsteroid.png"
-dest_files=[ "res://.import/BrownAsteroid.png-89c4378218e4dea8b1b703bce7f294dd.stex" ]
+source_file="res://actor/asteroid/GreyAsteroid.png"
+dest_files=[ "res://.import/GreyAsteroid.png-176e01b1a95df79ae309a7146271051e.stex" ]
 
 [params]
 

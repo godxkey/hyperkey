@@ -58,7 +58,7 @@ func get_cursor() -> int:
 
 func stats() -> TypingStats:
   var stats = TypingStats.new()
-  stats.text_length =  text().length()
+  stats.text_length = text().length()
   stats.keypress_count = _total_keypress_count
   stats.time_to_complete = _total_active_time
   return stats
