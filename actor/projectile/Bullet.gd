@@ -1,29 +1,26 @@
 extends Area2D
 class_name Bullet
 
-onready var motion := $FollowTarget as FollowTarget
-
 signal target_hit
 
-func _ready():
-  var res = connect("area_entered", self, "on_hit")
-  assert(res == OK)
+onready var follow = $FollowTarget
 
-func on_hit(target):
-  if target and target == motion.target:
+var _is_near := false
+
+func _on_hit(object_hit):
+  var target = follow.target
+  if object_hit and object_hit == target:
     $Damage.apply_damage(target)
-    _change_rotation_speed(target)
-    emit_signal("target_hit", global_position, motion.get_velocity().angle())
+    emit_signal("target_hit", target, global_position, follow.get_velocity().angle())
     queue_free()
 
-func _change_rotation_speed(target):
-  var rotator = target.get_node_or_null("Rotator")
-  if rotator:
-    rotator.speed += sign(rotator.speed) * 1.5
-    if randf() < 0.1:
-      rotator.speed = 1.0
-    if randf() < 0.1:
-      rotator.speed *= -1.0
+func _on_near(near_object):
+  if not _is_near:
+    var target = follow.target
+    if near_object and near_object == target:
+      # Increase homing acceleration so bullet does not miss target.
+      follow.acceleration *= 100.0
+      _is_near = false
 
 func _process(_delta):
-  set_rotation(motion.get_velocity().angle())
+  set_rotation(follow.get_velocity().angle())

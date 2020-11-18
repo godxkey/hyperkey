@@ -27,7 +27,7 @@ typist_path = NodePath("../../Typist")
 
 [node name="CelestialBackground" parent="." instance=ExtResource( 7 )]
 
-[node name="ProjectileManager" parent="." instance=ExtResource( 3 )]
+[node name="ProjectileRoot" parent="." instance=ExtResource( 3 )]
 
 [node name="SpawnSystem" parent="." instance=ExtResource( 6 )]
 
@@ -67,7 +67,7 @@ width = 600.0
 height = 50.0
 
 [node name="Typist" parent="." instance=ExtResource( 5 )]
-projectile_manager_path = NodePath("../ProjectileManager")
+projectile_manager_path = NodePath("../ProjectileRoot")
 player_path = NodePath("../Player")
 
 [node name="Camera2D" type="Camera2D" parent="."]

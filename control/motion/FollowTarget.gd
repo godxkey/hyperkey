@@ -10,7 +10,7 @@ func _get_target():
   return target.get_ref()
 
 func _physics_process(delta):
-  var target_node = target.get_ref()
-  if target_node:
-    start_moving_towards(target_node.position)
+  var tgt = target.get_ref()
+  if tgt:
+    start_moving_towards(tgt.global_position)
   move(delta)
