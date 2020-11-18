@@ -1,48 +1,18 @@
 extends Node
 
-export(PackedScene) var _breaking_effect
-export(PackedScene) var _explode_effect
-export(PackedScene) var _explode_break
-export(PackedScene) var _ground_explosion
-
-func play_explosion(position:Vector2, impact_rotation:float):
-  var e = _explode_effect.instance()
-  e.position = position
-  e.rotation = impact_rotation + PI # Go against impact direciton
-  e.emitting = true
-  e.get_node("ExplosionSpark").emitting = true
-  play_one_shot_effect(e)
-
-func play_hit_break(position:Vector2, impact_rotation:float):
-  var e = _breaking_effect.instance()
-  e.position = position
-  e.rotation = impact_rotation + PI
-  play_one_shot_effect(e)
-
-func play_explode_break(position:Vector2):
-  var e = _explode_break.instance()
-  e.position = position
-  play_one_shot_effect(e)
-
-func play_ground_explosion(position:Vector2):
-  var e = _ground_explosion.instance()
-  e.position = position
-  e.get_node("Spark").emitting = true
-  e.get_node("Explosion").emitting = true
-  play_one_shot_effect(e)
-
-func play_one_shot_effect(e):
+func play_impact_effect(effect_resource, position:Vector2, impact_angle:float):
+  var e = effect_resource.instance()
   add_child(e)
-  e.one_shot = true
-  e.emitting = true
-  var timer = e.get_node("Timer")
-  timer.connect("timeout", e, "queue_free")
-  timer.wait_time = e.lifetime
-  timer.one_shot = true
-  timer.start()
+  e.global_position = position
+  e.rotation = impact_angle + PI # Go against impact direction
+
+func play_effect(effect_resource, position:Vector2):
+  var e = effect_resource.instance()
+  add_child(e)
+  e.global_position = position
 
 # Takes ownership of the effect and lets it finish the emission cycle before deletion.
-func kill_effect_after_done(e):
+func release_effect(e):
   e.get_parent().remove_child(e)
   add_child(e)
   var timer = e.get_node("Timer")

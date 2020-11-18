@@ -12,9 +12,6 @@ onready var sprite = $Sprite as Sprite
 func _process(delta):
   rotate_sprite(delta)
 
-func on_killed():
-  Effect.play_explode_break(global_position)
-
 func aim_rotation_angle() -> float:
   var target = aimed_target.get_ref()
   if target:

@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://effect/explosion/Blast.tscn" type="PackedScene" id=2]
+[ext_resource path="res://effect/KillEffectTimer.gd" type="Script" id=3]
+[ext_resource path="res://effect/explosion/BlastParticles.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="Explosion" type="Node2D"]
+material = SubResource( 1 )
+
+[node name="Blast" parent="." instance=ExtResource( 2 )]
+
+[node name="BlastParticles" parent="." groups=[
+"MainEffect",
+] instance=ExtResource( 4 )]
+amount = 10
+
+[node name="Timer" type="Timer" parent="."]
+script = ExtResource( 3 )

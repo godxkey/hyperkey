@@ -16,20 +16,11 @@ func spawn_projectile(location:Vector2, target:Node2D) -> Node2D:
   follow.apply_force(cast_force * 5000.0)
 
   projectile.connect("target_hit", self, "_on_target_hit")
-  projectile.connect(
-    "tree_exiting",
-    self,
-    "prepare_bullet_trail_for_removal",
-    [projectile],
-    CONNECT_ONESHOT)
-  # Prevent repetitive trails by preprocessing the particles.
-  projectile.get_node("BulletTrail").preprocess = rand_range(1, 10)
   Sound.play("Shot")
   return projectile
 
-func _on_target_hit(target, position, angle):
+func _on_target_hit(target):
   _change_rotation_speed(target)
-  play_explosion(position, angle)
 
 func _change_rotation_speed(target):
   var rotator = target.get_node_or_null("Rotator")
@@ -39,12 +30,3 @@ func _change_rotation_speed(target):
       rotator.speed = 1.0
     if randf() < 0.1:
       rotator.speed *= -1.0
-
-func prepare_bullet_trail_for_removal(projectile):
-  var trail = projectile.get_node("BulletTrail")
-  Effect.kill_effect_after_done(trail)
-
-func play_explosion(position:Vector2, impact_rotation:float):
-  Sound.play("Hit")
-  Effect.play_explosion(position, impact_rotation)
-  Effect.play_hit_break(position, impact_rotation)
