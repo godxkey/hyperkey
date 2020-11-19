@@ -42,7 +42,3 @@ lifetime = 2.0
 explosiveness = 0.1
 local_coords = false
 process_material = SubResource( 7 )
-
-[node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true

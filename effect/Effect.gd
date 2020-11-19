@@ -15,8 +15,6 @@ func play_effect(effect_resource, position:Vector2):
 func release_effect(e):
   e.get_parent().remove_child(e)
   add_child(e)
-  var timer = e.get_node("Timer")
-  timer.wait_time = e.lifetime
-  timer.connect("timeout", e, "queue_free")
-  timer.start()
   e.emitting = false
+  yield(get_tree().create_timer(e.lifetime), "timeout")
+  e.queue_free()
