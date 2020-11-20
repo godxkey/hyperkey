@@ -45,6 +45,7 @@ __meta__ = {
 [node name="CameraShake" parent="Camera2D" instance=ExtResource( 8 )]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+[connection signal="target_acquired" from="Typist" to="Player" method="_set_aimed_target"]
 [connection signal="target_keyhit" from="Typist" to="Player" method="fire_at_target"]
 
 [editable path="Typist"]

@@ -10,6 +10,7 @@ onready var blackboard := {}
 var _current_tracker:HitTracker = null
 
 signal target_keyhit(target, hit_completed_word)
+signal target_acquired(target)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -52,12 +53,12 @@ func _attack_letter(letter:String):
 func acquire_target(text:String):
   assert(_current_tracker == null)
   var target = _text_targets.target(text)
-  _player.aimed_target = target
+  _on_target_acquired(target)
   _current_tracker = create_tracker(target)
   Stats.add_keypress()
   var result = _current_tracker.hit(text[0])
   if result.is_hit:
-    on_target_keyhit(target)
+    _on_target_keyhit(target)
     Stats.add_keyhit()
 
 func continue_hit_target(letter:String):
@@ -66,7 +67,7 @@ func continue_hit_target(letter:String):
   var result = _current_tracker.hit(letter)
   if result.is_hit:
       var target = _current_tracker.get_target()
-      on_target_keyhit(target, result.hit_completed_word)
+      _on_target_keyhit(target, result.hit_completed_word)
       Stats.add_keyhit()
       if _current_tracker.is_done():
           Stats.set_stats(target, _current_tracker.stats())
@@ -74,8 +75,11 @@ func continue_hit_target(letter:String):
   else:
     Stats.mistype_tracked(letter, _current_tracker.get_target())
 
-func on_target_keyhit(target, hit_completed_word:bool = false):
+func _on_target_keyhit(target, hit_completed_word:bool = false):
   emit_signal("target_keyhit", target, hit_completed_word)
+
+func _on_target_acquired(target):
+  emit_signal("target_acquired", target)
 
 # Add a text target. Text targets are game objects the player can type to shoot.
 # Will fail if adding a text target with an already used starting letter.
@@ -101,7 +105,7 @@ func _clear_tracked():
   _remove_target_word(_current_tracker.text())
   _current_tracker.remove_label()
   _current_tracker = null
-  _player.aimed_target = null
+  _on_target_acquired(null)
 
 func _remove_exited_target(text:String, target_wref):
   var target = target_wref.get_ref()
@@ -113,5 +117,5 @@ func _remove_exited_target(text:String, target_wref):
 
 func _on_player_killed():
   _current_tracker = null
-  _player.aimed_target = null
+  _on_target_acquired(null)
   _player = null
