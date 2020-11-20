@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://control/spawning/SpawnArea.gd" type="Script" id=1]
 [ext_resource path="res://control/spawning/TextSpawner.gd" type="Script" id=2]
 [ext_resource path="res://control/spawning/Spawner.tscn" type="PackedScene" id=7]
-[ext_resource path="res://actor/asteroid/Asteroid.tscn" type="PackedScene" id=8]
 [ext_resource path="res://actor/projectile/Missile.tscn" type="PackedScene" id=9]
 [ext_resource path="res://actor/projectile/HeavyMissile.tscn" type="PackedScene" id=10]
 
@@ -13,33 +12,17 @@ width = 400.0
 height = 200.0
 debug_color = Color( 0.8, 0.4, 0, 0.3 )
 
-[node name="Asteroid" parent="." instance=ExtResource( 7 )]
-script = ExtResource( 2 )
-max_active = 7
-frequency = 2.0
-spawn_scene = ExtResource( 8 )
-sizes = 6
-
-[node name="Cluster" parent="." instance=ExtResource( 7 )]
-script = ExtResource( 2 )
-max_active = 1
-frequency = 10.0
-spawn_scene = ExtResource( 8 )
-sizes = 6
-multiwords = true
-max_word_count = 3
-
 [node name="Missile" parent="." instance=ExtResource( 7 )]
 script = ExtResource( 2 )
 max_active = 2
-frequency = 10.0
-emit_count = 2
 spawn_scene = ExtResource( 9 )
-sizes = 1
+sizes = 3
 
 [node name="HeavyMissiles" parent="." instance=ExtResource( 7 )]
 script = ExtResource( 2 )
-max_active = 1
-frequency = 8.0
+max_active = 2
+frequency = 4.0
 spawn_scene = ExtResource( 10 )
-sizes = 2
+sizes = 6
+multiwords = true
+max_word_count = 3

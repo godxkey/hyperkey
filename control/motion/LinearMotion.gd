@@ -5,6 +5,7 @@ export(float) var acceleration = 1000.0
 export(float) var damping = 1500.0
 export(float) var max_speed = 200.0
 export(float) var motion_scale = 1.0
+export(bool) var rotate = true # Align rotation with velocity direction
 
 onready var _parent = get_parent() as Node2D
 
@@ -26,6 +27,8 @@ func move(delta:float):
   _velocity = _velocity.clamped(max_speed)
   _parent.translate(_velocity * delta);
   _accumulated_forces = Vector2.ZERO
+  if rotate and not _velocity.is_equal_approx(Vector2.ZERO):
+    _parent.set_rotation(_velocity.angle())
 
 func is_moving() -> bool:
   return _velocity.length_squared() > 0.0
@@ -37,7 +40,7 @@ func apply_force(force:Vector2):
   _accumulated_forces += force
 
 func start_moving_towards(target:Vector2):
-  _acceleration = _parent.position.direction_to(target) * acceleration
+  _acceleration = _parent.global_position.direction_to(target) * acceleration
 
 func start_moving_along(direction:Vector2):
   _acceleration = direction.normalized() * acceleration

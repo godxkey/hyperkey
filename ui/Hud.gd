@@ -35,9 +35,6 @@ func _ready():
   res = Score.connect("scored_target", self, "show_target_score")
   assert(res == OK)
 
-  _streak_label.hide()
-  _streak_stat.hide()
-
 func set_accuracy_percent(percent:int):
   _accuracy_stat.text = "%s %%" % percent
 
@@ -50,8 +47,6 @@ func play_decrease_accuracy_effect():
 
 func set_streak(streak:int):
   var is_above_min = streak > min_streak_to_display
-  _streak_stat.visible = is_above_min
-  _streak_label.visible = is_above_min
 
   if is_above_min:
     var color = streak_color(streak)
@@ -60,6 +55,11 @@ func set_streak(streak:int):
     _streak_stat.modulate = color
     _streak_stat.get_node("ChangeEffect").start()
     _streak_high.text = String(Stats.get_streak_high())
+  else:
+    # Not high enough, just show dash to reprsent irrelevant.
+    _streak_label.modulate = Color.white
+    _streak_stat.modulate = Color.white
+    _streak_stat.text = "-"
 
   # Streak was reset, show the last streak value
   if streak == 0 and Stats.get_last_streak() > min_streak_to_display:

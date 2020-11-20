@@ -8,18 +8,12 @@
 [node name="Sprite" parent="." index="1"]
 texture = ExtResource( 2 )
 
-[node name="Thrust" parent="Sprite" index="0"]
-position = Vector2( -18, 0 )
-
-[node name="SmokeTrail" parent="Sprite" index="1"]
-position = Vector2( -30, 0 )
-
-[node name="FollowTarget" parent="." index="2"]
+[node name="FollowTarget" parent="." index="4"]
 acceleration = 100.0
 max_speed = 60.0
 
-[node name="Damage" parent="." index="4"]
+[node name="Damage" parent="." index="6"]
 damage_points = 30
 
-[node name="TypistLabel" parent="." index="6"]
-position = Vector2( 0, 36 )
+[node name="LabelRemote" parent="." index="8"]
+position = Vector2( 38, 0 )

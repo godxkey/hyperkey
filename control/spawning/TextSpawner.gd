@@ -14,6 +14,8 @@ export(int) var max_word_count = 4
 # The blackboard key for the attack target that spawns will follow.
 export(String) var attack_target_key = "Player"
 
+const LABEL_SCENE:PackedScene = preload("res://ui/TypistLabel.tscn")
+
 onready var typist = get_node("/root/World/Typist")
 
 signal text_spawned(text, spawned)
@@ -24,12 +26,29 @@ func _spawn() -> Node2D:
     var text = _generate_text()
     if text:
       var s = spawn_scene.instance()
-      s.set_text(text)
+      add_child(s)
+      s.set_stats(text)
       s.follow(attack_target())
+      _attach_label(s, text)
       emit_signal("text_spawned", text, s)
       typist.add_text_target(text, s)
       return s
   return null
+
+func _attach_label(target, text):
+  # Z node required by Text Label so it can render above other objects.
+  var z_node = Position2D.new()
+  add_child(z_node)
+
+  var label = LABEL_SCENE.instance()
+  z_node.add_child(label)
+  label.display_text = text
+
+  target.get_node("LabelRemote").remote_path = z_node.get_path()
+  target.label_path = label.get_path()
+
+  # If target dies, so does label
+  target.connect("tree_exiting", z_node, "queue_free")
 
 func _generate_text() -> TypistText:
   var count = _random_word_count() if multiwords else 1

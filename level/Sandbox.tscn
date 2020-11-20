@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://actor/player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://world/Ocean.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game/Typist.tscn" type="PackedScene" id=5]
 [ext_resource path="res://control/spawning/SpawnArea.tscn" type="PackedScene" id=6]
-[ext_resource path="res://world/CelestialBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://control/CameraShake.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Environment" id=1]
@@ -24,10 +24,10 @@ environment = SubResource( 1 )
 [node name="HUD" parent="GUI Layer" instance=ExtResource( 4 )]
 typist_path = NodePath("../../Typist")
 
-[node name="CelestialBackground" parent="." instance=ExtResource( 7 )]
+[node name="Ocean" parent="." instance=ExtResource( 2 )]
 
 [node name="SpawnArea" parent="." instance=ExtResource( 6 )]
-position = Vector2( 0, -896 )
+position = Vector2( 0, -808 )
 width = 500.0
 height = 50.0
 
@@ -35,7 +35,7 @@ height = 50.0
 player_path = NodePath("../Player")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 0, -420 )
+position = Vector2( 0, -380 )
 current = true
 smoothing_speed = 1.0
 __meta__ = {

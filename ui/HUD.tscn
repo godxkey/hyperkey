@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ui/Hud.gd" type="Script" id=1]
 [ext_resource path="res://ui/font/TypistFont.tres" type="DynamicFont" id=2]
@@ -9,9 +9,6 @@
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.111413, 0.32337, 0.785075, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 0.164706, 1, 0.54902, 1, 0.309804, 0.952941, 1, 1, 0.403922, 0.537255, 1, 1, 0.741176, 0.501961, 1, 1 )
-
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.203922, 0.172549, 0.298039, 0.772549 )
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -24,21 +21,18 @@ score_info_scene = ExtResource( 3 )
 text_info_scene = ExtResource( 5 )
 streak_gradient = SubResource( 1 )
 
-[node name="StatsPanelContainer" type="PanelContainer" parent="."]
+[node name="StatsPanelContainer" type="CenterContainer" parent="."]
 anchor_top = 0.99
 anchor_bottom = 0.99
-margin_left = 16.0
-margin_top = -104.0
-margin_right = 130.0
-margin_bottom = -3.0
-custom_styles/panel = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_top = -96.0
+margin_right = 150.0
+margin_bottom = 8.0
 
 [node name="Stats" type="GridContainer" parent="StatsPanelContainer"]
-margin_right = 114.0
-margin_bottom = 101.0
+margin_left = 23.0
+margin_top = 12.0
+margin_right = 126.0
+margin_bottom = 92.0
 columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -100,7 +94,7 @@ margin_top = 42.0
 margin_right = 103.0
 margin_bottom = 59.0
 custom_fonts/font = ExtResource( 2 )
-text = "0"
+text = "-"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -109,7 +103,6 @@ __meta__ = {
 change_color = false
 
 [node name="StreakHighLabel" type="Label" parent="StatsPanelContainer/Stats"]
-modulate = Color( 0.709804, 0.709804, 0.709804, 1 )
 margin_top = 63.0
 margin_right = 66.0
 margin_bottom = 80.0
@@ -117,7 +110,6 @@ custom_fonts/font = ExtResource( 2 )
 text = "HIGH"
 
 [node name="StreakHigh" type="Label" parent="StatsPanelContainer/Stats"]
-modulate = Color( 0.709804, 0.709804, 0.709804, 1 )
 margin_left = 70.0
 margin_top = 63.0
 margin_right = 103.0

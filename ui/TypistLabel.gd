@@ -19,6 +19,9 @@ func _init():
 func _ready():
   get_parent().z_index = DEFAULT_Z
 
+func set_top_z():
+  get_parent().z_index = DEFAULT_Z + 1
+
 func increment_cursor():
   set_cursor(cursor + 1)
 

@@ -22,30 +22,30 @@ shape = SubResource( 1 )
 [node name="Sprite" parent="." index="1"]
 texture = ExtResource( 1 )
 
-[node name="Thrust" parent="Sprite" index="0" instance=ExtResource( 4 )]
+[node name="Thrust" parent="." index="2" instance=ExtResource( 4 )]
 position = Vector2( -14, 0 )
 
-[node name="SmokeTrail" parent="Sprite" index="1" instance=ExtResource( 5 )]
+[node name="SmokeTrail" parent="." index="3" instance=ExtResource( 5 )]
 position = Vector2( -24, 0 )
 
-[node name="FollowTarget" parent="." index="2"]
+[node name="FollowTarget" parent="." index="4"]
 acceleration = 300.0
 damping = 100.0
 max_speed = 100.0
 
-[node name="Damage" type="Node" parent="." index="4"]
+[node name="Damage" type="Node" parent="." index="6"]
 script = ExtResource( 2 )
 damage_points = 10
 
-[node name="ThrustSfx" type="AudioStreamPlayer2D" parent="." index="5"]
+[node name="ThrustSfx" type="AudioStreamPlayer2D" parent="." index="7"]
 stream = ExtResource( 7 )
 volume_db = -2.0
 pitch_scale = 0.8
 autoplay = true
 max_distance = 500.0
 
-[node name="TypistLabel" parent="." index="6"]
-position = Vector2( 0, 26 )
+[node name="LabelRemote" parent="." index="8"]
+position = Vector2( 32, 0 )
 [connection signal="area_entered" from="." to="." method="_on_hit_body"]
 [connection signal="body_entered" from="." to="." method="_on_hit_body"]
-[connection signal="no_health" from="Health" to="." method="_on_killed" flags=6]
+[connection signal="no_health" from="Health" to="." method="_on_killed"]

@@ -33,12 +33,6 @@ func _unhandled_input(event):
 func is_letter_unused(letter:String) -> bool:
   return not _text_targets.has_letter(letter)
 
-func create_tracker(target) -> HitTracker:
-  # Current targeted label should render above others
-  var label = target.label_location()
-  label.z_index = TypistLabel.DEFAULT_Z + 1
-  return HitTracker.new(target, label)
-
 func _attack_letter(letter:String):
   if _current_tracker == null:
     var text = _text_targets.text(letter)
@@ -54,7 +48,7 @@ func acquire_target(text:String):
   assert(_current_tracker == null)
   var target = _text_targets.target(text)
   _on_target_acquired(target)
-  _current_tracker = create_tracker(target)
+  _current_tracker = HitTracker.new(target, target.text())
   Stats.add_keypress()
   var result = _current_tracker.hit(text[0])
   if result.is_hit:
@@ -76,9 +70,12 @@ func continue_hit_target(letter:String):
     Stats.mistype_tracked(letter, _current_tracker.get_target())
 
 func _on_target_keyhit(target, hit_completed_word:bool = false):
+  target.on_hit()
   emit_signal("target_keyhit", target, hit_completed_word)
 
 func _on_target_acquired(target):
+  if target:
+    target.set_as_active_target()
   emit_signal("target_acquired", target)
 
 # Add a text target. Text targets are game objects the player can type to shoot.
@@ -88,7 +85,6 @@ func add_text_target(text:TypistText, target):
   var merged_text = text.merged_text()
   assert(not merged_text.empty())
   assert(not _text_targets.has_letter(merged_text[0]))
-  add_child(target)
   target.connect(
     "tree_exiting",
     self,
@@ -102,8 +98,8 @@ func _remove_target_word(text:String):
 
 func _clear_tracked():
   assert(_current_tracker != null)
+  _current_tracker.get_target().label().hide()
   _remove_target_word(_current_tracker.text())
-  _current_tracker.remove_label()
   _current_tracker = null
   _on_target_acquired(null)
 
