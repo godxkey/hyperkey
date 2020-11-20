@@ -7,7 +7,7 @@
 [ext_resource path="res://actor/projectile/Missile.tscn" type="PackedScene" id=9]
 [ext_resource path="res://actor/projectile/HeavyMissile.tscn" type="PackedScene" id=10]
 
-[node name="SpawnSystem" type="Node2D"]
+[node name="SpawnArea" type="Node2D"]
 script = ExtResource( 1 )
 width = 400.0
 height = 200.0

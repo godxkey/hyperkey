@@ -4,7 +4,7 @@
 [ext_resource path="res://control/ProjectileManager.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game/Typist.tscn" type="PackedScene" id=5]
-[ext_resource path="res://control/spawning/SpawnSystem.tscn" type="PackedScene" id=6]
+[ext_resource path="res://control/spawning/SpawnArea.tscn" type="PackedScene" id=6]
 [ext_resource path="res://world/CelestialBackground.tscn" type="PackedScene" id=7]
 [ext_resource path="res://control/CameraShake.tscn" type="PackedScene" id=8]
 
@@ -29,7 +29,7 @@ typist_path = NodePath("../../Typist")
 
 [node name="ProjectileRoot" parent="." instance=ExtResource( 3 )]
 
-[node name="SpawnSystem" parent="." instance=ExtResource( 6 )]
+[node name="SpawnArea" parent="." instance=ExtResource( 6 )]
 position = Vector2( 0, -896 )
 width = 500.0
 height = 50.0
