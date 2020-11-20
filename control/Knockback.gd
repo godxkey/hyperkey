@@ -13,3 +13,13 @@ func apply_effect(position:Vector2, target):
   var knockback_force = to_target * knockback_speed
   var angle = deg2rad(rand_range(-knock_back_angle, knock_back_angle))
   target_motion.set_velocity(knockback_force.rotated(angle))
+  _change_rotation_speed(target)
+
+func _change_rotation_speed(target):
+  var rotator = target.get_node_or_null("Rotator")
+  if rotator:
+    rotator.speed += sign(rotator.speed) * 1.5
+    if randf() < 0.1:
+      rotator.speed = 1.0
+    if randf() < 0.1:
+      rotator.speed *= -1.0

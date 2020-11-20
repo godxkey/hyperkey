@@ -1,15 +1,15 @@
 extends Node
 
-export(NodePath) var projectile_manager_path
 export(NodePath) var player_path
 
 onready var _player = get_node(player_path)
-onready var _projectile_manager = get_node(projectile_manager_path)
 onready var _text_targets = $TextTargets
 onready var text_gen = $TextGenerator
 onready var blackboard := {}
 
 var _current_tracker:HitTracker = null
+
+signal target_keyhit(target, hit_completed_word)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -57,7 +57,7 @@ func acquire_target(text:String):
   Stats.add_keypress()
   var result = _current_tracker.hit(text[0])
   if result.is_hit:
-    spawn_bullet(target)
+    on_target_keyhit(target)
     Stats.add_keyhit()
 
 func continue_hit_target(letter:String):
@@ -66,7 +66,7 @@ func continue_hit_target(letter:String):
   var result = _current_tracker.hit(letter)
   if result.is_hit:
       var target = _current_tracker.get_target()
-      spawn_bullet(target, result.hit_completed_word)
+      on_target_keyhit(target, result.hit_completed_word)
       Stats.add_keyhit()
       if _current_tracker.is_done():
           Stats.set_stats(target, _current_tracker.stats())
@@ -74,11 +74,8 @@ func continue_hit_target(letter:String):
   else:
     Stats.mistype_tracked(letter, _current_tracker.get_target())
 
-func spawn_bullet(target, is_critical:bool = false):
-  var bullet = _projectile_manager.spawn_projectile(_player.gun_position(), target)
-  bullet.get_node("Damage").is_critical = is_critical
-  target.connect("tree_exiting", bullet, "queue_free")
-  _player.fire()
+func on_target_keyhit(target, hit_completed_word:bool = false):
+  emit_signal("target_keyhit", target, hit_completed_word)
 
 # Add a text target. Text targets are game objects the player can type to shoot.
 # Will fail if adding a text target with an already used starting letter.

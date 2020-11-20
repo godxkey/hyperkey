@@ -3,7 +3,8 @@ class_name Player
 extends Area2D
 
 export(float) var default_angle = 0 setget _set_default_angle
-export(float) var rotation_smoothing = 12.0
+export(float) var rotation_smoothing = 4.0
+export var bullet_resource:PackedScene
 
 var aimed_target = weakref(null) setget _set_aimed_target, _get_aimed_target
 
@@ -25,10 +26,8 @@ func aim_rotation_angle() -> float:
     return default_angle
 
 func rotate_sprite(delta:float):
-  var current_rotation = Transform2D(sprite.rotation, Vector2.ZERO)
-  var target_rotation = Transform2D(aim_rotation_angle(), Vector2.ZERO)
-  var rotation_step = current_rotation.interpolate_with(target_rotation, delta * rotation_smoothing)
-  sprite.set_rotation(rotation_step.get_rotation())
+  var angle = lerp_angle(sprite.rotation, aim_rotation_angle(), delta * rotation_smoothing)
+  sprite.set_rotation(angle)
 
 func _set_default_angle(value):
   default_angle = deg2rad(value)
@@ -39,10 +38,19 @@ func _set_aimed_target(value):
 func _get_aimed_target():
   return aimed_target.get_ref()
 
-func fire():
+func _play_gun():
   var reset = true
   _gun_animation.stop(reset)
   _gun_animation.play("Shoot")
 
-func gun_position():
-  return _gun_location.global_position
+func fire_at_target(target, is_critical:bool):
+  var bullet = Projectiles.spawn(
+    bullet_resource,
+    _gun_location.position,
+    target)
+  bullet.get_node("Damage").is_critical = is_critical
+
+  # # If target is removed, make sure to remove bullet.
+  target.connect("tree_exiting", bullet, "queue_free")
+  _play_gun()
+

@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://actor/player/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://control/ProjectileManager.tscn" type="PackedScene" id=3]
 [ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://game/Typist.tscn" type="PackedScene" id=5]
 [ext_resource path="res://control/spawning/SpawnArea.tscn" type="PackedScene" id=6]
@@ -27,15 +26,12 @@ typist_path = NodePath("../../Typist")
 
 [node name="CelestialBackground" parent="." instance=ExtResource( 7 )]
 
-[node name="ProjectileRoot" parent="." instance=ExtResource( 3 )]
-
 [node name="SpawnArea" parent="." instance=ExtResource( 6 )]
 position = Vector2( 0, -896 )
 width = 500.0
 height = 50.0
 
 [node name="Typist" parent="." instance=ExtResource( 5 )]
-projectile_manager_path = NodePath("../ProjectileRoot")
 player_path = NodePath("../Player")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -49,5 +45,6 @@ __meta__ = {
 [node name="CameraShake" parent="Camera2D" instance=ExtResource( 8 )]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+[connection signal="target_keyhit" from="Typist" to="Player" method="fire_at_target"]
 
 [editable path="Typist"]

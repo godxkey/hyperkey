@@ -25,7 +25,7 @@ func _spawn() -> Node2D:
     if text:
       var s = spawn_scene.instance()
       s.set_text(text)
-      _set_text_target_follow(s)
+      s.follow(attack_target())
       emit_signal("text_spawned", text, s)
       typist.add_text_target(text, s)
       return s
@@ -48,15 +48,9 @@ func _word_sizes() -> PoolIntArray:
   if sizes & SizeFlags.LONG: picks.append(WordDictionary.WordSize.LONG)
   return picks
 
-func _set_text_target_follow(target):
-  if typist.blackboard.has(attack_target_key):
-    var motion = target.get_node("FollowTarget")
-    var attack = typist.blackboard[attack_target_key].get_ref()
-    if motion and attack:
-      motion.target = attack
-      var start_speed = rand_range(0.2 * motion.max_speed, 0.8 * motion.max_speed)
-      motion.set_velocity(start_speed * target.position.direction_to(attack.position))
-
 func has_attack_target_set():
   var bb = typist.blackboard
   return bb.has(attack_target_key) && bb[attack_target_key].get_ref()
+
+func attack_target():
+  return typist.blackboard[attack_target_key].get_ref()

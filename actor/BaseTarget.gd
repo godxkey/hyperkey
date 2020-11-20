@@ -18,3 +18,8 @@ func _on_text_set(_text:TypistText):
 
 func label_location():
   return $TypistLabel
+
+func follow(other:Node2D):
+  var ft = $FollowTarget
+  ft.target = other
+  ft.set_velocity(ft.max_speed * position.direction_to(other.position))

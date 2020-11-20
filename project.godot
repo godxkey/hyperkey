@@ -105,11 +105,6 @@ _global_script_classes=[ {
 "path": "res://game/TypistText.gd"
 }, {
 "base": "Node",
-"class": "Wave",
-"language": "GDScript",
-"path": "res://control/Wave.gd"
-}, {
-"base": "Node",
 "class": "WordDictionary",
 "language": "GDScript",
 "path": "res://library/WordDictionary.gd"
@@ -134,7 +129,6 @@ _global_script_class_icons={
 "TextSpawner": "res://icons/text_icon.png",
 "TypistLabel": "",
 "TypistText": "",
-"Wave": "",
 "WordDictionary": ""
 }
 
@@ -152,6 +146,7 @@ Sound="*res://audio/Sound.tscn"
 Effect="*res://effect/Effect.tscn"
 Score="*res://game/Score.tscn"
 Stats="*res://game/Stats.tscn"
+Projectiles="*res://control/Projectiles.gd"
 
 [display]
 
