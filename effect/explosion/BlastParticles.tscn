@@ -1,6 +1,4 @@
-[gd_scene load_steps=7 format=2]
-
-[ext_resource path="res://effect/StartAsOneshot.gd" type="Script" id=1]
+[gd_scene load_steps=6 format=2]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.285714, 1 )
@@ -36,7 +34,6 @@ lifetime = 2.0
 explosiveness = 1.0
 local_coords = false
 process_material = SubResource( 5 )
-script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": "Residue effect caused by bullets"
 }

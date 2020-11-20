@@ -1,7 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://effect/explosion/Blast.tscn" type="PackedScene" id=2]
-[ext_resource path="res://effect/KillEffectTimer.gd" type="Script" id=3]
 [ext_resource path="res://effect/explosion/BlastParticles.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CanvasItemMaterial" id=1]
@@ -10,15 +9,62 @@ particles_anim_h_frames = 4
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
+[sub_resource type="Animation" id=2]
+resource_name = "Explosion"
+length = 2.0
+step = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("BlastParticles:one_shot")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BlastParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
 [node name="Explosion" type="Node2D"]
 material = SubResource( 1 )
 
 [node name="Blast" parent="." instance=ExtResource( 2 )]
+visible = false
 
 [node name="BlastParticles" parent="." groups=[
 "MainEffect",
 ] instance=ExtResource( 4 )]
+emitting = false
 amount = 10
+one_shot = true
 
-[node name="Timer" type="Timer" parent="."]
-script = ExtResource( 3 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Explosion"
+anims/Explosion = SubResource( 2 )

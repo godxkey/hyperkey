@@ -17,4 +17,4 @@ func _process(_delta):
   sprite.set_rotation(motion.get_velocity().angle())
 
 func _exit_tree():
-  Effect.release_effect($Sprite/SmokeTrail)
+  Effect.release_particles($Sprite/SmokeTrail)

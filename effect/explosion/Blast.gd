@@ -1,5 +1,6 @@
 extends AnimatedSprite
 
 func _ready():
-  rotate(rand_range(0, TAU))
+  rotate(rand_range(-PI, PI))
+  show()
   play()

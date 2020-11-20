@@ -34,4 +34,4 @@ func _process(_delta):
   set_rotation(follow.get_velocity().angle())
 
 func _exit_tree():
-  Effect.release_effect($Trail)
+  Effect.release_particles($Trail)
