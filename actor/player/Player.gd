@@ -9,6 +9,7 @@ var aimed_target = weakref(null) setget _set_aimed_target, _get_aimed_target
 
 onready var sprite = $Sprite as Sprite
 onready var _gun_animation = $Sprite/Gun/AnimationPlayer
+onready var _gun_location = $Sprite/Gun
 
 func _ready():
   $Sprite/Gun/Flash.visible = false
@@ -42,3 +43,6 @@ func fire():
   var reset = true
   _gun_animation.stop(reset)
   _gun_animation.play("Shoot")
+
+func gun_position():
+  return _gun_location.global_position

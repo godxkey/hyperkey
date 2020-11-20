@@ -75,7 +75,7 @@ func continue_hit_target(letter:String):
     Stats.mistype_tracked(letter, _current_tracker.get_target())
 
 func spawn_bullet(target, is_critical:bool = false):
-  var bullet = _projectile_manager.spawn_projectile(_player.position, target)
+  var bullet = _projectile_manager.spawn_projectile(_player.gun_position(), target)
   bullet.get_node("Damage").is_critical = is_critical
   target.connect("tree_exiting", bullet, "queue_free")
   _player.fire()
