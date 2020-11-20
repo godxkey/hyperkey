@@ -78,6 +78,7 @@ func spawn_bullet(target, is_critical:bool = false):
   var bullet = _projectile_manager.spawn_projectile(_player.position, target)
   bullet.get_node("Damage").is_critical = is_critical
   target.connect("tree_exiting", bullet, "queue_free")
+  _player.fire()
 
 # Add a text target. Text targets are game objects the player can type to shoot.
 # Will fail if adding a text target with an already used starting letter.

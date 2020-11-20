@@ -8,6 +8,10 @@ export(float) var rotation_smoothing = 12.0
 var aimed_target = weakref(null) setget _set_aimed_target, _get_aimed_target
 
 onready var sprite = $Sprite as Sprite
+onready var _gun_animation = $Sprite/Gun/AnimationPlayer
+
+func _ready():
+  $Sprite/Gun/Flash.visible = false
 
 func _process(delta):
   rotate_sprite(delta)
@@ -33,3 +37,8 @@ func _set_aimed_target(value):
 
 func _get_aimed_target():
   return aimed_target.get_ref()
+
+func fire():
+  var reset = true
+  _gun_animation.stop(reset)
+  _gun_animation.play("Shoot")

@@ -18,7 +18,10 @@ func _on_hit(object_hit):
   if object_hit and object_hit == target:
     emit_signal("target_hit", target)
     Sound.play("Hit")
-    Effect.play_impact_effect(hit_effect, global_position, follow.get_velocity().angle())
+    Effect.play_impact_effect(
+      hit_effect,
+      global_position,
+      follow.get_velocity().angle())
     $Damage.apply_damage(target)
     queue_free()
 
