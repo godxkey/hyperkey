@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://control/motion/FollowTarget.gd" type="Script" id=1]
+[ext_resource path="res://control/Health.gd" type="Script" id=2]
+[ext_resource path="res://actor/BaseTarget.gd" type="Script" id=3]
+[ext_resource path="res://ui/TypistLabel.tscn" type="PackedScene" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[node name="BaseTarget" type="Area2D" groups=[
+"BaseActor",
+]]
+input_pickable = false
+script = ExtResource( 3 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="FollowTarget" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="TypistLabel" parent="." instance=ExtResource( 4 )]

@@ -14,8 +14,6 @@ export(int) var max_word_count = 4
 # The blackboard key for the attack target that spawns will follow.
 export(String) var attack_target_key
 
-const LABEL_SCENE = preload("res://ui/TypistLabel.tscn")
-
 onready var typist = get_node("/root/World/Typist")
 
 signal text_spawned(text, spawned)
@@ -27,9 +25,7 @@ func _spawn() -> Node2D:
     if text:
       var s = _spawn_text_target(text)
       if s:
-        _setup_label_for_target(text, s)
-        _set_text_target_health(text, s)
-        _set_text_target_motion(text, s)
+        s.set_text(text)
         _set_text_target_follow(s)
         emit_signal("text_spawned", text, s)
         typist.add_text_target(text, s)
@@ -56,23 +52,6 @@ func _word_sizes() -> PoolIntArray:
   if sizes & SizeFlags.MEDIUM: picks.append(WordDictionary.WordSize.MEDIUM)
   if sizes & SizeFlags.LONG: picks.append(WordDictionary.WordSize.LONG)
   return picks
-
-func _setup_label_for_target(text:TypistText, target):
-  var label_root = LABEL_SCENE.instance()
-  label_root.get_node("TypistLabel").display_text = text
-  label_root.z_index = TypistLabel.DEFAULT_Z
-  label_root.position.y = 30
-  target.add_child(label_root)
-
-func _set_text_target_health(text:TypistText, target):
-  var health = target.get_node("Health")
-  health.hit_points = text.merged_text().length()
-
-func _set_text_target_motion(text:TypistText, target):
-  var motion = target.get_node("FollowTarget")
-  if motion:
-    motion.max_speed /= text.text_list.size()
-    motion.acceleration /= text.text_list.size()
 
 func _set_text_target_follow(target):
   if typist.blackboard.has(attack_target_key):

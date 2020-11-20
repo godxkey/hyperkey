@@ -6,9 +6,9 @@
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.152941, 0.152941, 0.341176, 0.654902 )
 
-[node name="TypistLabelRoot" type="Node2D"]
+[node name="TypistLabel" type="Position2D"]
 
-[node name="TypistLabel" type="RichTextLabel" parent="."]
+[node name="Label" type="RichTextLabel" parent="."]
 margin_left = -16.0
 margin_top = -8.0
 margin_right = 16.0

@@ -10,9 +10,9 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Area2D",
-"class": "BaseActor",
+"class": "BaseTarget",
 "language": "GDScript",
-"path": "res://actor/BaseActor.gd"
+"path": "res://actor/BaseTarget.gd"
 }, {
 "base": "Area2D",
 "class": "Bullet",
@@ -105,12 +105,17 @@ _global_script_classes=[ {
 "path": "res://game/TypistText.gd"
 }, {
 "base": "Node",
+"class": "Wave",
+"language": "GDScript",
+"path": "res://control/Wave.gd"
+}, {
+"base": "Node",
 "class": "WordDictionary",
 "language": "GDScript",
 "path": "res://library/WordDictionary.gd"
 } ]
 _global_script_class_icons={
-"BaseActor": "res://icons/base_actor_icon.png",
+"BaseTarget": "res://icons/base_actor_icon.png",
 "Bullet": "",
 "Damage": "res://icons/damage_icon.png",
 "FollowTarget": "res://icons/follow_icon.png",
@@ -129,6 +134,7 @@ _global_script_class_icons={
 "TextSpawner": "res://icons/text_icon.png",
 "TypistLabel": "",
 "TypistText": "",
+"Wave": "",
 "WordDictionary": ""
 }
 

@@ -20,3 +20,6 @@ max_speed = 60.0
 
 [node name="Damage" parent="." index="4"]
 damage_points = 30
+
+[node name="TypistLabel" parent="." index="6"]
+position = Vector2( 0, 36 )

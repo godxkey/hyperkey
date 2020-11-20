@@ -35,7 +35,7 @@ var _current_word_cursor:int = 0
 func _init(target, label_root):
   _target = target
   _label_root = label_root
-  _label = _label_root.get_node("TypistLabel")
+  _label = _label_root.get_node("Label")
   _text = _label.display_text.merged_text()
 
 func process(delta):

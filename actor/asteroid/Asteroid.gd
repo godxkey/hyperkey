@@ -1,4 +1,4 @@
-extends BaseActor
+extends BaseTarget
 
 export var death_effect:PackedScene
 export var hit_effect:PackedScene

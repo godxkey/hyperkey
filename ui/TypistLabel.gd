@@ -9,12 +9,15 @@ var _default_font:Font = get("custom_fonts/normal_font")
 var _width_adjust:float = 1.4
 var _height_adjust:float = 4.0
 
-# The z_index value that should be used for the label root.
+# The z_index value that should be used for the label parent.
 const DEFAULT_Z = 1000
 
 func _init():
   # This makes sure the effect is unique per label
   install_effect(_typist_effect)
+
+func _ready():
+  get_parent().z_index = DEFAULT_Z
 
 func increment_cursor():
   set_cursor(cursor + 1)
