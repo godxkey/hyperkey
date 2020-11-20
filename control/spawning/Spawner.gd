@@ -19,8 +19,6 @@ export(bool) var active = true
 
 export(PackedScene) var spawn_scene = null
 
-onready var spawn_area = $SpawnArea
-
 # How many spawns are alive
 var _active_count:int = 0
 
@@ -77,7 +75,7 @@ func _set_frequency(value:float):
 func spawn() -> Node2D:
   var s = _spawn()
   if s:
-    s.global_position = spawn_area.spawn_position()
+    s.global_position = get_parent().spawn_position()
   return s
 
 # Extended classes implement this to return a spawn object.

@@ -10,6 +10,11 @@ func set_text(text:TypistText):
   $Health.hit_points = text.merged_text().length()
   $FollowTarget.max_speed /= text.text_list.size()
   $FollowTarget.acceleration /= text.text_list.size()
+  _on_text_set(text)
+
+# Extended classes implement this to apply custom behavior based on the text.
+func _on_text_set(_text:TypistText):
+  pass
 
 func label_location():
   return $TypistLabel

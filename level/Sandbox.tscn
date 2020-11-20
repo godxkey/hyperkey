@@ -30,40 +30,8 @@ typist_path = NodePath("../../Typist")
 [node name="ProjectileRoot" parent="." instance=ExtResource( 3 )]
 
 [node name="SpawnSystem" parent="." instance=ExtResource( 6 )]
-
-[node name="Asteroid" parent="SpawnSystem" index="0"]
-attack_target_key = "Player"
-
-[node name="SpawnArea" parent="SpawnSystem/Asteroid" index="0"]
-position = Vector2( 0, -880 )
-width = 600.0
-height = 50.0
-debug_color = Color( 0.8, 0.4, 0, 0.301961 )
-
-[node name="Cluster" parent="SpawnSystem" index="1"]
-attack_target_key = "Player"
-
-[node name="SpawnArea" parent="SpawnSystem/Cluster" index="0"]
-position = Vector2( 0, -880 )
-width = 600.0
-height = 50.0
-debug_color = Color( 0.8, 0.0196078, 0, 0.301961 )
-
-[node name="Missile" parent="SpawnSystem" index="2"]
-attack_target_key = "Player"
-
-[node name="SpawnArea" parent="SpawnSystem/Missile" index="0"]
-position = Vector2( 0, -880 )
-width = 600.0
-height = 50.0
-debug_color = Color( 0.313726, 0.968627, 1, 0.301961 )
-
-[node name="HeavyMissiles" parent="SpawnSystem" index="3"]
-attack_target_key = "Player"
-
-[node name="SpawnArea" parent="SpawnSystem/HeavyMissiles" index="0"]
-position = Vector2( 0, -880 )
-width = 600.0
+position = Vector2( 0, -896 )
+width = 500.0
 height = 50.0
 
 [node name="Typist" parent="." instance=ExtResource( 5 )]
@@ -81,15 +49,5 @@ __meta__ = {
 [node name="CameraShake" parent="Camera2D" instance=ExtResource( 8 )]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-
-[editable path="SpawnSystem"]
-
-[editable path="SpawnSystem/Asteroid"]
-
-[editable path="SpawnSystem/Cluster"]
-
-[editable path="SpawnSystem/Missile"]
-
-[editable path="SpawnSystem/HeavyMissiles"]
 
 [editable path="Typist"]

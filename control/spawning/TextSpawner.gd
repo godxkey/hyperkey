@@ -12,7 +12,7 @@ export(int) var min_word_count = 2
 export(int) var max_word_count = 4
 
 # The blackboard key for the attack target that spawns will follow.
-export(String) var attack_target_key
+export(String) var attack_target_key = "Player"
 
 onready var typist = get_node("/root/World/Typist")
 
@@ -20,21 +20,16 @@ signal text_spawned(text, spawned)
 
 # Spawns text targets. Null is returned if it could not be created.
 func _spawn() -> Node2D:
-  if typist.blackboard[attack_target_key].get_ref():
+  if has_attack_target_set():
     var text = _generate_text()
     if text:
-      var s = _spawn_text_target(text)
-      if s:
-        s.set_text(text)
-        _set_text_target_follow(s)
-        emit_signal("text_spawned", text, s)
-        typist.add_text_target(text, s)
+      var s = spawn_scene.instance()
+      s.set_text(text)
+      _set_text_target_follow(s)
+      emit_signal("text_spawned", text, s)
+      typist.add_text_target(text, s)
       return s
   return null
-
-# Extended classes need to implement this to create the spawn with text.
-func _spawn_text_target(_text:TypistText) -> Node2D:
-  return spawn_scene.instance()
 
 func _generate_text() -> TypistText:
   var count = _random_word_count() if multiwords else 1
@@ -61,3 +56,7 @@ func _set_text_target_follow(target):
       motion.target = attack
       var start_speed = rand_range(0.2 * motion.max_speed, 0.8 * motion.max_speed)
       motion.set_velocity(start_speed * target.position.direction_to(attack.position))
+
+func has_attack_target_set():
+  var bb = typist.blackboard
+  return bb.has(attack_target_key) && bb[attack_target_key].get_ref()
