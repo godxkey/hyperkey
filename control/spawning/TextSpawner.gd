@@ -22,17 +22,18 @@ signal text_spawned(text, spawned)
 
 # Spawns text targets. Null is returned if it could not be created.
 func _spawn() -> Node2D:
-  var text = _generate_text()
-  if text:
-    var s = _spawn_text_target(text)
-    if s:
-      _setup_label_for_target(text, s)
-      _set_text_target_health(text, s)
-      _set_text_target_motion(text, s)
-      _set_text_target_follow(s)
-      emit_signal("text_spawned", text, s)
-      typist.add_text_target(text, s)
-    return s
+  if typist.blackboard[attack_target_key].get_ref():
+    var text = _generate_text()
+    if text:
+      var s = _spawn_text_target(text)
+      if s:
+        _setup_label_for_target(text, s)
+        _set_text_target_health(text, s)
+        _set_text_target_motion(text, s)
+        _set_text_target_follow(s)
+        emit_signal("text_spawned", text, s)
+        typist.add_text_target(text, s)
+      return s
   return null
 
 # Extended classes need to implement this to create the spawn with text.
