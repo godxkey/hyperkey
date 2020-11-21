@@ -3,8 +3,6 @@ extends BaseTarget
 export var death_effect:PackedScene
 
 func _on_killed():
-  Sound.play("Break")
-  Effect.play_impact_camera_shake()
   Effect.play_effect(death_effect, global_position)
   Effect.release_particles($SmokeTrail)
 
