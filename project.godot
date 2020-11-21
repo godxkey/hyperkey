@@ -54,10 +54,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://audio/PlaySound.gd"
 }, {
-"base": "Area2D",
+"base": "Reference",
 "class": "Player",
 "language": "GDScript",
-"path": "res://actor/player/Player.gd"
+"path": "res://actor/ship/Player.gd"
 }, {
 "base": "Control",
 "class": "QuickInfo",
