@@ -2,9 +2,9 @@
 
 [ext_resource path="res://control/spawning/SpawnArea.gd" type="Script" id=1]
 [ext_resource path="res://control/spawning/TextSpawner.gd" type="Script" id=2]
+[ext_resource path="res://actor/projectile/HeavyMissile.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actor/projectile/Missile.tscn" type="PackedScene" id=4]
 [ext_resource path="res://control/spawning/Spawner.tscn" type="PackedScene" id=7]
-[ext_resource path="res://actor/projectile/Missile.tscn" type="PackedScene" id=9]
-[ext_resource path="res://actor/projectile/HeavyMissile.tscn" type="PackedScene" id=10]
 
 [node name="SpawnArea" type="Node2D"]
 script = ExtResource( 1 )
@@ -14,15 +14,13 @@ debug_color = Color( 0.8, 0.4, 0, 0.3 )
 
 [node name="Missile" parent="." instance=ExtResource( 7 )]
 script = ExtResource( 2 )
-max_active = 2
-spawn_scene = ExtResource( 9 )
+frequency = 1.5
+spawn_scene = ExtResource( 4 )
 sizes = 3
 
-[node name="HeavyMissiles" parent="." instance=ExtResource( 7 )]
+[node name="HeavyMissile" parent="." instance=ExtResource( 7 )]
 script = ExtResource( 2 )
-max_active = 2
-frequency = 4.0
-spawn_scene = ExtResource( 10 )
-sizes = 6
+frequency = 5.0
+spawn_scene = ExtResource( 3 )
+sizes = 3
 multiwords = true
-max_word_count = 3

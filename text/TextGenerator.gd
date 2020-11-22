@@ -2,7 +2,7 @@ extends Node
 
 onready var text_server = $TextServer
 
-var _history := preload("res://library/History.gd").new()
+var _history := History.new()
 
 # Use a history to prevent generating the same word too frequently.
 var enable_history = true

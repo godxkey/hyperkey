@@ -2,9 +2,7 @@ extends Node
 
 export(NodePath) var player_path
 
-onready var _player = get_node(player_path)
 onready var _text_targets = $TextTargets
-onready var text_gen = $TextGenerator
 
 var _current_tracker:HitTracker = null
 
@@ -13,17 +11,14 @@ signal target_acquired(target)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-  text_gen.text_server.unused_letter_condition = funcref(self, "is_letter_unused")
-  if _player:
-    var res = _player.connect("tree_exiting", self, "_on_player_killed");
-    assert(res == OK)
+  Game.text_gen().text_server.unused_letter_condition = funcref(self, "is_letter_unused")
 
 func _process(delta):
   if _current_tracker:
     _current_tracker.process(delta)
 
 func _unhandled_input(event):
-  if _player && event as InputEventKey and event.is_pressed() and not event.echo:
+  if event as InputEventKey and event.is_pressed() and not event.echo:
     if event.scancode >= KEY_A and event.scancode <= KEY_Z:
       var input_letter = char(event.scancode).to_lower()
       _attack_letter(input_letter)
@@ -108,8 +103,3 @@ func _remove_exited_target(text:String, target_wref):
       _clear_tracked()
     else:
       _remove_target_word(text)
-
-func _on_player_killed():
-  _current_tracker = null
-  _on_target_acquired(null)
-  _player = null

@@ -1,5 +1,7 @@
 extends Reference
 
+class_name History
+
 var max_history = 10 setget _set_max_history
 var _history := []
 

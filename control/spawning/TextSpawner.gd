@@ -15,8 +15,6 @@ export var attack_node_path: NodePath
 
 const LABEL_SCENE:PackedScene = preload("res://ui/TypistLabel.tscn")
 
-onready var typist = get_node("/root/World/Typist")
-
 signal text_spawned(text, spawned)
 
 # Spawns text targets. Null is returned if it could not be created.
@@ -31,7 +29,6 @@ func _spawn() -> Node2D:
       s.follow(attack_node)
       _attach_label(s, text)
       emit_signal("text_spawned", text, s)
-      typist.add_text_target(text, s)
       return s
   return null
 
@@ -52,7 +49,7 @@ func _attach_label(target, text):
 
 func _generate_text() -> TypistText:
   var count = _random_word_count() if multiwords else 1
-  return typist.text_gen.random_sized_word_list(_word_sizes(), count)
+  return Game.text_gen().random_sized_word_list(_word_sizes(), count)
 
 func _random_word_count() -> int:
   var r = (max_word_count - min_word_count) + 1

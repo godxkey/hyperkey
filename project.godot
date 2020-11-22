@@ -35,6 +35,11 @@ _global_script_classes=[ {
 "path": "res://control/Health.gd"
 }, {
 "base": "Reference",
+"class": "History",
+"language": "GDScript",
+"path": "res://text/History.gd"
+}, {
+"base": "Reference",
 "class": "HitTracker",
 "language": "GDScript",
 "path": "res://control/HitTracker.gd"
@@ -82,7 +87,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "TextServer",
 "language": "GDScript",
-"path": "res://library/TextServer.gd"
+"path": "res://text/TextServer.gd"
 }, {
 "base": "Spawner",
 "class": "TextSpawner",
@@ -102,7 +107,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "WordDictionary",
 "language": "GDScript",
-"path": "res://library/WordDictionary.gd"
+"path": "res://text/WordDictionary.gd"
 } ]
 _global_script_class_icons={
 "BaseTarget": "res://icons/base_actor_icon.png",
@@ -110,6 +115,7 @@ _global_script_class_icons={
 "Damage": "res://icons/damage_icon.png",
 "FollowTarget": "res://icons/follow_icon.png",
 "Health": "res://icons/health_icon.png",
+"History": "",
 "HitTracker": "",
 "Knockback": "res://icons/bounce_icon.png",
 "LinearMotion": "res://icons/linear_motion_icon.png",
@@ -135,7 +141,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-GameEvent="*res://game/GameEvent.tscn"
+Game="*res://game/Game.tscn"
 Sound="*res://audio/Sound.tscn"
 Effect="*res://effect/Effect.tscn"
 Score="*res://game/Score.tscn"
