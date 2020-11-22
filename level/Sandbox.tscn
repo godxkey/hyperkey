@@ -31,6 +31,12 @@ position = Vector2( 0, -808 )
 width = 500.0
 height = 50.0
 
+[node name="Missile" parent="SpawnArea" index="0"]
+attack_node_path = NodePath("../../Player")
+
+[node name="HeavyMissiles" parent="SpawnArea" index="1"]
+attack_node_path = NodePath("../../Player")
+
 [node name="Typist" parent="." instance=ExtResource( 5 )]
 player_path = NodePath("../Player")
 
@@ -47,5 +53,7 @@ __meta__ = {
 [node name="Player" parent="." instance=ExtResource( 1 )]
 [connection signal="target_acquired" from="Typist" to="Player" method="_set_aimed_target"]
 [connection signal="target_keyhit" from="Typist" to="Player" method="fire_at_target"]
+
+[editable path="SpawnArea"]
 
 [editable path="Typist"]

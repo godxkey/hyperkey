@@ -5,7 +5,6 @@ export(NodePath) var player_path
 onready var _player = get_node(player_path)
 onready var _text_targets = $TextTargets
 onready var text_gen = $TextGenerator
-onready var blackboard := {}
 
 var _current_tracker:HitTracker = null
 
@@ -15,7 +14,6 @@ signal target_acquired(target)
 # Called when the node enters the scene tree for the first time.
 func _ready():
   text_gen.text_server.unused_letter_condition = funcref(self, "is_letter_unused")
-  blackboard["Player"] = weakref(_player)
   if _player:
     var res = _player.connect("tree_exiting", self, "_on_player_killed");
     assert(res == OK)

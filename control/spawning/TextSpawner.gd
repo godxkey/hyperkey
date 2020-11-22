@@ -11,8 +11,7 @@ export(bool) var multiwords = false
 export(int) var min_word_count = 2
 export(int) var max_word_count = 4
 
-# The blackboard key for the attack target that spawns will follow.
-export(String) var attack_target_key = "Player"
+export var attack_node_path: NodePath
 
 const LABEL_SCENE:PackedScene = preload("res://ui/TypistLabel.tscn")
 
@@ -22,13 +21,14 @@ signal text_spawned(text, spawned)
 
 # Spawns text targets. Null is returned if it could not be created.
 func _spawn() -> Node2D:
-  if has_attack_target_set():
+  var attack_node = get_node_or_null(attack_node_path)
+  if attack_node:
     var text = _generate_text()
     if text:
       var s = spawn_scene.instance()
       add_child(s)
       s.set_stats(text)
-      s.follow(attack_target())
+      s.follow(attack_node)
       _attach_label(s, text)
       emit_signal("text_spawned", text, s)
       typist.add_text_target(text, s)
@@ -66,10 +66,3 @@ func _word_sizes() -> PoolIntArray:
   if sizes & SizeFlags.MEDIUM: picks.append(WordDictionary.WordSize.MEDIUM)
   if sizes & SizeFlags.LONG: picks.append(WordDictionary.WordSize.LONG)
   return picks
-
-func has_attack_target_set():
-  var bb = typist.blackboard
-  return bb.has(attack_target_key) && bb[attack_target_key].get_ref()
-
-func attack_target():
-  return typist.blackboard[attack_target_key].get_ref()
