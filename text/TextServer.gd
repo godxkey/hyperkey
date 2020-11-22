@@ -1,7 +1,7 @@
 extends Node
 class_name TextServer
 
-onready var _word_dictionary = $WordDictionary
+export var _word_dictionary:Resource
 
 var _rng := RandomNumberGenerator.new()
 
@@ -22,23 +22,21 @@ func default_unused_letter_condition(_letter:String) -> bool:
 # Returns a random word from the given specifications.
 # If the conditions could not be met, an empty string is returned.
 func request_word_with_letter(
-  language:int,
   size:int,
   letter:String,
   condition:int = ConditionType.UNUSED_LETTER) -> String:
 
   match condition:
     ConditionType.NONE:
-      return pick_word(_word_dictionary.words(language, size, letter))
+      return pick_word(_word_dictionary.words(size, letter))
     ConditionType.UNUSED_LETTER:
       if unused_letter_condition.call_func(letter):
-        return pick_word(_word_dictionary.words(language, size, letter))
+        return pick_word(_word_dictionary.words(size, letter))
   return ""
 
-# Get a word in the language of said size of any letter.
+# Get a word of said size of any letter.
 # If the conditions could not be met, an empty string is returned.
 func request_word_with_size(
-  language:int,
   size:int,
   condition:int = ConditionType.UNUSED_LETTER) -> String:
 
@@ -46,39 +44,24 @@ func request_word_with_size(
   # Linearly try each letter to see if a word could be requested if the current letter failed.
   var tries = Z_UNICODE - A_UNICODE
   for _i in tries:
-    var word = request_word_with_letter(language, size, letter, condition)
+    var word = request_word_with_letter(size, letter, condition)
     if not word.empty():
       return word
     letter = next_letter(letter)
   return ""
 
-# Get a word in the language of any size and letter.
+# Get a word of any size and letter.
 # If the conditions could not be met, an empty string is returned.
-func request_word_in_language(
-  language:int,
-  condition:int = ConditionType.UNUSED_LETTER) -> String:
-
+func request_word(condition:int = ConditionType.UNUSED_LETTER) -> String:
   var size = _rng.randi() % WordDictionary.WordSize.COUNT
   # We subtract one since we already have a random size for the first pass and COUNT
   # Linearly try each size to see if a word could be requested if the current letter failed.
   var tries = WordDictionary.WordSize.COUNT - 1
   for _i in tries:
-    var word = request_word_with_size(language, size, condition)
+    var word = request_word_with_size(size, condition)
     if not word.empty():
       return word
     size = next_size(size)
-  return ""
-
-# Get any word from any language and of any size
-# If the conditions could not be met, an empty string is returned.
-func request_word(condition:int = ConditionType.UNUSED_LETTER) -> String:
-  var lang = _rng.randi() % WordDictionary.LangType.COUNT
-  var tries = WordDictionary.LangType.COUNT - 1
-  for _i in tries:
-    var word = request_word_in_language(lang, condition)
-    if not word.empty():
-      return word
-    lang = next_lang(lang)
   return ""
 
 # Uniformly select a word at random.
@@ -96,6 +79,3 @@ func next_letter(letter:String) -> String:
 
 func next_size(size:int) -> int:
   return (size + 1) % WordDictionary.WordSize.COUNT
-
-func next_lang(lang:int):
-  return (lang + 1) % WordDictionary.LangType.COUNT

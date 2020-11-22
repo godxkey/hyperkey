@@ -1,16 +1,15 @@
-extends Node
+extends Resource
 class_name WordDictionary
 
-export(String, FILE, "*.txt") var english_words_file
+export(String, FILE, "*.txt") var words_file
 
-# Specialized dictionary that stores list of words by language, size, and first letter
-# [english] -> [medium] -> [a] -> [alpha, actually, attack]
+# Specialized dictionary that stores list of words by size, and first letter
+# [medium] -> [a] -> [alpha, actually, attack]
 
-enum LangType{ENGLISH, SPANISH, COUNT}
 enum WordSize{TINY, SHORT, MEDIUM, LONG, COUNT}
 
-# Stores the word sized maps for a language
-var _language_dictionaries = {}
+# Stores the word sized map
+var _word_map:WordSizedMaps
 
 # Organizes words by letter and length.
 class WordSizedMaps:
@@ -55,13 +54,9 @@ class WordSizedMaps:
       _:
         return long_words
 
-func _ready():
-  if not english_words_file.empty():
-    read_dictionary(LangType.ENGLISH, english_words_file)
-
 # Dictionaries are assumed to be unique.
 # NOTE: To make things straightforward and fast, the input dictionary is curated beforehand.
-func read_dictionary(language, words_file:String):
+func load_words():
   var file = File.new()
   file.open(words_file, File.READ)
   assert(file.is_open())
@@ -71,14 +66,10 @@ func read_dictionary(language, words_file:String):
     if not line.empty():
       words.append(line)
   file.close()
-  _language_dictionaries[language] = WordSizedMaps.new(words)
+  _word_map = WordSizedMaps.new(words)
 
 # Return the list of words given the input specification.
 # If no such list exits, return an empty array
-func words(language:int, size:int, letter:String) -> Array:
-  var lang_words = _language_dictionaries.get(language)
-  if lang_words:
-    var words_for_letter = lang_words.word_dict(size).get(letter)
-    if words_for_letter:
-      return words_for_letter
-  return []
+func words(size:int, letter:String) -> Array:
+  var words_for_letter = _word_map.word_dict(size).get(letter)
+  return words_for_letter if words_for_letter else []

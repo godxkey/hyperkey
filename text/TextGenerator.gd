@@ -26,13 +26,13 @@ func _request_word(size:int) -> TypistText:
   if enable_history and _is_medium_or_longer_size(size):
     var tries:int = 100
     for _i in tries:
-      var word = text_server.request_word_with_size(WordDictionary.LangType.ENGLISH, size)
+      var word = text_server.request_word_with_size(size)
       if not _history.has(word):
         _history.add(word)
         return word
     return null
   else:
-    return text_server.request_word_with_size(WordDictionary.LangType.ENGLISH, size)
+    return text_server.request_word_with_size(size)
 
 func _is_medium_or_longer_size(size:int) -> bool:
   return size != WordDictionary.WordSize.TINY and size != WordDictionary.WordSize.SHORT

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://text/WordDictionary.gd" type="Script" id=1]
+[ext_resource path="res://text/WordDictionary.tres" type="Resource" id=1]
 [ext_resource path="res://text/TextServer.gd" type="Script" id=2]
 [ext_resource path="res://text/TextGenerator.gd" type="Script" id=3]
 
@@ -9,7 +9,4 @@ script = ExtResource( 3 )
 
 [node name="TextServer" type="Node" parent="."]
 script = ExtResource( 2 )
-
-[node name="WordDictionary" type="Node" parent="TextServer"]
-script = ExtResource( 1 )
-english_words_file = "res://dictionary/english_words.txt"
+_word_dictionary = ExtResource( 1 )
