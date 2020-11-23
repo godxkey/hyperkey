@@ -1,16 +1,10 @@
 extends Node
 
-export(NodePath) var player_path
-
-var _text_targets = TextTargets.new()
+var _text_targets := TextTargets.new()
 var _current_tracker:HitTracker = null
 
 signal target_keyhit(target, hit_completed_word)
 signal target_acquired(target)
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-  Game.text_gen().text_server.unused_letter_condition = funcref(self, "is_letter_unused")
 
 func _process(delta):
   if _current_tracker:

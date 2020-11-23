@@ -11,9 +11,11 @@ export(bool) var multiwords = false
 export(int) var min_word_count = 2
 export(int) var max_word_count = 4
 
-export var attack_node_path: NodePath
+export var attack_node_path:NodePath
 
 const LABEL_SCENE:PackedScene = preload("res://ui/TypistLabel.tscn")
+
+var text_gen:TextGenerator
 
 signal text_spawned(text, spawned)
 
@@ -49,7 +51,7 @@ func _attach_label(target, text):
 
 func _generate_text() -> TypistText:
   var count = _random_word_count() if multiwords else 1
-  return Game.text_gen().random_sized_word_list(_word_sizes(), count)
+  return text_gen.random_sized_word_list(_word_sizes(), count)
 
 func _random_word_count() -> int:
   var r = (max_word_count - min_word_count) + 1

@@ -84,7 +84,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://control/spawning/Spawner.gd"
 }, {
-"base": "Node",
+"base": "Reference",
+"class": "TextGenerator",
+"language": "GDScript",
+"path": "res://text/TextGenerator.gd"
+}, {
+"base": "Reference",
 "class": "TextServer",
 "language": "GDScript",
 "path": "res://text/TextServer.gd"
@@ -130,6 +135,7 @@ _global_script_class_icons={
 "SoundSelector": "",
 "SpawnArea": "res://icons/area_position_icon.png",
 "Spawner": "res://icons/target_icon.png",
+"TextGenerator": "",
 "TextServer": "",
 "TextSpawner": "res://icons/text_icon.png",
 "TextTargets": "",
@@ -147,7 +153,6 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Game="*res://game/Game.tscn"
 Sound="*res://audio/Sound.tscn"
 Effect="*res://effect/Effect.tscn"
 Score="*res://game/Score.tscn"
@@ -176,5 +181,4 @@ game_ability={
 
 [rendering]
 
-environment/default_clear_color=Color( 0.545098, 0.529412, 0.509804, 1 )
 environment/default_environment="res://default_env.tres"

@@ -1,50 +1,33 @@
-extends Node
+extends Reference
 class_name TextServer
 
-export var _word_dictionary:Resource
-
+var word_dictionary:WordDictionary
 var _rng := RandomNumberGenerator.new()
 
 const A_UNICODE = ord("a")
 const Z_UNICODE = ord("z")
 
-enum ConditionType{NONE, UNUSED_LETTER}
-
-# Delegate to test if a letter is not used.
-var unused_letter_condition:FuncRef = funcref(self, "default_unused_letter_condition")
+var condition := funcref(self, "_pass_always")
 
 func _init():
   _rng.randomize()
 
-func default_unused_letter_condition(_letter:String) -> bool:
+func _pass_always(_ignore):
   return true
 
 # Returns a random word from the given specifications.
 # If the conditions could not be met, an empty string is returned.
-func request_word_with_letter(
-  size:int,
-  letter:String,
-  condition:int = ConditionType.UNUSED_LETTER) -> String:
-
-  match condition:
-    ConditionType.NONE:
-      return pick_word(_word_dictionary.words(size, letter))
-    ConditionType.UNUSED_LETTER:
-      if unused_letter_condition.call_func(letter):
-        return pick_word(_word_dictionary.words(size, letter))
-  return ""
+func request_word_with_letter(size:int, letter:String) -> String:
+  return pick_word(word_dictionary.words(size, letter)) if condition.call_func(letter) else ""
 
 # Get a word of said size of any letter.
 # If the conditions could not be met, an empty string is returned.
-func request_word_with_size(
-  size:int,
-  condition:int = ConditionType.UNUSED_LETTER) -> String:
-
+func request_word_with_size(size:int) -> String:
   var letter = random_letter()
   # Linearly try each letter to see if a word could be requested if the current letter failed.
   var tries = Z_UNICODE - A_UNICODE
   for _i in tries:
-    var word = request_word_with_letter(size, letter, condition)
+    var word = request_word_with_letter(size, letter)
     if not word.empty():
       return word
     letter = next_letter(letter)
@@ -52,13 +35,13 @@ func request_word_with_size(
 
 # Get a word of any size and letter.
 # If the conditions could not be met, an empty string is returned.
-func request_word(condition:int = ConditionType.UNUSED_LETTER) -> String:
+func request_word() -> String:
   var size = _rng.randi() % WordDictionary.WordSize.COUNT
   # We subtract one since we already have a random size for the first pass and COUNT
   # Linearly try each size to see if a word could be requested if the current letter failed.
   var tries = WordDictionary.WordSize.COUNT - 1
   for _i in tries:
-    var word = request_word_with_size(size, condition)
+    var word = request_word_with_size(size)
     if not word.empty():
       return word
     size = next_size(size)
