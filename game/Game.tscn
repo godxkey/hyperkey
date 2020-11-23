@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://game/Game.gd" type="Script" id=1]
+[ext_resource path="res://text/WordDictionary.tres" type="Resource" id=3]
+[ext_resource path="res://control/spawning/SpawnArea.tscn" type="PackedScene" id=7]
+[ext_resource path="res://game/Typist.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actor/ship/Player.tscn" type="PackedScene" id=9]
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "Contains necessary scenes to start the game."
+}
+main_dictionary = ExtResource( 3 )
+typist_path = NodePath("Player/Typist")
+player_path = NodePath("Player")
+
+[node name="Player" parent="." instance=ExtResource( 9 )]
+
+[node name="Typist" parent="Player" instance=ExtResource( 8 )]
+
+[node name="SpawnArea" parent="." instance=ExtResource( 7 )]
+position = Vector2( 0, -808 )
+width = 500.0
+height = 50.0
+[connection signal="target_acquired" from="Player/Typist" to="Player" method="_set_aimed_target"]
+[connection signal="target_keyhit" from="Player/Typist" to="Player" method="fire_at_target"]
