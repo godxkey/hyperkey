@@ -43,6 +43,7 @@ tracks/1/keys = {
 "player",
 ]]
 input_pickable = false
+collision_mask = 4
 script = ExtResource( 2 )
 rotation_smoothing = 8.0
 bullet_resource = ExtResource( 5 )
