@@ -2,8 +2,7 @@ extends Node
 
 export(NodePath) var player_path
 
-onready var _text_targets = $TextTargets
-
+var _text_targets = TextTargets.new()
 var _current_tracker:HitTracker = null
 
 signal target_keyhit(target, hit_completed_word)

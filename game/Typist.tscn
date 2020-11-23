@@ -1,14 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://game/Typist.gd" type="Script" id=1]
-[ext_resource path="res://text/TextTargets.gd" type="Script" id=6]
 
-[node name="Typist" type="Node2D"]
+[node name="Typist" type="Node"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_vertical_guides_": [ -1445.35 ]
-}
-player_path = null
-
-[node name="TextTargets" type="Node" parent="."]
-script = ExtResource( 6 )

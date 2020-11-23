@@ -94,6 +94,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://control/spawning/TextSpawner.gd"
 }, {
+"base": "Reference",
+"class": "TextTargets",
+"language": "GDScript",
+"path": "res://text/TextTargets.gd"
+}, {
 "base": "RichTextLabel",
 "class": "TypistLabel",
 "language": "GDScript",
@@ -127,6 +132,7 @@ _global_script_class_icons={
 "Spawner": "res://icons/target_icon.png",
 "TextServer": "",
 "TextSpawner": "res://icons/text_icon.png",
+"TextTargets": "",
 "TypistLabel": "",
 "TypistText": "",
 "WordDictionary": ""
