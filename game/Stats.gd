@@ -41,7 +41,7 @@ func mistype():
 
 func mistype_tracked(letter:String, target):
   mistype()
-  emit_signal("key_missed_tracked", letter, target.get_global_transform_with_canvas().origin)
+  emit_signal("key_missed_tracked", letter, _screen_location(target))
 
 func set_stats(target, stat):
   _active_stats[target] = stat
@@ -68,7 +68,11 @@ func _show_target_score(target_wref):
   if target:
     var stats = _active_stats[target]
     _active_stats.erase(target)
-    Score.update_score(stats, target.get_global_transform_with_canvas().origin)
+    Score.update_score(stats, _screen_location(target))
 
 func accuracy() -> int:
   return ((_total_keyhits / _total_keypresses as float) * 100) as int
+
+func _screen_location(target:Spatial) -> Vector2:
+  var camera = get_viewport().get_camera()
+  return camera.unproject_position(target.global_transform.origin) if camera else Vector2.ZERO

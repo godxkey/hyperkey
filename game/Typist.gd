@@ -3,8 +3,8 @@ extends Node
 var _text_targets := TextTargets.new()
 var _current_tracker:HitTracker = null
 
-signal target_keyhit(target, hit_completed_word)
-signal target_acquired(target)
+signal target_keyhit(target_path)
+signal target_acquired(target_path)
 
 func _process(delta):
   if _current_tracker:
@@ -47,7 +47,7 @@ func continue_hit_target(letter:String):
   var result = _current_tracker.hit(letter)
   if result.is_hit:
       var target = _current_tracker.get_target()
-      _on_target_keyhit(target, result.hit_completed_word)
+      _on_target_keyhit(target)
       Stats.add_keyhit()
       if _current_tracker.is_done():
           Stats.set_stats(target, _current_tracker.stats())
@@ -55,14 +55,12 @@ func continue_hit_target(letter:String):
   else:
     Stats.mistype_tracked(letter, _current_tracker.get_target())
 
-func _on_target_keyhit(target, hit_completed_word:bool = false):
+func _on_target_keyhit(target):
   target.on_hit()
-  emit_signal("target_keyhit", target, hit_completed_word)
+  emit_signal("target_keyhit", target.get_path())
 
 func _on_target_acquired(target):
-  if target:
-    target.set_as_active_target()
-  emit_signal("target_acquired", target)
+  emit_signal("target_acquired", target.get_path() if target else NodePath(""))
 
 # Add a text target. Text targets are game objects the player can type to shoot.
 # Will fail if adding a text target with an already used starting letter.

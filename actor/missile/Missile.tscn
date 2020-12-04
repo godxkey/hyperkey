@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://actor/Target.tscn" type="PackedScene" id=1]
+[ext_resource path="res://actor/missile/model/Missile.glb" type="PackedScene" id=2]
+[ext_resource path="res://control/LinearFollow.gd" type="Script" id=3]
+[ext_resource path="res://control/Damage.gd" type="Script" id=4]
+[ext_resource path="res://effect/trail/SmokeTrail.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actor/missile/Missile.gd" type="Script" id=6]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 1, 1, 3 )
+
+[node name="Missile" groups=[
+"missile",
+] instance=ExtResource( 1 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+collision_mask = 1
+script = ExtResource( 6 )
+
+[node name="CollisionShape" parent="." index="0"]
+shape = SubResource( 1 )
+
+[node name="Missile" parent="." index="2" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.49101 )
+
+[node name="LinearFollow" type="Node" parent="." index="3"]
+script = ExtResource( 3 )
+speed = 15.0
+
+[node name="Damage" type="Node" parent="." index="4"]
+script = ExtResource( 4 )
+damage_points = 10
+
+[node name="SmokeTrail" parent="." index="5" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4 )
+[connection signal="area_entered" from="." to="." method="_on_hit_body"]

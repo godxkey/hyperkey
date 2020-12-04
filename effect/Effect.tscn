@@ -2,5 +2,5 @@
 
 [ext_resource path="res://effect/Effect.gd" type="Script" id=1]
 
-[node name="Effect" type="Node"]
+[node name="Effect" type="Spatial"]
 script = ExtResource( 1 )

@@ -1,37 +1,41 @@
 tool
-extends Node2D
+extends Spatial
 class_name SpawnArea, "res://icons/area_position_icon.png"
 
-export(float) var width = 400.0 setget _set_width
-export(float) var height = 200.0 setget _set_height
-export(Color) var debug_color = Color(0.8, 0.4, 0.0, 0.3) setget _set_debug_color
+export var length:float = 10.0 setget _set_length
+export var width:float = 10.0 setget _set_width
+export var height:float = 10.0 setget _set_height
+export var debug_color:Color = Color(0.8, 0.4, 0.0, 1.0) setget _set_debug_color
 
-var _area := Rect2()
+var _box := AABB(Vector3.ZERO, Vector3.ONE)
 
-func spawn_position() -> Vector2:
-  var x = rand_range(_area.position.x, _area.end.x)
-  var y = rand_range(_area.position.y, _area.end.y)
-  return to_global(Vector2(x, y))
+onready var _debug_draw := $DebugDraw
+
+func spawn_position() -> Vector3:
+  var x = rand_range(_box.position.x, _box.end.x)
+  var y = rand_range(_box.position.y, _box.end.y)
+  var z = rand_range(_box.position.z, _box.end.z)
+  return to_global(Vector3(x, y, z))
+
+func _set_length(value):
+  length = value
+  _box.size.x = value
+  _box.position.x = -value / 2.0
 
 func _set_width(value):
   width = value
-  _area.size.x = value
-  _area.position.x = -value / 2.0
-  if Engine.editor_hint:
-    update()
+  _box.size.z = value
+  _box.position.z = -value / 2.0
 
 func _set_height(value):
   height = value
-  _area.size.y = value
-  _area.position.y = -value / 2.0
-  if Engine.editor_hint:
-    update()
+  _box.size.y = value
+  _box.position.y = -value / 2.0
 
 func _set_debug_color(value:Color):
   debug_color = value
-  if Engine.editor_hint:
-    update()
 
-func _draw():
+func _process(_delta):
   if Engine.editor_hint:
-    draw_rect(_area, debug_color)
+    var size = Vector3(length, height, width)
+    _debug_draw.draw_box(global_transform.origin - (size / 2.0), size, debug_color)

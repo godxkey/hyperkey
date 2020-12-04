@@ -1,4 +1,4 @@
-extends Node2D
+extends Spatial
 
 export var main_dictionary:Resource
 export var typist_path:NodePath
@@ -16,7 +16,20 @@ func _ready():
   text_gen.text_server.condition = funcref(typist, "is_letter_unused")
 
   for spawner in get_tree().get_nodes_in_group("spawner"):
+    spawner.label_layer = $TextTargetsLayer
     spawner.text_gen = text_gen
-    spawner.attack_node_path = get_node(player_path).get_path()
+    spawner.attack_target_path = get_node(player_path).get_path()
     var res = spawner.connect("text_spawned", typist, "add_text_target")
     assert(res == OK)
+
+
+func _set_target_as_active(target_path:NodePath):
+  var target = get_node_or_null(target_path)
+  if target:
+    _move_active_label(target)
+
+func _move_active_label(target):
+  var label = target.label()
+  label.get_parent().remove_child(label)
+  $ActiveTextTargetLayer.add_child(label)
+  target.label_path = label.get_path()

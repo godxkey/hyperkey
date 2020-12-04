@@ -1,4 +1,4 @@
-extends Node
+extends Spatial
 
 onready var camera_shake = get_tree().root.find_node("CameraShake", true, false)
 
@@ -21,8 +21,9 @@ func play_effect(fx_resource, position:Vector2):
 
 # Takes ownership of the particles and lets it finish the emission cycle before deletion.
 func release_particles(p):
-  p.get_parent().remove_child(p)
-  add_child(p)
-  p.emitting = false
-  yield(get_tree().create_timer(p.lifetime), "timeout")
-  p.queue_free()
+  if p:
+    p.get_parent().remove_child(p)
+    add_child(p)
+    p.emitting = false
+    yield(get_tree().create_timer(p.lifetime), "timeout")
+    p.queue_free()

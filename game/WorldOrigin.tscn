@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="WorldOrigin" type="Position3D"]
+__meta__ = {
+"_editor_description_": "Global world origin. Can be used to attach free bodies such as bullets.
+
+Autoloads for scenes."
+}

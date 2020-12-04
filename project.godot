@@ -9,12 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Area2D",
-"class": "BaseTarget",
-"language": "GDScript",
-"path": "res://actor/BaseTarget.gd"
-}, {
-"base": "Area2D",
+"base": "Spatial",
 "class": "Bullet",
 "language": "GDScript",
 "path": "res://actor/projectile/Bullet.gd"
@@ -23,11 +18,6 @@ _global_script_classes=[ {
 "class": "Damage",
 "language": "GDScript",
 "path": "res://control/Damage.gd"
-}, {
-"base": "LinearMotion",
-"class": "FollowTarget",
-"language": "GDScript",
-"path": "res://control/motion/FollowTarget.gd"
 }, {
 "base": "Node",
 "class": "Health",
@@ -44,25 +34,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://control/HitTracker.gd"
 }, {
-"base": "Node",
-"class": "Knockback",
+"base": "LinearMotion",
+"class": "LinearFollow",
 "language": "GDScript",
-"path": "res://control/Knockback.gd"
+"path": "res://control/LinearFollow.gd"
 }, {
 "base": "Node",
 "class": "LinearMotion",
 "language": "GDScript",
-"path": "res://control/motion/LinearMotion.gd"
+"path": "res://control/LinearMotion.gd"
 }, {
-"base": "Node",
-"class": "PlaySound",
-"language": "GDScript",
-"path": "res://audio/PlaySound.gd"
-}, {
-"base": "Area2D",
+"base": "Area",
 "class": "Player",
 "language": "GDScript",
-"path": "res://actor/ship/Player.gd"
+"path": "res://actor/player/Player.gd"
 }, {
 "base": "Control",
 "class": "QuickInfo",
@@ -74,15 +59,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://audio/SoundSelector.gd"
 }, {
-"base": "Node2D",
+"base": "Spatial",
 "class": "SpawnArea",
 "language": "GDScript",
 "path": "res://control/spawning/SpawnArea.gd"
 }, {
-"base": "Node2D",
+"base": "Spatial",
 "class": "Spawner",
 "language": "GDScript",
 "path": "res://control/spawning/Spawner.gd"
+}, {
+"base": "Area",
+"class": "Target",
+"language": "GDScript",
+"path": "res://actor/Target.gd"
 }, {
 "base": "Reference",
 "class": "TextGenerator",
@@ -120,24 +110,22 @@ _global_script_classes=[ {
 "path": "res://text/WordDictionary.gd"
 } ]
 _global_script_class_icons={
-"BaseTarget": "res://icons/base_actor_icon.png",
 "Bullet": "",
 "Damage": "res://icons/damage_icon.png",
-"FollowTarget": "res://icons/follow_icon.png",
 "Health": "res://icons/health_icon.png",
 "History": "",
 "HitTracker": "",
-"Knockback": "res://icons/bounce_icon.png",
-"LinearMotion": "res://icons/linear_motion_icon.png",
-"PlaySound": "",
+"LinearFollow": "",
+"LinearMotion": "",
 "Player": "",
 "QuickInfo": "",
 "SoundSelector": "",
 "SpawnArea": "res://icons/area_position_icon.png",
-"Spawner": "res://icons/target_icon.png",
+"Spawner": "",
+"Target": "",
 "TextGenerator": "",
 "TextServer": "",
-"TextSpawner": "res://icons/text_icon.png",
+"TextSpawner": "",
 "TextTargets": "",
 "TypistLabel": "",
 "TypistText": "",
@@ -148,7 +136,7 @@ _global_script_class_icons={
 
 config/name="Hyperkey"
 config/description="Typing game"
-run/main_scene="res://level/Sandbox.tscn"
+run/main_scene="res://world/World.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -157,13 +145,12 @@ Sound="*res://audio/Sound.tscn"
 Effect="*res://effect/Effect.tscn"
 Score="*res://game/Score.tscn"
 Stats="*res://game/Stats.tscn"
-Projectiles="*res://control/Projectiles.gd"
+WorldOrigin="*res://game/WorldOrigin.tscn"
 
 [display]
 
-window/size/width=800
-window/size/height=800
-window/handheld/orientation="portrait"
+window/size/test_width=1228
+window/size/test_height=720
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
@@ -178,6 +165,20 @@ game_ability={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777218,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+3d_physics/layer_1="Player"
+2d_physics/layer_2="Target"
+3d_physics/layer_2="Target"
+2d_physics/layer_3="Bullet"
+3d_physics/layer_3="Projectile"
+3d_physics/layer_4="PlayerProjectile"
+
+[physics]
+
+3d/active_soft_world=false
 
 [rendering]
 

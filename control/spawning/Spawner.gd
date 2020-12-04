@@ -1,23 +1,25 @@
-extends Node2D
-class_name Spawner, "res://icons/target_icon.png"
+extends Spatial
+class_name Spawner
 
 const UNLIMITED_COUNT:int = -1
 
 # How many active spawns at most. -1 means unlimited.
-export(int) var max_active = UNLIMITED_COUNT
+export var max_active:int = UNLIMITED_COUNT
 
 # How many available spawns. -1 means unlimited.
-export(int) var max_spawns = UNLIMITED_COUNT
+export var max_spawns:int = UNLIMITED_COUNT
 
 # How often to spawn.
-export(float) var frequency = 1.0 setget _set_frequency
+export var frequency:float = 1.0 setget _set_frequency
 
 # Controls how many to spawn at once.
-export(int) var emit_count = 1
+export var emit_count:int = 1
 
-export(bool) var active = true
+export var active:bool = true
 
-export(PackedScene) var spawn_scene = null
+export var spawn_scene:PackedScene = null
+
+export var spawn_area_path:NodePath
 
 # How many spawns are alive
 var _active_count:int = 0
@@ -72,12 +74,12 @@ func _set_frequency(value:float):
   $Timer.wait_time = frequency
 
 # Generic top level spawn call.
-func spawn() -> Node2D:
+func spawn() -> Spatial:
   var s = _spawn()
   if s:
-    s.global_position = get_parent().spawn_position()
+    s.global_transform.origin = get_node(spawn_area_path).spawn_position()
   return s
 
 # Extended classes implement this to return a spawn object.
-func _spawn() -> Node2D:
-  return spawn_scene.instance()
+func _spawn() -> Spatial:
+  return spawn_scene.instance() as Spatial

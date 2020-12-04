@@ -1,59 +1,41 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://actor/projectile/Bullet.png" type="Texture" id=1]
+[ext_resource path="res://control/Damage.gd" type="Script" id=1]
 [ext_resource path="res://actor/projectile/Bullet.gd" type="Script" id=2]
-[ext_resource path="res://control/motion/FollowTarget.gd" type="Script" id=3]
-[ext_resource path="res://effect/trail/BulletTrail.tscn" type="PackedScene" id=4]
-[ext_resource path="res://control/Damage.gd" type="Script" id=5]
-[ext_resource path="res://control/Knockback.gd" type="Script" id=6]
-[ext_resource path="res://effect/explosion/HitExplosion.tscn" type="PackedScene" id=7]
+[ext_resource path="res://control/LinearMotion.gd" type="Script" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 28, 12 )
+[sub_resource type="CylinderMesh" id=1]
+top_radius = 0.1
+bottom_radius = 0.1
+radial_segments = 8
+rings = 1
 
-[sub_resource type="CanvasItemMaterial" id=2]
-blend_mode = 1
+[sub_resource type="SpatialMaterial" id=2]
+emission_enabled = true
+emission = Color( 1, 0.956863, 0.482353, 1 )
+emission_energy = 1.0
+emission_operator = 0
+emission_on_uv2 = false
 
-[sub_resource type="CircleShape2D" id=3]
-radius = 100.0
-
-[node name="Bullet" type="Area2D" groups=[
-"projectile",
-]]
-z_index = 10
-collision_layer = 4
-collision_mask = 2
+[node name="Bullet" type="Spatial"]
 script = ExtResource( 2 )
-hit_effect = ExtResource( 7 )
 
-[node name="Trail" parent="." instance=ExtResource( 4 )]
-amount = 10
+[node name="Mesh" type="MeshInstance" parent="." groups=[
+"bullet",
+]]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 0, 0 )
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -28, 0 )
-shape = SubResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 2 )
-position = Vector2( -1, 0 )
-scale = Vector2( 1.02941, 1 )
-texture = ExtResource( 1 )
+[node name="RayCast" type="RayCast" parent="."]
+enabled = true
+collision_mask = 0
+collide_with_areas = true
+collide_with_bodies = false
 
 [node name="Damage" type="Node" parent="."]
-script = ExtResource( 5 )
+script = ExtResource( 1 )
 
-[node name="Knockback" type="Node" parent="Damage"]
-script = ExtResource( 6 )
-
-[node name="FollowTarget" type="Node" parent="."]
+[node name="LinearMotion" type="Node" parent="."]
 script = ExtResource( 3 )
-damping = 0.0
-max_speed = 400.0
-
-[node name="NearSensor" type="Area2D" parent="."]
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NearSensor"]
-shape = SubResource( 3 )
-[connection signal="area_entered" from="." to="." method="_on_hit"]
-[connection signal="area_entered" from="NearSensor" to="." method="_on_near"]
+speed = 50.0

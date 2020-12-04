@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://world/ocean/Ocean.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/Game.tscn" type="PackedScene" id=2]
+[ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=3]
+[ext_resource path="res://world/Environment.tres" type="Environment" id=4]
+
+[node name="World" type="Spatial"]
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="HUDLayer" instance=ExtResource( 3 )]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 30, 0 )
+
+[node name="Ocean" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -65.9298 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0, 24.736, 18.8418 )
+environment = ExtResource( 4 )
+current = true
+far = 1000.0
+
+[node name="Game" parent="." instance=ExtResource( 2 )]
+
+[node name="SpawnArea" parent="Game" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.96063, 5.876, -102.747 )
+length = 100.0
+width = 10.0
+height = 5.0
+debug_color = Color( 0.8, 0.4, 0, 1 )
+
+[editable path="Game"]

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://control/spawning/Spawner.gd" type="Script" id=1]
 
-[node name="Spawner" type="Node2D" groups=[
+[node name="Spawner" type="Spatial" groups=[
 "spawner",
 ]]
 script = ExtResource( 1 )

@@ -1,5 +1,5 @@
 extends Spawner
-class_name TextSpawner, "res://icons/text_icon.png"
+class_name TextSpawner
 
 enum SizeFlags{TINY=1, SHORT=2, MEDIUM=4, LONG=8}
 
@@ -7,11 +7,13 @@ enum SizeFlags{TINY=1, SHORT=2, MEDIUM=4, LONG=8}
 export(int, FLAGS, "Tiny", "Short", "Medium", "Long") var sizes = SizeFlags.MEDIUM
 
 # Specifies if the spawner should generate text with multiple words.
-export(bool) var multiwords = false
-export(int) var min_word_count = 2
-export(int) var max_word_count = 4
+export var multiwords:bool = false
+export var min_word_count:int = 2
+export var max_word_count:int = 4
 
-export var attack_node_path:NodePath
+export var attack_target_path:NodePath
+
+var label_layer:CanvasLayer
 
 const LABEL_SCENE:PackedScene = preload("res://ui/TypistLabel.tscn")
 
@@ -20,34 +22,26 @@ var text_gen:TextGenerator
 signal text_spawned(text, spawned)
 
 # Spawns text targets. Null is returned if it could not be created.
-func _spawn() -> Node2D:
-  var attack_node = get_node_or_null(attack_node_path)
-  if attack_node:
+func _spawn() -> Spatial:
+  if get_node_or_null(attack_target_path):
     var text = _generate_text()
     if text:
       var s = spawn_scene.instance()
       add_child(s)
       s.set_stats(text)
-      s.follow(attack_node)
+      s.set_attack_target_path(attack_target_path)
       _attach_label(s, text)
       emit_signal("text_spawned", text, s)
       return s
   return null
 
 func _attach_label(target, text):
-  # Z node required by Text Label so it can render above other objects.
-  var z_node = Position2D.new()
-  add_child(z_node)
-
   var label = LABEL_SCENE.instance()
-  z_node.add_child(label)
   label.display_text = text
-
-  target.get_node("LabelRemote").remote_path = z_node.get_path()
+  label.name += text.merged_text()
+  label_layer.add_child(label)
   target.label_path = label.get_path()
-
-  # If target dies, so does label
-  target.connect("tree_exiting", z_node, "queue_free")
+  target.connect("tree_exiting", label, "queue_free")
 
 func _generate_text() -> TypistText:
   var count = _random_word_count() if multiwords else 1

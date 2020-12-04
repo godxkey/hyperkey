@@ -1,6 +1,5 @@
 extends Control
 
-export(NodePath) var typist_path
 export(PackedScene) var score_info_scene
 export(PackedScene) var text_info_scene
 export(Gradient) var streak_gradient
