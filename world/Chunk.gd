@@ -25,22 +25,32 @@ func can_generate():
   return not _generation_thread.is_active() and not platforms.empty() and noise
 
 func _generate(_discard_arg):
-  noise.seed = randi()
-  var noise_size = size * 2.0
+  noise.seed = randi() # FIME: Not thread safe if noise is shared with other scenes.
   for x in range(-size, size, step):
     for z in range(-size, size, step):
-      var raw_noise = noise.get_noise_2d(x * noise_size, z * noise_size)
-      var normal_noise = (raw_noise + 1.0) / 2.0
       var noise_level = 1.0 - density
-      if normal_noise  > noise_level:
-        var pick = randi() % platforms.size()
-        var platform = platforms[pick].instance()
-        var height = rand_range(-height_range, height_range)
-        var rotation = rand_range(-rotation_range, rotation_range)
-        platform.translation = Vector3(x, height, z)
-        platform.rotation_degrees.y = rotation
+      if _noise(x, z)  > noise_level:
+        var platform = _platform_scene().instance()
+        platform.translation = Vector3(x, _height(), z)
+        platform.rotation_degrees.y = _rotation()
         add_child(platform)
   emit_signal("generation_complete")
+
+func _noise(x:float, z:float):
+  var noise_size = size * 2.0
+  var raw_noise = noise.get_noise_2d(x * noise_size, z * noise_size)
+  return (raw_noise + 1.0) / 2.0 # Normalize between 0 and 1
+
+func _platform_scene():
+  # FIXME: Not thread safe since we are accessing same random engine.
+  var pick = randi() % platforms.size()
+  return platforms[pick];
+
+func _height():
+  return rand_range(-height_range, height_range)
+
+func _rotation():
+  return rand_range(-rotation_range, rotation_range)
 
 func _exit_tree():
   _generation_thread.wait_to_finish()
