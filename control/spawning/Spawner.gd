@@ -73,13 +73,12 @@ func _set_frequency(value:float):
   frequency = value
   $Timer.wait_time = frequency
 
-# Generic top level spawn call.
+# Extended classes implement this to return a spawn object.
 func spawn() -> Spatial:
-  var s = _spawn()
-  if s:
-    s.global_transform.origin = get_node(spawn_area_path).spawn_position()
+  var s = spawn_scene.instance() as Spatial
+  s.translation = random_spawn_location()
+  add_child(s)
   return s
 
-# Extended classes implement this to return a spawn object.
-func _spawn() -> Spatial:
-  return spawn_scene.instance() as Spatial
+func random_spawn_location() -> Vector3:
+  return get_node(spawn_area_path).spawn_position()

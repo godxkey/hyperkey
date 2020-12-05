@@ -22,11 +22,12 @@ var text_gen:TextGenerator
 signal text_spawned(text, spawned)
 
 # Spawns text targets. Null is returned if it could not be created.
-func _spawn() -> Spatial:
+func spawn() -> Spatial:
   if get_node_or_null(attack_target_path):
     var text = _generate_text()
     if text:
       var s = spawn_scene.instance()
+      s.translation = random_spawn_location()
       add_child(s)
       s.set_stats(text)
       s.set_attack_target_path(attack_target_path)
@@ -40,7 +41,7 @@ func _attach_label(target, text):
   label.display_text = text
   label.name += text.merged_text()
   label_layer.add_child(label)
-  target.label_path = label.get_path()
+  target.label_ref = weakref(label)
   target.connect("tree_exiting", label, "queue_free")
 
 func _generate_text() -> TypistText:

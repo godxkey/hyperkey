@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://game/Game.gd" type="Script" id=1]
 [ext_resource path="res://game/Typist.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://control/spawning/TextSpawner.gd" type="Script" id=6]
 [ext_resource path="res://actor/missile/Missile.tscn" type="PackedScene" id=7]
 [ext_resource path="res://control/spawning/Spawner.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actor/machine/Drone.tscn" type="PackedScene" id=9]
 
 [node name="Game" type="Spatial"]
 script = ExtResource( 1 )
@@ -39,6 +40,12 @@ active = false
 spawn_scene = ExtResource( 7 )
 spawn_area_path = NodePath("../SpawnArea")
 sizes = 6
-[connection signal="target_acquired" from="Player/Typist" to="." method="_set_target_as_active"]
+
+[node name="Spawner2" parent="." instance=ExtResource( 8 )]
+script = ExtResource( 6 )
+max_active = 4
+spawn_scene = ExtResource( 9 )
+spawn_area_path = NodePath("../SpawnArea")
 [connection signal="target_acquired" from="Player/Typist" to="Player" method="_set_target_path"]
+[connection signal="target_acquired" from="Player/Typist" to="." method="_set_target_as_active"]
 [connection signal="target_keyhit" from="Player/Typist" to="Player" method="fire_at"]

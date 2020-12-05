@@ -12,12 +12,18 @@ signal generation_complete
 
 var _generation_thread := Thread.new()
 
+# Generator per chunk for now to prevent race conditions in multi-threaded generation.
+var _number_generator := RandomNumberGenerator.new()
+
 func _ready():
   populate()
+  _number_generator.randomize()
 
 # Populate the chunk with platforms
 func populate():
   if can_generate():
+    # Set seed before running in new thread.
+    noise.seed = _number_generator.randi()
     var res = _generation_thread.start(self, "_generate")
     assert(res == OK)
 
@@ -25,7 +31,6 @@ func can_generate():
   return not _generation_thread.is_active() and not platforms.empty() and noise
 
 func _generate(_discard_arg):
-  noise.seed = randi() # FIME: Not thread safe if noise is shared with other scenes.
   for x in range(-size, size, step):
     for z in range(-size, size, step):
       var noise_level = 1.0 - density
@@ -33,6 +38,7 @@ func _generate(_discard_arg):
         var platform = _platform_scene().instance()
         platform.translation = Vector3(x, _height(), z)
         platform.rotation_degrees.y = _rotation()
+        platform.scale = _scale()
         add_child(platform)
   emit_signal("generation_complete")
 
@@ -42,15 +48,18 @@ func _noise(x:float, z:float):
   return (raw_noise + 1.0) / 2.0 # Normalize between 0 and 1
 
 func _platform_scene():
-  # FIXME: Not thread safe since we are accessing same random engine.
-  var pick = randi() % platforms.size()
+  var pick = _number_generator.randi() % platforms.size()
   return platforms[pick];
 
 func _height():
-  return rand_range(-height_range, height_range)
+  return _number_generator.randf_range(-height_range, height_range)
 
 func _rotation():
-  return rand_range(-rotation_range, rotation_range)
+  return _number_generator.randf_range(-rotation_range, rotation_range)
+
+func _scale():
+  var scale = _number_generator.randf_range(1.0, 2.0)
+  return Vector3(scale, scale, scale)
 
 func _exit_tree():
   _generation_thread.wait_to_finish()

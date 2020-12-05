@@ -23,6 +23,9 @@ tracks/0/keys = {
 }
 
 [node name="World" type="Spatial"]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 4 )
@@ -42,6 +45,7 @@ __meta__ = {
 [node name="Game" parent="." instance=ExtResource( 2 )]
 
 [node name="Chunk" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.2194, 0 )
 size = 20.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Chunk"]
@@ -64,3 +68,6 @@ fov = 75.0
 size = 100.0
 near = 1.0
 far = 500.0
+__meta__ = {
+"_edit_lock_": true
+}

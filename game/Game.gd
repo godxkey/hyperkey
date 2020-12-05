@@ -29,7 +29,7 @@ func _set_target_as_active(target_path:NodePath):
     _move_active_label(target)
 
 func _move_active_label(target):
-  var label = target.label()
+  var label = target.label_ref.get_ref()
+  assert(label)
   label.get_parent().remove_child(label)
   $ActiveTextTargetLayer.add_child(label)
-  target.label_path = label.get_path()

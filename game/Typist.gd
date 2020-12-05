@@ -82,7 +82,7 @@ func _remove_target_word(text:String):
 
 func _clear_tracked():
   assert(_current_tracker != null)
-  _current_tracker.get_target().label().hide()
+  _current_tracker.get_target().hide_label()
   _remove_target_word(_current_tracker.text())
   _current_tracker = null
   _on_target_acquired(null)

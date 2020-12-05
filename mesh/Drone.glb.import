@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Propeller.glb-243b1765b8ff921d28b18a661a8d3125.scn"
+path="res://.import/Drone.glb-c61eccf8b8ff780ce19a77b7325cf6a3.scn"
 
 [deps]
 
-source_file="res://mesh/Propeller.glb"
-dest_files=[ "res://.import/Propeller.glb-243b1765b8ff921d28b18a661a8d3125.scn" ]
+source_file="res://mesh/Drone.glb"
+dest_files=[ "res://.import/Drone.glb-c61eccf8b8ff780ce19a77b7325cf6a3.scn" ]
 
 [params]
 
