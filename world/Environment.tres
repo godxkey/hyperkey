@@ -1,11 +1,22 @@
 [gd_resource type="Environment" load_steps=2 format=2]
 
-[ext_resource path="res://world/Sky.tres" type="ProceduralSky" id=1]
+[ext_resource path="res://world/sky/Sky.tres" type="ProceduralSky" id=1]
 
 [resource]
-background_mode = 2
+background_mode = 1
 background_sky = ExtResource( 1 )
-background_color = Color( 1, 1, 1, 1 )
-fog_depth_enabled = false
+background_color = Color( 0.470588, 0.815686, 1, 1 )
+background_energy = 1.2
+ambient_light_color = Color( 0.262745, 0.231373, 0.360784, 1 )
+ambient_light_energy = 1.5
+fog_enabled = true
+fog_color = Color( 0.501961, 0.6, 0.701961, 1 )
+fog_depth_begin = 40.0
+fog_depth_end = 1000.0
+fog_height_enabled = true
+fog_height_max = -20.0
+tonemap_mode = 3
+ss_reflections_enabled = true
+ssao_enabled = true
 glow_enabled = true
 glow_bicubic_upscale = true

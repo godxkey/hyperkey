@@ -1,0 +1,103 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://mesh/ship_light.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://mesh/Propeller.glb" type="PackedScene" id=2]
+[ext_resource path="res://mesh/Engine.glb" type="PackedScene" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Propellers"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("RightEngine/PropellerHook:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -1.22133e-12, 0 ), Vector3( 0, 0, 360 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LeftEngine/PropellerHook:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, -1.22133e-12, 0 ), Vector3( 0, 0, 360 ) ]
+}
+
+[node name="Ship" type="MeshInstance"]
+mesh = ExtResource( 1 )
+material/0 = null
+material/1 = null
+material/2 = null
+material/3 = null
+material/4 = null
+material/5 = null
+material/6 = null
+material/7 = null
+material/8 = null
+material/9 = null
+material/10 = null
+material/11 = null
+material/12 = null
+material/13 = null
+material/14 = null
+material/15 = null
+material/16 = null
+material/17 = null
+material/18 = null
+material/19 = null
+material/20 = null
+material/21 = null
+material/22 = null
+material/23 = null
+material/24 = null
+material/25 = null
+material/26 = null
+material/27 = null
+material/28 = null
+material/29 = null
+material/30 = null
+material/31 = null
+material/32 = null
+material/33 = null
+material/34 = null
+material/35 = null
+material/36 = null
+material/37 = null
+material/38 = null
+
+[node name="RightEngine" parent="." instance=ExtResource( 3 )]
+transform = Transform( -1, 0, 9.31323e-08, 0, 1, 0, -9.31323e-08, 0, -1, -1.5, -0.3, 2.4 )
+
+[node name="PropellerHook" type="Position3D" parent="RightEngine"]
+transform = Transform( 1, 0, -2.13163e-14, 0, 1, 0, 2.13163e-14, 0, 1, 0, 0.5, -0.5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Propeller" parent="RightEngine/PropellerHook" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0 )
+
+[node name="LeftEngine" parent="." instance=ExtResource( 3 )]
+transform = Transform( -1, 0, 9.31323e-08, 0, 1, 0, -9.31323e-08, 0, -1, 1.5, -0.3, 2.4 )
+
+[node name="PropellerHook" type="Position3D" parent="LeftEngine"]
+transform = Transform( 1, 0, -2.13163e-14, 0, 1, 0, 2.13163e-14, 0, 1, 0, 0.5, -0.5 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Propeller" parent="LeftEngine/PropellerHook" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Propellers"
+anims/Propellers = SubResource( 1 )

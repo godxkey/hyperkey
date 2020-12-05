@@ -28,10 +28,14 @@ layer = 3
 [node name="SpawnArea" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -20 )
 length = 40.0
+width = 10.0
+height = 10.0
+debug_color = Color( 0.8, 0.4, 0, 1 )
 
 [node name="Spawner" parent="." instance=ExtResource( 8 )]
 script = ExtResource( 6 )
 max_active = 5
+active = false
 spawn_scene = ExtResource( 7 )
 spawn_area_path = NodePath("../SpawnArea")
 sizes = 6

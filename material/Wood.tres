@@ -1,0 +1,4 @@
+[gd_resource type="SpatialMaterial" format=2]
+
+[resource]
+albedo_color = Color( 0.56, 0.3542, 0.2856, 1 )

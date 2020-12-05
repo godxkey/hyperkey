@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://world/Chunk.gd" type="Script" id=1]
+[ext_resource path="res://world/platforms/SmallDualRocks.glb" type="PackedScene" id=2]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+
+[node name="Chunk" type="Spatial"]
+script = ExtResource( 1 )
+platforms = [ ExtResource( 2 ) ]
+noise = SubResource( 1 )
