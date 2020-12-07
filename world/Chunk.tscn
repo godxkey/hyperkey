@@ -13,4 +13,7 @@ step = 4.0
 density = 0.3
 
 [node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
+__meta__ = {
+"_editor_description_": "Used to destroy the chunk after it goes out of view"
+}
 [connection signal="screen_exited" from="VisibilityNotifier" to="." method="queue_free"]
