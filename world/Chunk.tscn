@@ -9,3 +9,8 @@
 script = ExtResource( 1 )
 platforms = [ ExtResource( 2 ) ]
 noise = SubResource( 1 )
+step = 4.0
+density = 0.3
+
+[node name="VisibilityNotifier" type="VisibilityNotifier" parent="."]
+[connection signal="screen_exited" from="VisibilityNotifier" to="." method="queue_free"]

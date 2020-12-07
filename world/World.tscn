@@ -1,26 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://world/Chunk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://game/Game.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=3]
 [ext_resource path="res://world/Environment.tres" type="Environment" id=4]
 [ext_resource path="res://control/Rotator.gd" type="Script" id=5]
-
-[sub_resource type="Animation" id=1]
-resource_name = "Scroll"
-length = 30.0
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 30 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 0, -20 ), Vector3( 0, 0, 50 ) ]
-}
+[ext_resource path="res://world/WorldGenerator.tscn" type="PackedScene" id=6]
 
 [node name="World" type="Spatial"]
 __meta__ = {
@@ -46,14 +30,6 @@ __meta__ = {
 
 [node name="Game" parent="." instance=ExtResource( 2 )]
 
-[node name="Chunk" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, -20 )
-size = 20.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Chunk"]
-autoplay = "Scroll"
-anims/Scroll = SubResource( 1 )
-
 [node name="CameraFocus" type="Position3D" parent="."]
 script = ExtResource( 5 )
 __meta__ = {
@@ -74,4 +50,7 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="WorldGenerator" type="Spatial" parent="."]
+[node name="WorldGenerator" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, -100 )
+world_speed = 2.0
+chunk_size = 40.0

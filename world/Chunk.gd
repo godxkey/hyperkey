@@ -4,10 +4,10 @@ class_name Chunk
 
 export (Array, PackedScene) var platforms
 export var noise:OpenSimplexNoise
-export(float, 500.0) var size:float = 10.0
+export(float, 500.0) var size:float = 10.0 setget _set_size
 export(float, 10.0) var step:float = 2.0
 export(float, 1.0) var density = 0.3
-export(float, 500.0) var height_range = 2.0
+export(float, 500.0) var height_range = 2.0 setget _set_height_range
 export(float, 180) var rotation_range = 180.0
 
 signal generation_complete
@@ -62,6 +62,22 @@ func _rotation():
 func _scale():
   var scale = _number_generator.randf_range(1.0, 2.0)
   return Vector3(scale, scale, scale)
+
+func _set_size(value:float):
+  size = value
+  # Add extra extents for visbility
+  var vis = $VisibilityNotifier
+  vis.aabb.size.x = size * 2.0
+  vis.aabb.size.z = size * 2.0
+  vis.aabb.position.x = -size
+  vis.aabb.position.z = -size
+
+func _set_height_range(value:float):
+  height_range = value
+  var vis = $VisibilityNotifier
+  vis.aabb.size.y = height_range * 2.0
+  vis.aabb.position.y = -height_range
+
 
 func _exit_tree():
   _generation_thread.wait_to_finish()
