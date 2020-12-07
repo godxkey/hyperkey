@@ -1,10 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://control/spawning/SpawnArea.gd" type="Script" id=1]
-[ext_resource path="res://addons/zylann.debug_draw/debug_draw.gd" type="Script" id=3]
+[ext_resource path="res://tool/DebugVisual.gd" type="Script" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+flags_unshaded = true
+albedo_color = Color( 1, 0.4, 0, 0.180392 )
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 40, 10, 10 )
 
 [node name="SpawnArea" type="Spatial"]
 script = ExtResource( 1 )
+length = 10.0
+width = 10.0
+height = 10.0
 
-[node name="DebugDraw" type="Node" parent="."]
-script = ExtResource( 3 )
+[node name="Visual" type="MeshInstance" parent="."]
+material_override = SubResource( 1 )
+mesh = SubResource( 2 )
+material/0 = null
+script = ExtResource( 2 )
