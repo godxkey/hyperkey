@@ -31,7 +31,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -20 )
 length = 40.0
 width = 10.0
 height = 10.0
-debug_color = Color( 0.8, 0.4, 0, 1 )
 
 [node name="Spawner" parent="." instance=ExtResource( 8 )]
 script = ExtResource( 6 )
@@ -43,7 +42,8 @@ sizes = 6
 
 [node name="Spawner2" parent="." instance=ExtResource( 8 )]
 script = ExtResource( 6 )
-max_active = 4
+max_active = 3
+frequency = 1.2
 spawn_scene = ExtResource( 9 )
 spawn_area_path = NodePath("../SpawnArea")
 [connection signal="target_acquired" from="Player/Typist" to="Player" method="_set_target_path"]

@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://actor/projectile/Bullet.gd"
 }, {
+"base": "Spatial",
+"class": "Chunk",
+"language": "GDScript",
+"path": "res://world/Chunk.gd"
+}, {
 "base": "Node",
 "class": "Damage",
 "language": "GDScript",
@@ -169,6 +174,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/com.gdquest.godot-steering-ai-framework/GSAIUtils.gd"
 }, {
+"base": "Spatial",
+"class": "Gun",
+"language": "GDScript",
+"path": "res://actor/gun/Gun.gd"
+}, {
 "base": "Node",
 "class": "Health",
 "language": "GDScript",
@@ -262,6 +272,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Agent": "",
 "Bullet": "",
+"Chunk": "",
 "Damage": "res://icons/damage_icon.png",
 "GSAIAgentLocation": "",
 "GSAIArrive": "",
@@ -292,6 +303,7 @@ _global_script_class_icons={
 "GSAISteeringBehavior": "",
 "GSAITargetAcceleration": "",
 "GSAIUtils": "",
+"Gun": "",
 "Health": "res://icons/health_icon.png",
 "History": "",
 "HitTracker": "",

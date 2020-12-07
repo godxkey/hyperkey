@@ -23,14 +23,15 @@ signal text_spawned(text, spawned)
 
 # Spawns text targets. Null is returned if it could not be created.
 func spawn() -> Spatial:
-  if get_node_or_null(attack_target_path):
+  var attack_target = get_node_or_null(attack_target_path)
+  if attack_target:
     var text = _generate_text()
     if text:
       var s = spawn_scene.instance()
       s.translation = random_spawn_location()
       add_child(s)
       s.set_stats(text)
-      s.set_attack_target_path(attack_target_path)
+      s.set_attack_target(attack_target)
       _attach_label(s, text)
       emit_signal("text_spawned", text, s)
       return s

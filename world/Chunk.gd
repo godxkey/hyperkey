@@ -1,5 +1,7 @@
 extends Spatial
 
+class_name Chunk
+
 export (Array, PackedScene) var platforms
 export var noise:OpenSimplexNoise
 export(float, 500.0) var size:float = 10.0
@@ -36,7 +38,7 @@ func _generate(_discard_arg):
       var noise_level = 1.0 - density
       if _noise(x, z)  > noise_level:
         var platform = _platform_scene().instance()
-        platform.translation = Vector3(x, _height(), z)
+        platform.translation = Vector3(x, _height(), z) + translation # Take into account chunk location
         platform.rotation_degrees.y = _rotation()
         platform.scale = _scale()
         add_child(platform)

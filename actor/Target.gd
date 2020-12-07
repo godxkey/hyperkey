@@ -14,13 +14,23 @@ func _process(_delta):
   _track_label()
 
 func set_stats(text:TypistText):
-  $Health.hit_points = text.merged_text().length()
+  $Health.reset_health(text.merged_text().length())
+  _set_stats(text)
+
+# Virtual
+func _set_stats(_text:TypistText):
+  pass
 
 func hide_label():
   var l = label_ref.get_ref()
   if l:
     l.hide()
 
+# Extended classes can override to apply custom behavior
+func _on_damage_taken(_hit_points):
+  pass
+
+# Triggers when the target is hit with the correct letter.
 func on_hit():
   var l = label_ref.get_ref()
   if l:
@@ -42,7 +52,7 @@ func _track_label():
 
 
 # @tags - virtual
-func set_attack_target_path(_path):
+func set_attack_target(_target):
   pass
 
 # @tags - virtual

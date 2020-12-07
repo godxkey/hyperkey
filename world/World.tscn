@@ -32,9 +32,11 @@ environment = ExtResource( 4 )
 
 [node name="HUDLayer" type="CanvasLayer" parent="."]
 
-[node name="HUD" parent="HUDLayer" instance=ExtResource( 3 )]
+[node name="HUD" parent="HUDLayer" groups=[
+"hud",
+] instance=ExtResource( 3 )]
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
+[node name="Sun" type="DirectionalLight" parent="."]
 transform = Transform( 0.335003, 0.864381, -0.37499, -0.123563, 0.434853, 0.891984, 0.93408, -0.252482, 0.252482, 0, -5, 0 )
 light_color = Color( 1, 0.937255, 0.533333, 1 )
 shadow_enabled = true
@@ -45,21 +47,21 @@ __meta__ = {
 [node name="Game" parent="." instance=ExtResource( 2 )]
 
 [node name="Chunk" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.2194, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, -20 )
 size = 20.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Chunk"]
 autoplay = "Scroll"
 anims/Scroll = SubResource( 1 )
 
-[node name="Position3D" type="Position3D" parent="."]
+[node name="CameraFocus" type="Position3D" parent="."]
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
 speed = Vector3( 0, 0, 0 )
 
-[node name="Camera" type="Camera" parent="Position3D"]
+[node name="Camera" type="Camera" parent="CameraFocus"]
 transform = Transform( 0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -30, 50, 30 )
 keep_aspect = 0
 projection = 1
@@ -71,3 +73,5 @@ far = 500.0
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="WorldGenerator" type="Spatial" parent="."]

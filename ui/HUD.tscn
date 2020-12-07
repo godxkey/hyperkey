@@ -22,32 +22,54 @@ text_info_scene = ExtResource( 5 )
 streak_gradient = SubResource( 1 )
 
 [node name="StatsPanelContainer" type="CenterContainer" parent="."]
-anchor_top = 0.99
-anchor_bottom = 0.99
-margin_top = -96.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -136.0
 margin_right = 150.0
-margin_bottom = 8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Stats" type="GridContainer" parent="StatsPanelContainer"]
 margin_left = 23.0
-margin_top = 12.0
+margin_top = 17.0
 margin_right = 126.0
-margin_bottom = 92.0
+margin_bottom = 118.0
 columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScoreLabel" type="Label" parent="StatsPanelContainer/Stats"]
+[node name="HealthLabel" type="Label" parent="StatsPanelContainer/Stats"]
 margin_right = 66.0
 margin_bottom = 17.0
+custom_fonts/font = ExtResource( 2 )
+text = "HEALTH"
+
+[node name="Health" type="Label" parent="StatsPanelContainer/Stats"]
+margin_left = 70.0
+margin_right = 103.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 2 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChangeEffect" parent="StatsPanelContainer/Stats/Health" instance=ExtResource( 4 )]
+
+[node name="ScoreLabel" type="Label" parent="StatsPanelContainer/Stats"]
+margin_top = 21.0
+margin_right = 66.0
+margin_bottom = 38.0
 custom_fonts/font = ExtResource( 2 )
 text = "SCORE"
 
 [node name="Score" type="Label" parent="StatsPanelContainer/Stats"]
 margin_left = 70.0
+margin_top = 21.0
 margin_right = 103.0
-margin_bottom = 17.0
+margin_bottom = 38.0
 custom_fonts/font = ExtResource( 2 )
 text = "0"
 __meta__ = {
@@ -58,9 +80,9 @@ __meta__ = {
 change_color = false
 
 [node name="AccuracyLabel" type="Label" parent="StatsPanelContainer/Stats"]
-margin_top = 21.0
+margin_top = 42.0
 margin_right = 66.0
-margin_bottom = 38.0
+margin_bottom = 59.0
 custom_fonts/font = ExtResource( 2 )
 text = "HIT"
 __meta__ = {
@@ -69,9 +91,9 @@ __meta__ = {
 
 [node name="Accuracy" type="Label" parent="StatsPanelContainer/Stats"]
 margin_left = 70.0
-margin_top = 21.0
+margin_top = 42.0
 margin_right = 103.0
-margin_bottom = 38.0
+margin_bottom = 59.0
 custom_fonts/font = ExtResource( 2 )
 text = "0 %"
 __meta__ = {
@@ -82,17 +104,17 @@ __meta__ = {
 start_color = Color( 1, 0.286275, 0.286275, 1 )
 
 [node name="StreakLabel" type="Label" parent="StatsPanelContainer/Stats"]
-margin_top = 42.0
+margin_top = 63.0
 margin_right = 66.0
-margin_bottom = 59.0
+margin_bottom = 80.0
 custom_fonts/font = ExtResource( 2 )
 text = "STREAK"
 
 [node name="Streak" type="Label" parent="StatsPanelContainer/Stats"]
 margin_left = 70.0
-margin_top = 42.0
+margin_top = 63.0
 margin_right = 103.0
-margin_bottom = 59.0
+margin_bottom = 80.0
 custom_fonts/font = ExtResource( 2 )
 text = "-"
 __meta__ = {
@@ -103,16 +125,16 @@ __meta__ = {
 change_color = false
 
 [node name="StreakHighLabel" type="Label" parent="StatsPanelContainer/Stats"]
-margin_top = 63.0
+margin_top = 84.0
 margin_right = 66.0
-margin_bottom = 80.0
+margin_bottom = 101.0
 custom_fonts/font = ExtResource( 2 )
 text = "HIGH"
 
 [node name="StreakHigh" type="Label" parent="StatsPanelContainer/Stats"]
 margin_left = 70.0
-margin_top = 63.0
+margin_top = 84.0
 margin_right = 103.0
-margin_bottom = 80.0
+margin_bottom = 101.0
 custom_fonts/font = ExtResource( 2 )
 text = "0"

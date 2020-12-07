@@ -1,26 +1,40 @@
 extends Node
 class_name Health, "res://icons/health_icon.png"
 
-export(int) var hit_points = 100 setget _set_hitpoints
+# The base health. This is not affected by damage.
+export var base_health:int = 100
 
 signal no_health
-signal health_changed
-signal damage_taken
+signal health_changed(health)
+signal damage_taken(damage)
+
+# Current health. This is affected damage.
+# On start, health matches base health
+onready var _health:int = base_health setget ,health
+
+func health() -> int:
+  return _health
+
+func reset_health(health:int):
+  base_health = health
+  _health = health
 
 func apply_damage(damage):
-  hit_points -= damage
-  emit_signal("health_changed", hit_points)
-  emit_signal("damage_taken", hit_points)
-  if hit_points <= 0:
-    emit_signal("no_health")
-    get_parent().queue_free()
+  _health -= damage
+  _health = int(max(_health, 0)) # Prevent subzero health.
+  emit_signal("health_changed", _health)
+  emit_signal("damage_taken", damage)
+  if _health <= 0:
+    _kill_parent()
 
 func instakill():
-  _set_hitpoints(0)
+  _health = 0
+  emit_signal("health_changed", _health)
+  _kill_parent()
 
-func _set_hitpoints(value):
-  hit_points = value
-  emit_signal("health_changed", hit_points)
-  if hit_points <= 0:
-    emit_signal("no_health")
-    get_parent().queue_free()
+func health_percentage() -> float:
+  return 100.0 * (_health / float(base_health)) if base_health > 0 else 0.0
+
+func _kill_parent():
+  emit_signal("no_health")
+  get_parent().queue_free()

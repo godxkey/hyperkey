@@ -12,5 +12,5 @@ func _on_hit_body(body):
   $Damage.apply_damage(body)
   $Health.instakill()
 
-func set_attack_target_path(path):
-  $LinearFollow.target_path = path
+func set_attack_target(target):
+  $LinearFollow.target_ref = weakref(target)

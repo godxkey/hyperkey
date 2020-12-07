@@ -24,3 +24,5 @@ bullet_type = ExtResource( 5 )
 
 [node name="Ship" parent="." index="3" instance=ExtResource( 3 )]
 skeleton = NodePath("")
+[connection signal="health_changed" from="Health" to="." method="_on_health_changed"]
+[connection signal="bullet_shot" from="Gun" to="." method="_set_target_for_bullet"]

@@ -28,11 +28,17 @@ func _ready():
   res = Stats.connect("streak_changed", self, "set_streak")
   assert(res == OK)
 
+  res = Stats.connect("player_health_changed", self, "set_health")
+
   res = Score.connect("score_changed", self, "set_score")
   assert(res == OK)
 
   res = Score.connect("scored_target", self, "show_target_score")
   assert(res == OK)
+
+func set_health(health:int):
+  _health_stat.text = String(health)
+  _health_stat.get_node("ChangeEffect").start()
 
 func set_accuracy_percent(percent:int):
   _accuracy_stat.text = "%s %%" % percent

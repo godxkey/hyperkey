@@ -13,6 +13,7 @@ signal key_missed
 signal key_missed_tracked(letter, position)
 signal streak_changed(streak)
 signal accuracy_changed(accuracy)
+signal player_health_changed(health)
 
 func get_last_streak() -> int:
   return _last_streak
@@ -76,3 +77,6 @@ func accuracy() -> int:
 func _screen_location(target:Spatial) -> Vector2:
   var camera = get_viewport().get_camera()
   return camera.unproject_position(target.global_transform.origin) if camera else Vector2.ZERO
+
+func on_player_health_changed(health):
+  emit_signal("player_health_changed", health)
